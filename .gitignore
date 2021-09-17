@@ -1,3 +1,7 @@
+# IntelliJ project data
+/.idea
+/Uppgift.iml
+
 # Compiled class file
 *.class
 
