@@ -1,6 +1,6 @@
 # IntelliJ project data
 /.idea
-/Uppgift.iml
+/*.iml
 /.out
 
 # Compiled class file
