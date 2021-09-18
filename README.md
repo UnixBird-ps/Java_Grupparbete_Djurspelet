@@ -1,2 +1,2 @@
-# DevopsGitJava2
+# DevOps21_Java_Grupparbete_Djurspelet
 School project
