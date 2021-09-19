@@ -18,11 +18,11 @@ public class Game {
 
 	Game ()
 	{
-		askGameStartVars();
-		// mRoundsStillToRun = ?; // From user input
+		setupGame();
 
 		runMainGameLoop();
 	}
+
 
 	/**
 	* Asks for user input. Loops until a valid value within a range has been entered.
@@ -33,9 +33,10 @@ public class Game {
 	* @param pValidMax  Upper limit
 	* @return           A value between pValidMin and pValidMax, inclusive
 	*/
-	private int askChoice( String pMsg, int pValidMin, int pValidMax )
+	private int askForNumber( String pMsg, int pValidMin, int pValidMax )
 	{
 		boolean lIsValid = false; // Not yet!
+		Scanner lScanner = new Scanner( System.in );
 		int lParsedInt = 0;
 
 		while ( !lIsValid ) // Keep asking for valid choice
@@ -44,7 +45,6 @@ public class Game {
 			System.out.print( pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
 
 			// Get input from user
-			Scanner lScanner = new Scanner( System.in );
 			String lInputStr = lScanner.nextLine();
 			String lRegExStr = "/[-0-9]+/";
 
@@ -69,16 +69,50 @@ public class Game {
 		return lParsedInt;
 	}
 
+
+	public String askForName( String pMsg )
+	{
+		boolean lIsValid = false; // Not yet!
+		Scanner lScanner = new Scanner( System.in );
+		String lInputStr = "";
+
+		String lRegExStr = "[A-ZÅÄÖ][a-zåäö]+"; //
+
+		while ( !lIsValid ) // Keep asking for valid choice
+		{
+			// Print to screen the message
+			System.out.print( pMsg + " Börja med en versal: " );
+
+			// Get input from user
+			lInputStr = lScanner.nextLine();
+
+			// Validate input with regular expression
+			lIsValid = lInputStr.matches( lRegExStr );
+
+			if ( !lIsValid )
+				System.out.println( "Namnet godtas inte." );
+		}
+
+		return lInputStr;
+	}
+
 	/**
 	* Asks the user for valid values to initialize the game with.
 	* Asks for number of rounds to play.
-	* Asks for number of how meny players to have in this game.
+	* Asks for number of players in this game.
 	* Shows a notice if the value is outside range.
 	*/
-	private void askGameStartVars()
+	private void setupGame()
 	{
-		mNumOfPlayersRequested = askChoice( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-		mRoundsStillToRun = askChoice( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+		mNumOfPlayersRequested = askForNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+		mRoundsStillToRun = askForNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+
+		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
+		{
+			String lPlayerName = askForName( "Vad heter spelare # " + ( 1 + i ) + "?" );
+			System.out.println( "lPlayerName: " + lPlayerName );
+			//mPlayers.add( new Player( ));
+		}
 	}
 
 
