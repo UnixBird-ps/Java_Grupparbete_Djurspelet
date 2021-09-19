@@ -10,7 +10,7 @@ Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
 		int static final ATSTART_MAX_PLAYERS = 4
 		int static final ATEND_MIN_PLAYERS = 1
 	fältvariablar
-		int mRoundsStillToRun      // Input från en användare när man startar spelet
+		int mRoundsStillToRun      // Initieras i konstruktorn. Input från en användare när man startar spelet
 		ArrayList<Player> mPlayers // Tom vid start
 
 Player
@@ -25,7 +25,7 @@ Player
 		bool sellAnimal( Animal pAnimal ) // Säljer till Store
 		void printAnimalsOwning()  // Skriver ut vilka djur spelaren äger
 		void printCredits() // Skriver ut hur mycket pengar har spelaren
-		int getCredits() // Returnerar bellopet
+		int getCredits() // Returnerar beloppet
 
 Store
 	konstanter
