@@ -1,7 +1,10 @@
 package devops21_java_djurspelet;
 
-public class Main {
-    public static void main(String[] args) {
-        //starta spelet härifrån
+public class Main
+{
+	public static void main( String[] args )
+	{
+		//Start the game here
+		Game mGame = new Game( lNumOfRoundsRequested, lNumOfPlayersRequested ); // The game runs within this object
     }
 }
