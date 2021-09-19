@@ -1,0 +1,73 @@
+
+
+Klasser
+
+Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
+	konstanter
+		int static final ATSTART_MIN_ROUNDS = 5
+		int static final ATSTART_MAX_ROUNDS = 30
+		int static final ATSTART_MIN_PLAYERS = 2
+		int static final ATSTART_MAX_PLAYERS = 4
+		int static final ATEND_MIN_PLAYERS = 1
+	fältvariablar
+		int mRoundsStillToRun      // Input från en användare när man startar spelet
+		ArrayList<Player> mPlayers // Tom vid start
+
+Player
+	konstanter
+		int static final ATSTART_CREDITS = 10000
+	fältvariablar
+		String mName // Initieras i konstruktorn
+		int mCredits // Sätts till ATSTART_CREDITS i konstruktorn
+		ArrayList<Animal> mAnimals  // Tom vid start
+	metoder
+		bool buyAnimal( Animal pAnimal )  // Köper från Store
+		bool sellAnimal( Animal pAnimal ) // Säljer till Store
+		void printAnimalsOwning()  // Skriver ut vilka djur spelaren äger
+		void printCredits() // Skriver ut hur mycket pengar har spelaren
+		int getCredits() // Returnerar bellopet
+
+Store
+	konstanter
+		int static final ATSTART_CREDITS = 1000
+		int static final ATSTART_QUANTITY_PER_ANIMAL = 10
+		int static final ATSTART_QUANTITY_PER_FOOD = 1000 // i kg
+	fältvariablar
+		String mName // Initieras i konstruktorn
+		int mCredits // Sätts till Store.ATSTART_CREDITS i konstruktorn
+		public ArrayList<Animal> mAnimals // Djur i affären
+		public ArrayList<Food> mFoods     // Mat till djuren i affären
+	metoder
+		void printStockAndCost() // Skall printa vad som finns att köpa och vad det kostar.
+		bool sellAnimal( Animal pAnimal ) // Säljer till en Player
+		bool buyAnimal( Animal pAnimal )  // Köper från en Player
+
+AnimalBase (abstrakt)
+	konstanter
+		ATSTART_HEALTH = 100
+		GENDER_MALE    = 1
+		GENDER_FEMALE  = 2
+	fältvariablar
+		String mName // Initieras i konstruktorn
+		byte mGender // Slumpas 50%, GENDER_MALE eller GENDER_FEMALE i konstruktorn
+		int mHealth  // Sätts till AnimalBase.ATSTART_HEALTH i konstruktorn
+	metoder?
+
+FoodBase (abstrakt)
+	fältvariablar
+		String mName // Initieras i konstruktorn
+		int mCost    // Pris per kg, initieras i konstruktorn
+	metoder?
+
+5 olika klasser av djur, ärver från AnimalBase
+	Cat
+	Dog
+	Rabbit
+	Horse
+	Cattle
+
+4 olika klasser för mat, ärver från FoodBase
+	Forage   // Grovfoder, Till både boskap och häst
+	CatFood  // Mat till katter
+	DogFood  // Mat till hundar
+	Carrots  // Mat till kanin
