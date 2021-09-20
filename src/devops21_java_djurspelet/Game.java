@@ -9,14 +9,17 @@ public class Game
 	// Local class for testing only
 	private static class TestPlayer
 	{
+		static final int ATSTART_CREDITS = 10000;
 		private String mName;
+		private int mCredits;
 		// Constructor
 		TestPlayer( String pReqName )
-		{ mName = pReqName; }
+		{ mName = pReqName; mCredits = ATSTART_CREDITS; }
 		public String getName()
 		{ return mName; }
 	}
 
+	private static final String mName = "Djurspelet";
 	private static final int ATSTART_MIN_PLAYERS = 2;
 	private static final int ATSTART_MAX_PLAYERS = 4;
 	private static final int ATSTART_MIN_ROUNDS  = 5;
@@ -33,12 +36,17 @@ public class Game
 	*/
 	Game ()
 	{
+		System.out.println( this.getName() );
+
 		mPlayers = new ArrayList<>();
 
 		setupGame();
 
 		runMainGameLoop();
 	}
+
+
+	String getName() { return mName; }
 
 
 	/**
@@ -100,11 +108,11 @@ public class Game
 		Scanner lScanner = new Scanner( System.in );
 		String lInputStr = "";
 
-		String lRegExStr = "[A-ZÅÄÖa-zåäö0-9- ]+"; //
+		String lRegExStr = "[A-ZÅÄÖ][A-ZÅÄÖa-zåäö -]+"; // Swedish alphabet
 
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
-			// Print to screen the message
+			// Show the message on screen
 			System.out.print( pMsg + " : " );
 
 			// Get input from user
@@ -131,6 +139,7 @@ public class Game
 		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
 		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
 
+		// Ask for player names and add players to the game.
 		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
 		{
 			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
@@ -157,6 +166,7 @@ public class Game
 		// For testing
 		System.out.println( "\nMain game loop entered.\n" );
 
+		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
 			// For testing
@@ -181,13 +191,13 @@ public class Game
 		// For testing
 		System.out.println( "\nGame round step entered.\n" );
 
-		// The round logic
+		// The round logic goes here
 
-		// For testing
+		// For testing. Removes a player. Prints out who was removed
 		TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
 		System.out.println( lRemovedPlayer.getName() + " has left the game." );
 
 		// For testing
-		System.out.println( "Game round step ended." );
+		System.out.println( "\nGame round step ended." );
 	}
 }
