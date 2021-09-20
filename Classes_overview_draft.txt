@@ -4,10 +4,10 @@ Klasser
 
 Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
 	konstanter
-		int static final ATSTART_MIN_ROUNDS = 5
-		int static final ATSTART_MAX_ROUNDS = 30
-		int static final ATSTART_MIN_PLAYERS = 2
-		int static final ATSTART_MAX_PLAYERS = 4
+		static final int ATSTART_MIN_ROUNDS = 5
+		static final int ATSTART_MAX_ROUNDS = 30
+		static final int ATSTART_MIN_PLAYERS = 2
+		static final int ATSTART_MAX_PLAYERS = 4
 	fältvariablar
 		int mRoundsStillToRun      // Initieras efter att användaren angett värden
 		ArrayList<Player> mPlayers // Tom vid start
@@ -21,7 +21,7 @@ Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
 		void runOneRound()
 Player
 	konstanter
-		int static final ATSTART_CREDITS = 10000
+		static final int ATSTART_CREDITS = 10000
 	fältvariablar
 		String mName                // Initieras i konstruktorn
 		int mCredits                // Sätts till ATSTART_CREDITS i konstruktorn
@@ -35,9 +35,9 @@ Player
 
 Store
 	konstanter
-		int static final ATSTART_CREDITS = 1000 // Denna behövs kanske inte
-		int static final ATSTART_QUANTITY_PER_ANIMAL = 10
-		int static final ATSTART_QUANTITY_PER_FOOD = 1000 // i kg
+		static final int ATSTART_CREDITS = 1000           // Denna behövs kanske inte
+		static final int ATSTART_QUANTITY_PER_ANIMAL = 10
+		static final int ATSTART_QUANTITY_PER_FOOD = 1000 // i kg
 	fältvariablar
 		String mName // Initieras i konstruktorn
 		int mCredits // Sätts till Store.ATSTART_CREDITS i konstruktorn
