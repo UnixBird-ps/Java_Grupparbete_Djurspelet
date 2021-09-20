@@ -12,7 +12,7 @@ public class Game
 		private String mName;
 		TestPlayer( String pReqName )
 		{ mName = pReqName; }
-		String getName()
+		public String getName()
 		{ return mName; }
 	}
 
@@ -148,6 +148,7 @@ public class Game
 	{
 		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
 
+		// For testing
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
@@ -158,15 +159,17 @@ public class Game
 		boolean lEndMainLoopFlag = false;
 		while ( !lEndMainLoopFlag && mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
+			// For testing
 			System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
 			System.out.println( "Spelare kvar: " + mPlayers.size() );
-
-			mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
+			TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
+			System.out.println( "Removed from game: " + lRemovedPlayer.getName() );
 
 			// Count to 0
 			mRoundsStillToRun--;
 		}
 
+		// For testing
 		System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
 		System.out.println( "Spelare kvar: " + mPlayers.size() );
 
