@@ -1,9 +1,20 @@
 package devops21_java_djurspelet;
 
-import java.util.Scanner;   // import the Scanner class
+import java.util.Scanner;
+import java.util.ArrayList;
 
 
-public class Game {
+public class Game
+{
+	// Local class for testing only
+	private static class TestPlayer
+	{
+		private String mName;
+		TestPlayer( String pReqName )
+		{ mName = pReqName; }
+		String getName()
+		{ return mName; }
+	}
 
 	private static final int ATSTART_MIN_PLAYERS = 2;
 	private static final int ATSTART_MAX_PLAYERS = 4;
@@ -12,12 +23,14 @@ public class Game {
 	private static final int ATEND_MINMAX_PLAYERS   = 1;
 
 	private static int mNumOfPlayersRequested;  // Anges av användaren
-	//private static ArrayList<Player> mPlayers;
+	private static ArrayList<TestPlayer> mPlayers;
 	private static int mRoundsStillToRun;
 
 
 	Game ()
 	{
+		mPlayers = new ArrayList<>();
+
 		setupGame();
 
 		runMainGameLoop();
@@ -76,7 +89,7 @@ public class Game {
 		Scanner lScanner = new Scanner( System.in );
 		String lInputStr = "";
 
-		String lRegExStr = "[A-ZÅÄÖ][a-zåäö]+"; //
+		String lRegExStr = "[A-ZÅÄÖa-zåäö0-9-]+"; //
 
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
@@ -109,18 +122,33 @@ public class Game {
 
 		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
 		{
-			String lPlayerName = askForName( "Vad heter spelare # " + ( 1 + i ) + "?" );
-			System.out.println( "lPlayerName: " + lPlayerName );
-			//mPlayers.add( new Player( ));
+			String lReqPlayerName = askForName( "Vad heter spelare# " + ( 1 + i ) + "?" );
+			mPlayers.add( new TestPlayer( lReqPlayerName ) );
 		}
 	}
 
 
 	private void runMainGameLoop()
 	{
-		System.out.println( "Main game loop entered." );
 		System.out.println( "NumOfPlayersRequested: " + mNumOfPlayersRequested );
-		System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
+
+		for ( int i = 0; i < mPlayers.size(); i++ )
+		{
+			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
+		}
+
+		System.out.println( "Main game loop entered." );
+
+		boolean lEndMainLoopFlag = false;
+		while ( !lEndMainLoopFlag && mRoundsStillToRun > 0 )
+		{
+			System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
+
+			//lEndMainLoopFlag = true;
+
+			mRoundsStillToRun--;
+		}
+
 		System.out.println( "Main game loop ended." );
 	}
 }

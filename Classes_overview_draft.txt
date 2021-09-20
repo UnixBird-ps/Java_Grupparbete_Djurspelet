@@ -13,10 +13,9 @@ Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
 		int mRoundsStillToRun      // Initieras efter att användaren angett värden
 		ArrayList<Player> mPlayers // Tom vid start
 	metoder
-		askGameStartVars() // frågar användare om startvärden
+		setupGame() // frågar användare om startvärden
 			int lNumOfRoundsRequested = 0   // Anges av användaren
 			int lNumOfPlayersRequested = 0  // Anges av användaren
-		initGameVars()
 		runGame()
 
 Player
