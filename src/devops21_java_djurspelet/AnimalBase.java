@@ -1,4 +1,4 @@
-package devops21_java_djurspelet;
+package src.devops21_java_djurspelet;
 
 public class AnimalBase {
 
