@@ -10,6 +10,7 @@ public class Game
 	private static class TestPlayer
 	{
 		private String mName;
+		// Constructor
 		TestPlayer( String pReqName )
 		{ mName = pReqName; }
 		public String getName()
@@ -20,9 +21,8 @@ public class Game
 	private static final int ATSTART_MAX_PLAYERS = 4;
 	private static final int ATSTART_MIN_ROUNDS  = 5;
 	private static final int ATSTART_MAX_ROUNDS  = 30;
-	private static final int ATEND_MINMAX_PLAYERS   = 1;
 
-	private static int mNumOfPlayersRequested;  // Anges av användaren
+	private static int mNumOfPlayersRequested;
 	private static ArrayList<TestPlayer> mPlayers;
 	private static int mRoundsStillToRun;
 
@@ -56,9 +56,9 @@ public class Game
 		Scanner lScanner = new Scanner( System.in );
 		int lParsedInt = 0;
 
-		while ( !lIsValid ) // Keep asking for valid choice
+		while ( !lIsValid ) // Keep asking for a valid choice
 		{
-			// Print to screen the message and valid intervall
+			// Print to screen the message and a valid intervall
 			System.out.print( pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
 
 			// Get input from user
@@ -88,8 +88,8 @@ public class Game
 
 
 	/**
-	* Asks for user input. Loops until a valid value has been entered.
-	* Prints to screen a message.
+	* Asks for user input. Loops until a valid value has been entered
+	* Shows a message on the screen
 	*
 	* @param pMsg  Message shown on th screen
 	* @return      Validated string
@@ -156,23 +156,23 @@ public class Game
 
 		System.out.println( "\nMain game loop entered.\n" );
 
-		boolean lEndMainLoopFlag = false;
-		while ( !lEndMainLoopFlag && mRoundsStillToRun > 0 && mPlayers.size() > 1 )
+		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
 			// For testing
-			System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
-			System.out.println( "Spelare kvar: " + mPlayers.size() );
+			System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
+			System.out.println( "mPlayers.size(): " + mPlayers.size() );
 			TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-			System.out.println( "Removed from game: " + lRemovedPlayer.getName() );
+			System.out.println( lRemovedPlayer.getName() + " left the game." );
+
+			// TODO: Place the game round step here
 
 			// Count to 0
 			mRoundsStillToRun--;
 		}
 
 		// For testing
-		System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
-		System.out.println( "Spelare kvar: " + mPlayers.size() );
-
+		System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
+		System.out.println( "mPlayers.size(): " + mPlayers.size() );
 		System.out.println( "\nMain game loop ended." );
 	}
 }
