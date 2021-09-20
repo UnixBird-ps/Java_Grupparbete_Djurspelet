@@ -27,6 +27,10 @@ public class Game
 	private static int mRoundsStillToRun;
 
 
+	/**
+	* Calls method where game is set up by asking players some values
+	* Calls method where main loop runs
+	*/
 	Game ()
 	{
 		mPlayers = new ArrayList<>();
@@ -40,7 +44,7 @@ public class Game
 	/**
 	* Asks for user input. Loops until a valid value within a range has been entered.
 	* Prints to screen valid range.
-	* Shows a notice if the value is outside range.
+	* Shows a notice if value is outside range.
 	*
 	* @param pValidMin  Lower limit
 	* @param pValidMax  Upper limit
@@ -83,13 +87,20 @@ public class Game
 	}
 
 
+	/**
+	* Asks for user input. Loops until a valid value has been entered.
+	* Prints to screen a message.
+	*
+	* @param pMsg  Message shown on th screen
+	* @return      Validated string
+	*/
 	public String askForName( String pMsg )
 	{
 		boolean lIsValid = false; // Not yet!
 		Scanner lScanner = new Scanner( System.in );
 		String lInputStr = "";
 
-		String lRegExStr = "[A-ZÅÄÖa-zåäö0-9-]+"; //
+		String lRegExStr = "[A-ZÅÄÖ][a-zåäö0-9-]+"; //
 
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
@@ -109,11 +120,11 @@ public class Game
 		return lInputStr;
 	}
 
+
 	/**
-	* Asks the user for valid values to initialize the game with.
+	* Asks the user for values to initialize the game with.
 	* Asks for number of rounds to play.
 	* Asks for number of players in this game.
-	* Shows a notice if the value is outside range.
 	*/
 	private void setupGame()
 	{
@@ -128,6 +139,9 @@ public class Game
 	}
 
 
+	/**
+	*
+	*/
 	private void runMainGameLoop()
 	{
 		System.out.println( "NumOfPlayersRequested: " + mNumOfPlayersRequested );
@@ -144,7 +158,7 @@ public class Game
 		{
 			System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
 
-			//lEndMainLoopFlag = true;
+			//lEndMainLoopFlag = true; // Test
 
 			mRoundsStillToRun--;
 		}
