@@ -141,19 +141,20 @@ public class Game
 
 	/**
 	* Runs the main game loop
-	* Until number of players left is 1 or less
-	* Until number of game rounds is 0
+	* Until number of players still in this game is 1
+	* or all of this game rounds has been run
 	*/
 	private void runMainGameLoop()
 	{
-		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
-
 		// For testing
+		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
+		System.out.println( "Players:" );
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
 		}
 
+		// For testing
 		System.out.println( "\nMain game loop entered.\n" );
 
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
@@ -161,12 +162,10 @@ public class Game
 			// For testing
 			System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
 			System.out.println( "mPlayers.size(): " + mPlayers.size() );
-			TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-			System.out.println( lRemovedPlayer.getName() + " has left the game." );
 
-			// TODO: Place the game round step here
+			runOneRound();
 
-			// Count to 0
+			// Count down
 			mRoundsStillToRun--;
 		}
 
@@ -174,5 +173,21 @@ public class Game
 		System.out.println( "\nRoundsStillToRun: " + mRoundsStillToRun );
 		System.out.println( "mPlayers.size(): " + mPlayers.size() );
 		System.out.println( "\nMain game loop ended." );
+	}
+
+
+	private void runOneRound()
+	{
+		// For testing
+		System.out.println( "\nGame round step entered.\n" );
+
+		// The round logic
+
+		// For testing
+		TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
+		System.out.println( lRemovedPlayer.getName() + " has left the game." );
+
+		// For testing
+		System.out.println( "Game round step ended." );
 	}
 }
