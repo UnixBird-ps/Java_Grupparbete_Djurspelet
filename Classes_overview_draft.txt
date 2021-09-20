@@ -12,12 +12,13 @@ Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
 		int mRoundsStillToRun      // Initieras efter att användaren angett värden
 		ArrayList<Player> mPlayers // Tom vid start
 	metoder
-		void setupGame() // frågar användare om startvärden
-			int lNumOfRoundsRequested = 0   // Anges av användaren
-			int lNumOfPlayersRequested = 0  // Anges av användaren
-		void runGame()
 		int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
 		String askForValidName( String pMsg )
+		void setupGame() // frågar användare om startvärden
+			int lNumOfRoundsRequested  = 0  // Anges av användaren
+			int lNumOfPlayersRequested = 0  // Anges av användaren
+		void runMainGameLoop()
+		void runOneRound()
 Player
 	konstanter
 		int static final ATSTART_CREDITS = 10000
