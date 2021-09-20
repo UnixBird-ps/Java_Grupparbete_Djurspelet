@@ -8,7 +8,6 @@ Game - Huvudklassen, skall startas med Game lGame = new Game() i Main.
 		int static final ATSTART_MAX_ROUNDS = 30
 		int static final ATSTART_MIN_PLAYERS = 2
 		int static final ATSTART_MAX_PLAYERS = 4
-		int static final ATEND_MIN_PLAYERS = 1
 	fältvariablar
 		int mRoundsStillToRun      // Initieras efter att användaren angett värden
 		ArrayList<Player> mPlayers // Tom vid start
