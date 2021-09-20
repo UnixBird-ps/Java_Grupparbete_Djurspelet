@@ -140,29 +140,36 @@ public class Game
 
 
 	/**
-	*
+	* Runs the main game loop
+	* Until number of players left is 1 or less
+	* Until number of game rounds is 0
 	*/
 	private void runMainGameLoop()
 	{
-		System.out.println( "NumOfPlayersRequested: " + mNumOfPlayersRequested );
+		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
 
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
 		}
 
-		System.out.println( "Main game loop entered." );
+		System.out.println( "\nMain game loop entered.\n" );
 
 		boolean lEndMainLoopFlag = false;
-		while ( !lEndMainLoopFlag && mRoundsStillToRun > 0 )
+		while ( !lEndMainLoopFlag && mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
 			System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
+			System.out.println( "Spelare kvar: " + mPlayers.size() );
 
-			//lEndMainLoopFlag = true; // Test
+			mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
 
+			// Count to 0
 			mRoundsStillToRun--;
 		}
 
-		System.out.println( "Main game loop ended." );
+		System.out.println( "Spelrundor kvar: " + mRoundsStillToRun );
+		System.out.println( "Spelare kvar: " + mPlayers.size() );
+
+		System.out.println( "\nMain game loop ended." );
 	}
 }
