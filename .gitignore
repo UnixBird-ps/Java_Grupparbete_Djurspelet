@@ -3,6 +3,11 @@
 /*.iml
 /.out
 
+# Eclipse project data
+/.classpath
+/.project
+
+Eclipse
 # Compiled class file
 *.class
 
