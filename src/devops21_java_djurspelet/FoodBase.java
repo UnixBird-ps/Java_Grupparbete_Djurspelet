@@ -10,7 +10,7 @@ public abstract class FoodBase
 	/**
 	* Initializes this object
 	*
-	* @param pName
+	* @param pName food name
 	* @param pPrice  In kilograms
 	*/
 	public FoodBase( String pName, int pPrice, int pQuantity )
@@ -23,4 +23,8 @@ public abstract class FoodBase
 	public String getName() { return mName; }
 	public int getPrice() { return mPrice; }
 	public int getQuantity() { return mQuantity; }
+
+	public void setmQuantity(int mQuantity) {
+		this.mQuantity = mQuantity;
+	}
 }
