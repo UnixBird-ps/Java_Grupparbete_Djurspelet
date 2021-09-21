@@ -27,4 +27,10 @@ public abstract class FoodBase
 	public void setmQuantity(int mQuantity) {
 		this.mQuantity = mQuantity;
 	}
+	public void addmQuantity(int addQuantity){
+		this.mQuantity += addQuantity;
+	}
+	public void removemQuantity(int toRemove){
+		this.mQuantity -=toRemove;
+	}
 }
