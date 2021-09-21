@@ -17,11 +17,11 @@ public class Player {
 
     /**
      * Stores any AnimalBase child object sent into the player ArrayList
-     * @param animal animal to add to local AnimalBase ArrayList
+     * @param pAnimal animal to add to local AnimalBase ArrayList
      */
-    public void buyAnimal(AnimalBase animal){
-        if(mCredits >= animal.getPrice()){
-            mAnimals.add(animal);
+    public void buyAnimal(AnimalBase pAnimal){
+        if(mCredits >= pAnimal.getPrice()){
+            mAnimals.add(pAnimal);
         }else{
             System.out.println("Du har inte råd att köpa detta djur!");
         }
@@ -33,6 +33,7 @@ public class Player {
      * @param storeList the list address to sell to
      */
     public void sellAnimal(int index, ArrayList<AnimalBase> storeList){
+        mCredits += mAnimals.get(index).getPrice();
         storeList.add(mAnimals.get(index));
         mAnimals.remove(index);
     }
