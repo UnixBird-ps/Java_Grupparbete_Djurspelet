@@ -1,18 +1,21 @@
 package devops21_java_djurspelet;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player {
 
     private static final int ATSTART_CREDITS = 10000;
     private String mName;
     public int mCredits;
-    ArrayList<AnimalBase> mAnimals;
+    public ArrayList<AnimalBase> mAnimals;
+    public ArrayList<FoodBase> mFoods;
 
     Player(String name){
         mName = name;
         mCredits = ATSTART_CREDITS;
         mAnimals = new ArrayList<>();
+        mFoods = new ArrayList<>();
     }
 
     /**
@@ -39,6 +42,52 @@ public class Player {
         mCredits += pAnimal.getPrice();
         pStore.mAnimals.add(pAnimal);
         mAnimals.remove(pAnimal);
+    }
+
+    public void buyFood(FoodBase pFood){
+        if(pFood.getQuantity() != 0){
+            System.out.print("Hur mycket "+pFood.getName()+" Vill du köpa?\nAnge mängd i kg:");
+            int lQuantity = playerIntChoice();
+            if(lQuantity <= pFood.getQuantity()){
+                System.out.println("Det kommer kosta: "+(lQuantity * pFood.getPrice())+" Credits");
+                System.out.println("Är du säker? 1:fortsätt , (allt annat):avbryt");
+                Scanner scan = new Scanner(System.in);
+                String lSwitch = scan.nextLine();
+                switch (lSwitch){
+                    case "1":
+                        if(!mFoods.contains(pFood)){
+                            mFoods.add(pFood);
+                            //todo
+                        }
+                        break;
+                    default:
+                }
+            }
+        }else{
+            System.out.println("Det finns ingen mat att köpa!");
+        }
+    }
+
+    /**
+     * filters out int from players choice through console input
+     * catches any other wrongful inputs
+     * @return returns chosen integer
+     */
+    public int playerIntChoice(){
+        Scanner scan = new Scanner(System.in);
+        boolean badInput = true;
+        String lTemp;
+        int result = 0;
+        while(badInput){
+            lTemp = scan.nextLine();
+            try{
+                result = Integer.parseInt(lTemp);
+                badInput = false;
+            } catch (Exception e) {
+                System.out.println("Endast heltal!\nförsök igen:");
+            }
+        }
+        return result;
     }
 
     /**
