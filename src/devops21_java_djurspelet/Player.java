@@ -20,7 +20,11 @@ public class Player {
      * @param animal animal to add to local AnimalBase ArrayList
      */
     public void buyAnimal(AnimalBase animal){
-        mAnimals.add(animal);
+        if(mCredits >= animal.getPrice()){
+            mAnimals.add(animal);
+        }else{
+            System.out.println("Du har inte råd att köpa detta djur!");
+        }
     }
 
     /**
@@ -40,7 +44,7 @@ public class Player {
     public void printLivestock(){
         int index = 0;
         for (AnimalBase temp:mAnimals) {
-            System.out.println(index++ +"."+ temp/*todo: add name get here*/ +"\t");
+            System.out.println(index++ +"."+ temp.getName() +"\t");
         }
     }
 
