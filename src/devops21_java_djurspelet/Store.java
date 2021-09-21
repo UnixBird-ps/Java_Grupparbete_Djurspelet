@@ -47,7 +47,7 @@ public class Store
 		System.out.println( "Vi har dessa djur till försäljning :" );
 		for ( AnimalBase a : mAnimals )
 		{
-			String lStr = String.format( "Djurets hälsa: %d%%  pris: %d kr", a.getHealth(), a.getPrice() );
+			String lStr = String.format( "art: %s   hälsa: %d%%   pris: %d kr", a.getKind(), a.getHealth(), a.getPrice() );
 			System.out.println( lStr );
 		}
 
@@ -55,7 +55,7 @@ public class Store
 		System.out.println( "Vi har dessa djurfoder till försäljning:" );
 		for ( FoodBase f : mFoods )
 		{
-			String lStr = String.format( "Mat för djuren: %s   pris: %d/Kg    : %d kg", f.getName(), f.getPrice(), f.getQuantity() );
+			String lStr = String.format( "%s   pris: %d/Kg    : %d kg", f.getName(), f.getPrice(), f.getQuantity() );
 			System.out.println( lStr );
 		}
 	}
