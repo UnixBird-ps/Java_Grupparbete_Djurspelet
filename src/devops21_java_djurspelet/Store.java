@@ -28,9 +28,20 @@ public class Store
 	}
 
 
-	static void displayInventory()
+	public void displayInventory()
 	{
-		// Loop through the list av animals
-		System.out.println( "TODO: Loops through the list of animals available" );
+		// Loop through the list av animals available in store
+		System.out.println( "This animals are available:" );
+		for ( AnimalBase a : mAnimals )
+		{
+			System.out.println( "Djurets hälsa: " + a.getHealth() + "   pris: " + a.getPrice() );
+		}
+
+		// Loop through the list av foods available in store
+		System.out.println( "This foods are available:" );
+		for ( FoodBase f : mFoods )
+		{
+			System.out.println( "Mat för djuren: " + f.getName() + "   pris: " + f.getPrice() + "   : " + f.getQuantity() );
+		}
 	}
 }
