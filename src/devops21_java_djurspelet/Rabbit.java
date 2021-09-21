@@ -5,6 +5,6 @@ public class Rabbit extends AnimalBase
 
 	public Rabbit( int pPriceAtMaxHealth )
 	{
-		super( pPriceAtMaxHealth );
+		super( pPriceAtMaxHealth, 10 );
 	}
 }

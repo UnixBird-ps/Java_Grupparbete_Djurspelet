@@ -5,6 +5,6 @@ public class Cat extends AnimalBase
 
 	public Cat( int pPriceAtMaxHealth )
 	{
-		super( pPriceAtMaxHealth );
+		super( pPriceAtMaxHealth, 15 );
 	}
 }
