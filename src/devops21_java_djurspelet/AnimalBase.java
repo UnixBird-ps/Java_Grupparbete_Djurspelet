@@ -1,6 +1,7 @@
 package devops21_java_djurspelet;
 
-public abstract class AnimalBase
+
+public abstract class AnimalBase // Enforce creation of subclasses
 {
 	static final int ATSTART_HEALTH = 100;
 
@@ -11,7 +12,12 @@ public abstract class AnimalBase
 	private int mAge;
 	private int mExpectedLifeLength;
 
-	public AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
+	/**
+	 * @param pKind                What animal
+	 * @param pPriceAtMaxHealth    Original price
+	 * @param pExpectedLifeLength  Dies at end
+	 */
+	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
 	{
 		mName = "Unnamed";
 		mKind = pKind;
@@ -22,9 +28,28 @@ public abstract class AnimalBase
 	}
 
 
+	/**
+	 * @return  This animal's kind
+	 */
 	public String getKind() { return mKind; }
+
+	/**
+	 * @return  Animal's name, if set
+	 */
 	public String getName() { return mName; }
+
+	/**
+	 * @return  Animal's health
+	 */
 	public int getHealth() { return mHealth; }
+
+	/**
+	 * @return  Computed price, from health and original price
+	 */
 	public int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
+
+	/**
+	 * @return  Animal's age
+	 */
 	public int getAge() { return mAge; }
 }
