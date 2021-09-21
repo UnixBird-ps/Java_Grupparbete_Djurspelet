@@ -5,6 +5,6 @@ public class Dog extends AnimalBase
 
 	public Dog( int pPriceAtMaxHealth )
 	{
-		super( pPriceAtMaxHealth, 16 );
+		super( "Hund", pPriceAtMaxHealth, 16 );
 	}
 }

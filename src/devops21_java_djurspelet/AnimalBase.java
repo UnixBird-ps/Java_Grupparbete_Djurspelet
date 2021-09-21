@@ -5,14 +5,16 @@ public abstract class AnimalBase
 	static final int ATSTART_HEALTH = 100;
 
 	private String mName;
+	private String mKind;
 	private int mPriceAtMaxHealth;
 	private int mHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
 
-	public AnimalBase( int pPriceAtMaxHealth, int pExpectedLifeLength )
+	public AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
 	{
 		mName = "Unnamed";
+		mKind = pKind;
 		mPriceAtMaxHealth = pPriceAtMaxHealth;
 		mHealth = ATSTART_HEALTH;
 		mAge = 0;
@@ -20,7 +22,9 @@ public abstract class AnimalBase
 	}
 
 
-	String getName() { return mName; }
-	int getHealth() { return mHealth; }
-	int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
+	public String getKind() { return mKind; }
+	public String getName() { return mName; }
+	public int getHealth() { return mHealth; }
+	public int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
+	public int getAge() { return mAge; }
 }

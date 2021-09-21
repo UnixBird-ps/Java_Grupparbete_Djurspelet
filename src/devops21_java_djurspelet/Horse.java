@@ -5,6 +5,6 @@ public class Horse extends AnimalBase
 
 	public Horse( int pPriceAtMaxHealth )
 	{
-		super( pPriceAtMaxHealth, 25 );
+		super( "Häst", pPriceAtMaxHealth, 25 );
 	}
 }
