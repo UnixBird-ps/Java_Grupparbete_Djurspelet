@@ -28,7 +28,7 @@ public class Store
 		mAnimals.add( new Rabbit( 1000 ) );
 		mAnimals.add( new Rabbit( 1000 ) );
 		mAnimals.add( new Rabbit( 1000 ) );
-		mAnimals.add( new Horse( 5000 ) );
+		mAnimals.add( new Horse( 10000 ) );
 
 		mFoods.add( new Forage( "Grovfoder", 2, ATSTART_QUANTITY_PER_FOOD ) );
 		mFoods.add( new Carrots( "Morötter", 15, ATSTART_QUANTITY_PER_FOOD ) );
@@ -44,7 +44,8 @@ public class Store
 	public void displayInventory()
 	{
 		// Loop through the list av animals available in store
-		System.out.println( "Vi har dessa djur till försäljning :" );
+		// Write to screen kind, health and price of animals
+		System.out.println( "\nVi har dessa djur till försäljning :" );
 		for ( AnimalBase a : mAnimals )
 		{
 			String lStr = String.format( "art: %s   hälsa: %d%%   pris: %d kr", a.getKind(), a.getHealth(), a.getPrice() );
@@ -52,6 +53,7 @@ public class Store
 		}
 
 		// Loop through the list av foods available in store
+		// Write to screen name of food, price and how much there is left
 		System.out.println( "Vi har dessa djurfoder till försäljning:" );
 		for ( FoodBase f : mFoods )
 		{
