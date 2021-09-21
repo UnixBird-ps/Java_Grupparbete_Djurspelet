@@ -50,17 +50,24 @@ public class Player {
             int lQuantity = playerIntChoice();
             if(lQuantity <= pFood.getQuantity()){
                 System.out.println("Det kommer kosta: "+(lQuantity * pFood.getPrice())+" Credits");
-                System.out.println("Är du säker? 1:fortsätt , (allt annat):avbryt");
-                Scanner scan = new Scanner(System.in);
-                String lSwitch = scan.nextLine();
-                switch (lSwitch){
-                    case "1":
-                        if(!mFoods.contains(pFood)){
-                            mFoods.add(pFood);
-                            //todo
-                        }
-                        break;
-                    default:
+                System.out.println("Är du säker? 1:fortsätt , allt annat:avbryt");
+                if (playerIntChoice()==1) {
+                    /*
+                      adds obj food into list if not present and sets quantity to amount bought
+                      else adds quantity bought onto existing obj in list
+                     */
+                    if (!mFoods.contains(pFood)) {
+                        mFoods.add(pFood);
+                        int temp = mFoods.indexOf(pFood);
+                        mFoods.get(temp).setmQuantity(lQuantity);
+                        pFood.removemQuantity(lQuantity);
+                    } else {
+                        int temp = mFoods.indexOf(pFood);
+                        mFoods.get(temp).addmQuantity(lQuantity);
+                        pFood.removemQuantity(lQuantity);
+                    }
+                }else{
+                        System.out.println("För dyrt för dig?");
                 }
             }
         }else{
