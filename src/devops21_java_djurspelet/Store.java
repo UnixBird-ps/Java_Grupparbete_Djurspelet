@@ -16,10 +16,12 @@ public class Store
 		mName = pName;
 	}
 
+
 	void displayGreeting()
 	{
 		System.out.println( "Välkommen till " + mName );
 	}
+
 
 	static void displayInventory()
 	{
