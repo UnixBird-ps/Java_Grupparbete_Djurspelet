@@ -1,13 +1,6 @@
-package src.devops21_java_djurspelet;
+package devops21_java_djurspelet;
 
-public class Horse extends Animalbase {
+public class Horse extends AnimalBase
+{
 
-	public Horse(byte health, boolean gender) {
-	
-	}
-	
-	@Override
-	public void speak() {
-	System.out.println("Eeehee!");
-	}
 }

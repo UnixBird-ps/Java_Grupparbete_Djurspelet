@@ -40,7 +40,7 @@ Store
 		static final int ATSTART_QUANTITY_PER_FOOD = 1000 // i kg
 	fältvariablar
 		String mName // Initieras i konstruktorn
-		int mCredits // Sätts till Store.ATSTART_CREDITS i konstruktorn
+		int mCredits // Sätts till Store.ATSTART_CREDITS i konstruktorn. Denna behövs kanske inte
 		public ArrayList<Animal> mAnimals // Djur i affären
 		public ArrayList<Food> mFoods     // Mat till djuren i affären
 	metoder

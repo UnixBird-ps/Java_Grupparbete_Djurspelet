@@ -6,5 +6,5 @@ public class Main
 	{
 		//Start the game here
 		Game mGame = new Game(); // The game runs within this object
-    }
+	}
 }
