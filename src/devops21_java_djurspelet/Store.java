@@ -14,11 +14,17 @@ public class Store
 	public ArrayList<AnimalBase> mAnimals; // Sellable to players
 	public ArrayList<FoodBase> mFoods;     // Sellable to players
 
+	// Creates store with a name
 	public Store( String pName )
 	{
 		mName = pName;
 		mAnimals = new ArrayList<>();
 		mFoods   = new ArrayList<>();
+
+		// Data
+		mAnimals.add( new Cat( 1000 ) );
+		mAnimals.add( new Rabbit( 1000 ) );
+		mAnimals.add( new Horse( 5000 ) );
 	}
 
 
