@@ -59,12 +59,12 @@ public class Player {
                     if (!mFoods.contains(pFood)) {
                         mFoods.add(pFood);
                         int temp = mFoods.indexOf(pFood);
-                        mFoods.get(temp).setmQuantity(lQuantity);
-                        pFood.removemQuantity(lQuantity);
+                        mFoods.get(temp).setQuantity(lQuantity);
+                        pFood.removeQuantity(lQuantity);
                     } else {
                         int temp = mFoods.indexOf(pFood);
-                        mFoods.get(temp).addmQuantity(lQuantity);
-                        pFood.removemQuantity(lQuantity);
+                        mFoods.get(temp).addQuantity(lQuantity);
+                        pFood.removeQuantity(lQuantity);
                     }
                 }else{
                         System.out.println("För dyrt för dig?");
