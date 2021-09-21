@@ -18,24 +18,27 @@ public class Player {
     /**
      * Stores any AnimalBase child object sent into the player ArrayList
      * @param pAnimal animal to add to local AnimalBase ArrayList
+     * @param pStore store to remove the animal from
      */
-    public void buyAnimal(AnimalBase pAnimal){
+    public void buyAnimal(AnimalBase pAnimal, Store pStore){
         if(mCredits >= pAnimal.getPrice()){
+            mCredits -= pAnimal.getPrice();
             mAnimals.add(pAnimal);
+            pStore.mAnimals.remove(pAnimal);
         }else{
             System.out.println("Du har inte råd att köpa detta djur!");
         }
     }
 
     /**
-     * sends animal to foreign ArrayList and removes from it this class
-     * @param index indicates animal you want to sell
-     * @param storeList the list address to sell to
+     * method sells an animal adding it to store sent and removing it from player
+     * @param pAnimal player animal to sell
+     * @param pStore store for list adress to send animal to
      */
-    public void sellAnimal(int index, ArrayList<AnimalBase> storeList){
-        mCredits += mAnimals.get(index).getPrice();
-        storeList.add(mAnimals.get(index));
-        mAnimals.remove(index);
+    public void sellAnimal(AnimalBase pAnimal, Store pStore){
+        mCredits += pAnimal.getPrice();
+        pStore.mAnimals.add(pAnimal);
+        mAnimals.remove(pAnimal);
     }
 
     /**
