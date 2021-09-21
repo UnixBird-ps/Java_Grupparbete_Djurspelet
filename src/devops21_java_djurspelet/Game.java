@@ -25,8 +25,9 @@ public class Game
 	private static final int ATSTART_MIN_ROUNDS  = 5;
 	private static final int ATSTART_MAX_ROUNDS  = 30;
 
-	private static int mNumOfPlayersRequested;
+	private static Store mStore;
 	private static ArrayList<TestPlayer> mPlayers;
+	private static int mNumOfPlayersRequested;
 	private static int mRoundsStillToRun;
 
 
@@ -38,6 +39,7 @@ public class Game
 	{
 		System.out.println( this.getName() );
 
+		mStore = new Store( "Lantdjursbutiken" );
 		mPlayers = new ArrayList<>();
 
 		setupGame();
@@ -136,15 +138,22 @@ public class Game
 	*/
 	private void setupGame()
 	{
-		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+//		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+//		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
 
-		// Ask for player names and add players to the game.
-		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
-		{
-			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
-			mPlayers.add( new TestPlayer( lReqPlayerName ) );
-		}
+//		// Ask for player names and add players to the game.
+//		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
+//		{
+//			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
+//			mPlayers.add( new TestPlayer( lReqPlayerName ) );
+//		}
+
+			// For testing only
+			mRoundsStillToRun = ATSTART_MIN_ROUNDS;
+			mNumOfPlayersRequested = 3;
+			mPlayers.add( new TestPlayer( "Åsa" ) );
+			mPlayers.add( new TestPlayer( "Östen" ) );
+			mPlayers.add( new TestPlayer( "Håkan" ) );
 	}
 
 
@@ -155,7 +164,7 @@ public class Game
 	*/
 	private void runMainGameLoop()
 	{
-		// For testing
+		// For testing only
 		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
 		System.out.println( "Players:" );
 		for ( int i = 0; i < mPlayers.size(); i++ )
@@ -163,13 +172,13 @@ public class Game
 			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
 		}
 
-		// For testing
+		// For testing only
 		System.out.println( "\nMain game loop entered.\n" );
 
 		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
-			// For testing
+			// For testing only
 			System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
 			System.out.println( "mPlayers.size(): " + mPlayers.size() );
 
@@ -179,7 +188,7 @@ public class Game
 			mRoundsStillToRun--;
 		}
 
-		// For testing
+		// For testing only
 		System.out.println( "\nRoundsStillToRun: " + mRoundsStillToRun );
 		System.out.println( "mPlayers.size(): " + mPlayers.size() );
 		System.out.println( "\nMain game loop ended." );
@@ -188,14 +197,28 @@ public class Game
 
 	private void runOneRound()
 	{
-		// For testing
+		// For testing only
 		System.out.println( "\nGame round step entered.\n" );
 
-		// The round logic goes here
+		// The round logic starts here
 
-		// Show what is available in the store
-		// Show what animal the player's owns
+		for ( int i = 0; i < mPlayers.size(); i++ )
+		{
+			boolean lEndPlayerTurn = false;
 
+			// player's turn while loop starts
+			// Continue until player is happy
+
+			// For every player
+			mStore.displayGreeting();
+
+			// Show what is available in the store
+			mStore.displayInventory();
+
+			// Show what animals the player owns
+			// mPlayers
+
+		} // Player's turn loop end
 
 		// For testing. Removes a player. Prints out who was removed
 		TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
