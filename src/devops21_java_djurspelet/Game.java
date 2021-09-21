@@ -138,8 +138,8 @@ public class Game
 	*/
 	private void setupGame()
 	{
-		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+//		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+//		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
 
 //		// Ask for player names and add players to the game.
 //		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
@@ -149,8 +149,8 @@ public class Game
 //		}
 
 			// For testing only
-			mNumOfPlayersRequested = ATSTART_MIN_PLAYERS;
 			mRoundsStillToRun = ATSTART_MIN_ROUNDS;
+			mNumOfPlayersRequested = 3;
 			mPlayers.add( new TestPlayer( "Åsa" ) );
 			mPlayers.add( new TestPlayer( "Östen" ) );
 			mPlayers.add( new TestPlayer( "Håkan" ) );
@@ -202,10 +202,11 @@ public class Game
 
 		// The round logic starts here
 
-		// player's turn while loop starts
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			boolean lEndPlayerTurn = false;
+
+			// player's turn while loop starts
 			// Continue until player is happy
 
 			// For every player
