@@ -24,13 +24,13 @@ public abstract class FoodBase
 	public int getPrice() { return mPrice; }
 	public int getQuantity() { return mQuantity; }
 
-	public void setmQuantity(int mQuantity) {
+	public void setQuantity(int mQuantity) {
 		this.mQuantity = mQuantity;
 	}
-	public void addmQuantity(int addQuantity){
+	public void addQuantity(int addQuantity){
 		this.mQuantity += addQuantity;
 	}
-	public void removemQuantity(int toRemove){
+	public void removeQuantity(int toRemove){
 		this.mQuantity -=toRemove;
 	}
 }
