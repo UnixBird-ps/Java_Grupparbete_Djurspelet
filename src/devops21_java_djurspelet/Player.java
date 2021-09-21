@@ -40,7 +40,7 @@ public class Player {
     public void printLivestock(){
         int index = 0;
         for (AnimalBase temp:mAnimals) {
-            System.out.println(index++ +"."+ temp +"\t");
+            System.out.println(index++ +"."+ temp/*todo: add name get here*/ +"\t");
         }
     }
 
