@@ -1,5 +1,6 @@
-package src.devops21_java_djurspelet;
+package devops21_java_djurspelet;
 
-public class Horse {
+public class Horse extends AnimalBase
+{
 
 }
