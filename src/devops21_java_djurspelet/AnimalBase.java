@@ -22,5 +22,5 @@ public abstract class AnimalBase
 
 	String getName() { return mName; }
 	int getHealth() { return mHealth; }
-	int getPrice() { return mHealth * mPriceAtMaxHealth; }
+	int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
 }
