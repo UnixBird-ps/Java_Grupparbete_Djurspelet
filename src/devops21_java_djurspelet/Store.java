@@ -2,10 +2,13 @@ package devops21_java_djurspelet;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Store
 {
 	static final int ATSTART_QUANTITY_PER_ANIMAL = 10;
-	static final int ATSTART_QUANTITY_PER_FOOD = 1000; // in kilograms
+	static final int ATSTART_QUANTITY_PER_FOOD   = 1000; // in kilograms
 
 	String mName;                          // Initialized in the constructor
 	public ArrayList<AnimalBase> mAnimals; // Sellable to players
@@ -14,6 +17,8 @@ public class Store
 	public Store( String pName )
 	{
 		mName = pName;
+		mAnimals = new ArrayList<>();
+		mFoods   = new ArrayList<>();
 	}
 
 
