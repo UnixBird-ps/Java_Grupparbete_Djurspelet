@@ -193,6 +193,10 @@ public class Game
 
 		// The round logic goes here
 
+		// Show what is available in the store
+		// Show what animal the player's owns
+
+
 		// For testing. Removes a player. Prints out who was removed
 		TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
 		System.out.println( lRemovedPlayer.getName() + " has left the game." );
