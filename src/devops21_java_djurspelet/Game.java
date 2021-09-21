@@ -224,7 +224,7 @@ public class Game
 		TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
 		System.out.println( lRemovedPlayer.getName() + " has left the game." );
 
-		// For testing
+		// For testing only
 		System.out.println( "\nGame round step ended." );
 	}
 }
