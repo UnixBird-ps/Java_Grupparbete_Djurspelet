@@ -228,7 +228,7 @@ public class Game
 
 		// For testing. Removes a player. Prints out who was removed
 		Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-		System.out.println( "\n" + lRemovedPlayer.getName() + " has left the game." );
+		System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
 
 		// For testing only
 		System.out.println( "\nGame round step ended." );
