@@ -48,33 +48,85 @@ public class Store
 	/**
 	*  Greets a player
 	*/
-	void displayGreeting()
+	protected void displayGreeting()
 	{
 		System.out.println( "Välkommen till " + mName );
 	}
 
 
 	/**
-	*  Loops through the list av animals and foods available in store
+	*  Loops through the list av animals available in store
 	*/
-	public void displayInventory()
+	protected void displayAnimalInventory()
 	{
 		// Write to screen kind, health and price of animals
 		System.out.println( "\nVi har dessa djur till försäljning :" );
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
 			AnimalBase a = mAnimals.get( i );
-			String lStr = String.format( "%d art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
+			String lStr = String.format( "%d art: %s   hälsa: %d%%   kön: %s   pris: %d kr", 1 + i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
 			System.out.println( lStr );
 		}
+	}
 
+	/**
+	 *  Loops through the list av foods available in store
+	 */
+	protected void displayFoodInventory()
+	{
 		// Write to screen name of food, price and how much there is left
 		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
 			FoodBase f = mFoods.get( i );
-			String lStr = String.format( "%d namn: %s   pris: %dkr/Kg    : %d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
+			String lStr = String.format( "%d namn: %s   pris: %dkr/Kg    : %d kg", 1 + i, f.getName(), f.getPrice(), f.getQuantity() );
 			System.out.println( lStr );
+		}
+	}
+
+
+	protected void playerEntersAnimalStore( Player pPlayer )
+	{
+		// Say Hi
+		displayGreeting();
+		// Show what is available in the store
+		displayAnimalInventory();
+
+		// Show what animals the player owns
+		pPlayer.printLivestock();
+		//pPlayer.printFood();
+		pPlayer.printCredits();
+
+		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något: ", "JNjn" );
+		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
+		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
+		{
+			// Show a player a message and wait for a valid input
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa:", 1, mAnimals.size() );
+			mAnimals.get( lPlayerChoiceInt );
+		}
+	}
+
+
+	protected void playerEntersFoodStore( Player pPlayer )
+	{
+		// Say Hi
+		displayGreeting();
+		// Show what is available in the store
+		displayFoodInventory();
+
+		// Show what animals the player owns
+		pPlayer.printLivestock();
+		//pPlayer.printFood();
+		pPlayer.printCredits();
+
+		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något: ", "JNjn" );
+		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
+		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
+		{
+			// Show a player a message and wait for a valid input
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa:", 1, mFoods.size() );
+			mFoods.get( lPlayerChoiceInt );
 		}
 	}
 }
