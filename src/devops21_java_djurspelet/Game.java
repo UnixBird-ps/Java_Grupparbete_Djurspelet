@@ -7,17 +7,17 @@ import java.util.ArrayList;
 public class Game
 {
 	// Local class for testing only
-	private static class TestPlayer
-	{
-		static final int ATSTART_CREDITS = 10000;
-		private String mName;
-		private int mCredits;
-		// Constructor
-		TestPlayer( String pReqName )
-		{ mName = pReqName; mCredits = ATSTART_CREDITS; }
-		public String getName()
-		{ return mName; }
-	}
+//	private static class TestPlayer
+//	{
+//		static final int ATSTART_CREDITS = 10000;
+//		private String mName;
+//		private int mCredits;
+//		// Constructor
+//		TestPlayer( String pReqName )
+//		{ mName = pReqName; mCredits = ATSTART_CREDITS; }
+//		public String getName()
+//		{ return mName; }
+//	}
 
 	private static final String mName = "Djurspelet";
 	private static final int ATSTART_MIN_PLAYERS = 2;
@@ -26,7 +26,7 @@ public class Game
 	private static final int ATSTART_MAX_ROUNDS  = 30;
 
 	private static Store mStore;
-	private static ArrayList<TestPlayer> mPlayers;
+	private static ArrayList<Player> mPlayers;
 	private static int mNumOfPlayersRequested;
 	private static int mRoundsStillToRun;
 
@@ -37,7 +37,7 @@ public class Game
 	*/
 	Game ()
 	{
-		System.out.println( this.getName() );
+		System.out.println( getName() );
 
 		mStore = new Store( "Lantdjursbutiken" );
 		mPlayers = new ArrayList<>();
@@ -138,9 +138,10 @@ public class Game
 	*/
 	private void setupGame()
 	{
+//		Following commented out line are important in the game when testing is over
 //		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
 //		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-
+//
 //		// Ask for player names and add players to the game.
 //		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
 //		{
@@ -151,9 +152,9 @@ public class Game
 			// For testing only
 			mRoundsStillToRun = ATSTART_MIN_ROUNDS;
 			mNumOfPlayersRequested = 3;
-			mPlayers.add( new TestPlayer( "Åsa" ) );
-			mPlayers.add( new TestPlayer( "Östen" ) );
-			mPlayers.add( new TestPlayer( "Håkan" ) );
+			mPlayers.add( new Player( "Åsa" ) );
+			mPlayers.add( new Player( "Östen" ) );
+			mPlayers.add( new Player( "Håkan" ) );
 	}
 
 
@@ -173,14 +174,14 @@ public class Game
 		}
 
 		// For testing only
-		System.out.println( "\nMain game loop entered.\n" );
+		System.out.println( "\nMain game loop entered." );
 
 		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
 			// For testing only
-			System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
-			System.out.println( "mPlayers.size(): " + mPlayers.size() );
+//			System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
+//			System.out.println( "mPlayers.size(): " + mPlayers.size() );
 
 			runOneRound();
 
@@ -198,14 +199,18 @@ public class Game
 	private void runOneRound()
 	{
 		// For testing only
-		System.out.println( "\nGame round step entered.\n" );
+		System.out.println( "\nGame round step entered." );
 
 		// The round logic starts here
 
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
+			// Maybe replacable by a different for loop, must be ordered
+			Player lCurrentPlayer = mPlayers.get( i );
+
 			boolean lEndPlayerTurn = false;
 
+			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
 			// player's turn while loop starts
 			// Continue until player is happy
 
@@ -216,13 +221,14 @@ public class Game
 			mStore.displayInventory();
 
 			// Show what animals the player owns
-			// mPlayers
+			lCurrentPlayer.printLivestock();
+			lCurrentPlayer.printCredits();
 
 		} // Player's turn loop end
 
 		// For testing. Removes a player. Prints out who was removed
-		TestPlayer lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-		System.out.println( lRemovedPlayer.getName() + " has left the game." );
+		Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
+		System.out.println( "\n" + lRemovedPlayer.getName() + " has left the game." );
 
 		// For testing only
 		System.out.println( "\nGame round step ended." );
