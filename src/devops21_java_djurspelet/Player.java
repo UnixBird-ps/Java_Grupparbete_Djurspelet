@@ -18,6 +18,12 @@ public class Player {
         mFoods = new ArrayList<>();
     }
 
+		public String getName()
+		{
+			return mName;
+		}
+
+
     /**
      * Stores any AnimalBase child object sent into the player ArrayList
      * @param pAnimal animal to add to local AnimalBase ArrayList
