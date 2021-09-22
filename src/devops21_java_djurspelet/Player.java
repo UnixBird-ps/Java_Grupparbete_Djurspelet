@@ -55,6 +55,7 @@ public class Player {
      * Receives food from store as chosen type to purchase.
      * handles dialogue and choices and amount to buy from food object.
      * does nothing if player decides to not purchase any
+     *
      * @param pFood food object to purchase of
      */
     public void buyFood(FoodBase pFood) {
@@ -120,6 +121,15 @@ public class Player {
         if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
         for (AnimalBase temp : mAnimals) {
             System.out.println(index++ + "." + temp.getName() + "\t");
+        }
+    }
+
+    public void printFoodOwned() {
+        System.out.print("I " + mName + "'s matförråd finns det: ");
+        if (!mFoods.isEmpty()) {
+            for (FoodBase food : mFoods) {
+                System.out.print(food.getQuantity() + "st " + food.getName() + "\t");
+            }
         }
     }
 
