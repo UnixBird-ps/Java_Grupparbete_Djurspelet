@@ -81,7 +81,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		mAge++;
 		mHealth -= (int)(Math.random()*20)+10;
 	}
-	public double tryMate(){
+	public int tryMate(){
 	if ((mKind.equals(mKind)) && (GENDER_MALE != GENDER_FEMALE) && (birthRate == 1));
 		return mGender;
 	}
