@@ -5,7 +5,7 @@ public abstract class FoodBase
 	private String mName;
 	private int mPrice;
 	private int mQuantity;
-
+	int eatFood;
 
 	/**
 	* Initializes this object
@@ -34,4 +34,5 @@ public abstract class FoodBase
 	public void removeQuantity(int toRemove){
 		this.mQuantity -=toRemove;
 	}
-}
+
+	}
