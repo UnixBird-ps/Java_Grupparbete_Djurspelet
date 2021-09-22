@@ -25,10 +25,21 @@ public class Store
 		mAnimals.add( new Cat( 1000 ) );
 		mAnimals.add( new Cat( 1000 ) );
 		mAnimals.add( new Cat( 1000 ) );
+		mAnimals.add( new Cat( 1000 ) );
+		mAnimals.add( new Cat( 1000 ) );
+		mAnimals.add( new Dog( 1000 ) );
+		mAnimals.add( new Dog( 1000 ) );
+		mAnimals.add( new Dog( 1000 ) );
+		mAnimals.add( new Dog( 1000 ) );
 		mAnimals.add( new Rabbit( 1000 ) );
 		mAnimals.add( new Rabbit( 1000 ) );
 		mAnimals.add( new Rabbit( 1000 ) );
 		mAnimals.add( new Horse( 10000 ) );
+		mAnimals.add( new Horse( 10000 ) );
+		mAnimals.add( new Horse( 10000 ) );
+		mAnimals.add( new Cattle( 10000 ) );
+		mAnimals.add( new Cattle( 10000 ) );
+		mAnimals.add( new Cattle( 10000 ) );
 		mFoods.add( new Forage( "Grovfoder", 2, ATSTART_QUANTITY_PER_FOOD ) );
 		mFoods.add( new Carrots( "Morötter", 15, ATSTART_QUANTITY_PER_FOOD ) );
 	}
@@ -50,17 +61,19 @@ public class Store
 	{
 		// Write to screen kind, health and price of animals
 		System.out.println( "\nVi har dessa djur till försäljning :" );
-		for ( AnimalBase a : mAnimals )
+		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
-			String lStr = String.format( "art: %s   hälsa: %d%%   pris: %d kr", a.getKind(), a.getHealth(), a.getPrice() );
+			AnimalBase a = mAnimals.get( i );
+			String lStr = String.format( "%d art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
 			System.out.println( lStr );
 		}
 
 		// Write to screen name of food, price and how much there is left
 		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
-		for ( FoodBase f : mFoods )
+		for (  int i = 0; i < mFoods.size(); i++ )
 		{
-			String lStr = String.format( "%s   pris: %d/Kg    : %d kg", f.getName(), f.getPrice(), f.getQuantity() );
+			FoodBase f = mFoods.get( i );
+			String lStr = String.format( "%d namn: %s   pris: %dkr/Kg    : %d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
 			System.out.println( lStr );
 		}
 	}
