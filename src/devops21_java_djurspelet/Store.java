@@ -128,5 +128,7 @@ public class Store
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa:", 1, mFoods.size() );
 			mFoods.get( lPlayerChoiceInt );
 		}
+
 	}
+
 }
