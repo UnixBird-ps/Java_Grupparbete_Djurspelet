@@ -133,6 +133,8 @@ public class Player {
             for (FoodBase food : mFoods) {
                 System.out.print(food.getQuantity() + "st " + food.getName() + "\t");
             }
+        }else{
+            System.out.println(mName+" du har ju ingen mat!");
         }
     }
 
