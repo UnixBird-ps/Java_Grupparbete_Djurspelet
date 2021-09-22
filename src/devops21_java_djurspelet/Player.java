@@ -109,6 +109,7 @@ public class Player {
      */
     public void printLivestock(){
         int index = 0;
+			if ( mAnimals.isEmpty() ) System.out.println( getName() + " har inga djur." );
         for (AnimalBase temp:mAnimals) {
             System.out.println(index++ +"."+ temp.getName() +"\t");
         }
