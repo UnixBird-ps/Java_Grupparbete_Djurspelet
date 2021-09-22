@@ -48,19 +48,20 @@ public class Game
 	}
 
 
-	String getName() { return mName; }
+	static String getName() { return mName; }
 
 
 	/**
-	* Asks for user input. Loops until a valid value within a range has been entered.
 	* Prints to screen valid range.
+	* Asks for user input. Loops until a valid value within a range has been entered.
 	* Shows a notice if value is outside range.
 	*
+	* @param pMsg       Message shown on th screen
 	* @param pValidMin  Lower limit
 	* @param pValidMax  Upper limit
 	* @return           A value between pValidMin and pValidMax, inclusive
 	*/
-	private int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
+	public static int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
 	{
 		boolean lIsValid = false; // Not yet!
 		Scanner lScanner = new Scanner( System.in );
@@ -69,7 +70,7 @@ public class Game
 		while ( !lIsValid ) // Keep asking for a valid choice
 		{
 			// Print to screen the message and a valid intervall
-			System.out.print( pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
+			System.out.print( pMsg + "Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
 
 			// Get input from user
 			String lInputStr = lScanner.nextLine();
@@ -95,16 +96,53 @@ public class Game
 
 		return lParsedInt;
 	}
+	/**
+	* Asks for user input. Loops until a valid character has been entered
+	* Shows a notice if value is not valid.
+	*
+	* @param pMsg         Message shown on the screen
+	* @param pValidChars  List of valid chars as a plain string
+	* @return             The character entered
+	*/
+	protected static char askForValidChar( String pMsg, String pValidChars )
+	{
+		boolean lIsValid = false; // Not yet!
+		char lReturnChar = ' ';
+		//pValidChars = pValidChars.toLowerCase();
+		String lRegExStr = "[" + pValidChars + "]";  // Square brackets are for matching one of possible chars
+		Scanner lScanner = new Scanner( System.in );
+
+		while ( !lIsValid ) // Keep asking for valid choice
+		{
+			// Show the message on screen
+			System.out.print( pMsg );
+
+			// Get input from user
+			String lInputStr = lScanner.nextLine();
+
+			// Validate input with regular expression
+			lIsValid = lInputStr.matches( lRegExStr );
+
+			// Check if input is valid
+			if ( lIsValid )
+			{
+				lReturnChar = lInputStr.charAt( 0 );
+			}
+			else { System.out.println( "Alternativet finns inte." ); }
+		}
+
+		return lReturnChar;
+	}
 
 
 	/**
 	* Asks for user input. Loops until a valid value has been entered
-	* Shows a message on the screen
+	* Shows a notice if value is not valid.
 	*
 	* @param pMsg  Message shown on th screen
 	* @return      Validated string
 	*/
-	public String askForValidName( String pMsg )
+	protected static String askForValidName( String pMsg )
 	{
 		boolean lIsValid = false; // Not yet!
 		Scanner lScanner = new Scanner( System.in );
@@ -132,13 +170,34 @@ public class Game
 
 
 	/**
+	* Shows a list of otions
+	* Asks for user input. Loops until a valid value has been entered
+	*
+	* @param pMsg  Message shown on th screen
+	* @return      Validated string
+	*/
+	protected static int askForValidChoiceWithDesc( String pMsg, String[] pPlayerChoiseDesc )
+	{
+		System.out.println( pMsg );
+
+		for ( int i = 0; i < pPlayerChoiseDesc.length; i++ )
+		{
+			String s = pPlayerChoiseDesc[ i ];
+			System.out.println( ( 1 + i ) + ": " + s );
+		}
+
+		// Reuse method
+		return askForValidNumber( "", 1, pPlayerChoiseDesc.length );
+	}
+
+	/**
 	* Asks the user for values to initialize the game with.
 	* Asks for number of rounds to play.
 	* Asks for number of players in this game.
 	*/
 	private void setupGame()
 	{
-//		Following commented out line are important in the game when testing is over
+//		Following commented out lines are important in the game when testing is over
 //		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
 //		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
 //
@@ -205,32 +264,46 @@ public class Game
 
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
-			// Maybe replacable by a different for loop, must be ordered
+			// Maybe replacable by a different for loop, should be ordered maybe
+
+			// For every player
 			Player lCurrentPlayer = mPlayers.get( i );
 
 			boolean lEndPlayerTurn = false;
 
 			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
-			// player's turn while loop starts
-			// Continue until player is happy
 
-			// For every player
-			mStore.displayGreeting();
+			// Give a player 5 choices
+			String lPlayerChoiseDesc[] =
+			{
+				"Köpa djur",
+				"Köpa mat till djuren",
+				"Mata djur",
+				"Försöka para djur",
+				"Sälja djur"
+			};
 
-			// Show what is available in the store
-			mStore.displayInventory();
-
-			// Show what animals the player owns
-			lCurrentPlayer.printLivestock();
-			lCurrentPlayer.printCredits();
-
-			System.out.println( "\n" + "Vad vill du köpa?\n:" );
+			switch ( askForValidChoiceWithDesc( "Vad vill du göra?", lPlayerChoiseDesc ) )
+			{
+				case 1 :
+					mStore.playerEntersAnimalStore( lCurrentPlayer );
+					break;
+				case 2 :
+					mStore.playerEntersFoodStore( lCurrentPlayer );
+					break;
+				case 3 :
+					break;
+				case 4 :
+					break;
+				case 5 :
+					break;
+			}
 
 		} // Player's turn loop end
 
 		// For testing. Removes a player. Prints out who was removed
-		Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-		System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
+		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
+		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
 
 		// For testing only
 		System.out.println( "\nGame round step ended." );
