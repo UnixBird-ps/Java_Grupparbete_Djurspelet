@@ -46,6 +46,31 @@ public class Game
 
 		runMainGameLoop();
 	}
+	/**
+	 * Asks the user for values to initialize the game with.
+	 * Asks for number of rounds to play.
+	 * Asks for number of players in this game.
+	 */
+	private void setupGame()
+	{
+//		Following commented out lines are important in the game when testing is over
+//		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+//		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+//
+//		// Ask for player names and add players to the game.
+//		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
+//		{
+//			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
+//			mPlayers.add( new TestPlayer( lReqPlayerName ) );
+//		}
+
+		// For testing only
+		mRoundsStillToRun = ATSTART_MAX_ROUNDS - ATSTART_MIN_ROUNDS;
+		mNumOfPlayersRequested = 3;
+		mPlayers.add( new Player( "Åsa" ) );
+		mPlayers.add( new Player( "Östen" ) );
+		mPlayers.add( new Player( "Håkan" ) );
+	}
 
 
 	static String getName() { return mName; }
@@ -108,17 +133,18 @@ public class Game
 	{
 		boolean lIsValid = false; // Not yet!
 		char lReturnChar = ' ';
-		//pValidChars = pValidChars.toLowerCase();
+		pValidChars = pValidChars.toUpperCase();
 		String lRegExStr = "[" + pValidChars + "]";  // Square brackets are for matching one of possible chars
 		Scanner lScanner = new Scanner( System.in );
 
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
 			// Show the message on screen
-			System.out.print( pMsg );
+			System.out.print( "\n" + pMsg + " Ange (" + pValidChars + "): " );
 
 			// Get input from user
 			String lInputStr = lScanner.nextLine();
+			lInputStr = lInputStr.toUpperCase();
 
 			// Validate input with regular expression
 			lIsValid = lInputStr.matches( lRegExStr );
@@ -176,45 +202,18 @@ public class Game
 	* @param pMsg  Message shown on th screen
 	* @return      Validated string
 	*/
-	protected static int askForValidChoiceWithDesc( String pMsg, String[] pPlayerChoiseDesc )
+	protected static int askForValidChoiceWithDesc( String pMsg, String[] pPlayerChoiceDesc )
 	{
 		System.out.println( pMsg );
 
-		for ( int i = 0; i < pPlayerChoiseDesc.length; i++ )
+		for ( int i = 0; i < pPlayerChoiceDesc.length; i++ )
 		{
-			String s = pPlayerChoiseDesc[ i ];
+			String s = pPlayerChoiceDesc[ i ];
 			System.out.println( ( 1 + i ) + ": " + s );
 		}
 
 		// Reuse method
-		return askForValidNumber( "", 1, pPlayerChoiseDesc.length );
-	}
-
-	/**
-	* Asks the user for values to initialize the game with.
-	* Asks for number of rounds to play.
-	* Asks for number of players in this game.
-	*/
-	private void setupGame()
-	{
-//		Following commented out lines are important in the game when testing is over
-//		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-//		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-//
-//		// Ask for player names and add players to the game.
-//		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
-//		{
-//			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
-//			mPlayers.add( new TestPlayer( lReqPlayerName ) );
-//		}
-
-			// For testing only
-			mRoundsStillToRun = ATSTART_MIN_ROUNDS;
-			mNumOfPlayersRequested = 3;
-			mPlayers.add( new Player( "Åsa" ) );
-			mPlayers.add( new Player( "Östen" ) );
-			mPlayers.add( new Player( "Håkan" ) );
-
+		return askForValidNumber( "", 1, pPlayerChoiceDesc.length );
 	}
 
 
@@ -263,6 +262,23 @@ public class Game
 
 		// The round logic starts here
 
+		for ( Player p: mPlayers )
+		{
+			// Remove animals that has died from players' animal list
+			// Create a temp list, copy over only animals that are still alive
+			ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
+			for ( AnimalBase a: p.mAnimals )
+			{
+				a.growOlder();
+				if ( a.getHealth() > 0 )
+					lNewAnimalList.add( a );
+				else
+					System.out.println( p.getName() + "s " + a.getKind() + "(" + a.getName() + ") har dött." );
+			}
+			p.mAnimals.clear();
+			p.mAnimals.addAll( lNewAnimalList );
+		}
+
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			// Maybe replacable by a different for loop, should be ordered maybe
@@ -270,12 +286,18 @@ public class Game
 			// For every player
 			Player lCurrentPlayer = mPlayers.get( i );
 
-			boolean lEndPlayerTurn = false;
+			//boolean lEndPlayerTurn = false;
 
 			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
+			System.out.println( lCurrentPlayer.getName() + " har:" );
+
+			// Show what animals the player owns
+			lCurrentPlayer.printLivestock();
+			lCurrentPlayer.printFoodOwned();
+			lCurrentPlayer.printCredits();
 
 			// Give a player 5 choices
-			String lPlayerChoiseDesc[] =
+			String lPlayerChoiceDesc[] =
 			{
 				"Köpa djur",
 				"Köpa mat till djuren",
@@ -284,7 +306,7 @@ public class Game
 				"Sälja djur"
 			};
 
-			switch ( askForValidChoiceWithDesc( "Vad vill du göra?", lPlayerChoiseDesc ) )
+			switch ( askForValidChoiceWithDesc( "Vad vill du göra?", lPlayerChoiceDesc ) )
 			{
 				case 1 :
 					mStore.playerEntersAnimalStore( lCurrentPlayer );

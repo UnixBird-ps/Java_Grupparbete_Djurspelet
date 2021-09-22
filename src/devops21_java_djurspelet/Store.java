@@ -66,7 +66,7 @@ public class Store
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
 			AnimalBase a = mAnimals.get( i );
-			String lStr = String.format( "%d art: %s   hälsa: %d%%   kön: %s   pris: %d kr", 1 + i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
+			String lStr = String.format( "%d art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
 			System.out.println( lStr );
 		}
 	}
@@ -82,7 +82,7 @@ public class Store
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
 			FoodBase f = mFoods.get( i );
-			String lStr = String.format( "%d namn: %s   pris: %dkr/Kg    : %d kg", 1 + i, f.getName(), f.getPrice(), f.getQuantity() );
+			String lStr = String.format( "%d namn: %s   pris: %dkr/Kg    : %d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
 			System.out.println( lStr );
 		}
 	}
@@ -94,7 +94,7 @@ public class Store
 		displayGreeting();
 		// Show what is available in the store
 		displayAnimalInventory();
-		System.out.println( "mAnimals.size(): " + mAnimals.size() );
+		//System.out.println( "mAnimals.size(): " + mAnimals.size() );
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
@@ -110,7 +110,9 @@ public class Store
 			if ( lLastIndex < 0 ) lLastIndex = 0;
 			// Show a message and wait for a valid input
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
-			System.out.println( "Spelarens val" + mAnimals.get( lPlayerChoiceInt ).getName() );
+			AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
+			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+			pPlayer.buyAnimal( lChosenAnimal, this );
 		}
 	}
 
@@ -121,7 +123,7 @@ public class Store
 		displayGreeting();
 		// Show what is available in the store
 		displayFoodInventory();
-		System.out.println( "mFoods.size(): " + mFoods.size() );
+		//System.out.println( "mFoods.size(): " + mFoods.size() );
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
@@ -137,7 +139,9 @@ public class Store
 			if ( lLastIndex < 0 ) lLastIndex = 0;
 			// Show a message and wait for a valid input
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
-			System.out.println( "Spelarens val" + mFoods.get( lPlayerChoiceInt ).getName() );
+			FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );
+			System.out.println( "Spelarens val: " + lChosenFood.getName() );
+			pPlayer.buyFood( lChosenFood ); //, this );
 		}
 
 	}
