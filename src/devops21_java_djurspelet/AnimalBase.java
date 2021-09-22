@@ -57,25 +57,30 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		return lGenderStr;
 	}
 
+
 	/**
 	* @return  Animal's name, if set
 	*/
 	public String getName() { return mName; }
+
 
 	/**
 	* @return  Animal's health
 	*/
 	public int getHealth() { return mHealth; }
 
+
 	/**
 	* @return  Computed price, from health and original price
 	*/
 	public int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
 
+
 	/**
 	* @return  Animal's age
 	*/
 	public int getAge() { return mAge; }
+
 
 	public void growOlder() {
 		mAge++;
