@@ -18,7 +18,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private int mHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
-	int mBirthRate = rand.nextInt(2);
+
+	private FoodBase mRightFood;
+	int birthRate = rand.nextInt(2);
 
 
 	/**
@@ -58,32 +60,53 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		return lGenderStr;
 	}
 
+
 	/**
 	* @return  Animal's name, if set
 	*/
 	public String getName() { return mName; }
+
 
 	/**
 	* @return  Animal's health
 	*/
 	public int getHealth() { return mHealth; }
 
+
 	/**
 	* @return  Computed price, from health and original price
 	*/
 	public int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
+
 
 	/**
 	* @return  Animal's age
 	*/
 	public int getAge() { return mAge; }
 
+
 	public void growOlder() {
 		mAge++;
 		mHealth -= (int) (Math.random() * 20) + 10;
+		if ( mHealth < 0 ) mHealth = 0;
 	}
+
+
 	public int tryMate(AnimalBase a, AnimalBase b){
+
 		if (a.mKind.equals(b.mKind) && GENDER_MALE != GENDER_FEMALE && (mBirthRate == 1));
         return mGender;
-}
+	}
+
+
+	/**
+	* Tests if food is of the same type
+	*
+	* @param pWhatFood  A food object
+	* @return           True if same
+	*/
+	public boolean canEatThis( FoodBase pWhatFood )
+	{
+		return mRightFood.getName().equalsIgnoreCase( pWhatFood.getName() );
+	}
 }
