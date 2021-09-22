@@ -113,8 +113,8 @@ public class Player {
     }
 
     /**
-     * prints animal in a horizontal format
-     * includes index animal is in
+     * prints out list of animals in a vertical format
+     * includes index animal is at
      */
     public void printLivestock() {
         int index = 0;
