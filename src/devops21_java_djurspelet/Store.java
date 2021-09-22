@@ -77,4 +77,10 @@ public class Store
 			System.out.println( lStr );
 		}
 	}
+
+	public void playerEntersFoodStore(Player lCurrentPlayer) {
+	}
+
+	public void playerEntersAnimalStore(Player lCurrentPlayer) {
+	}
 }

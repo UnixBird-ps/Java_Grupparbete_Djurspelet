@@ -43,8 +43,8 @@ public class Game
 		mPlayers = new ArrayList<>();
 
 		setupGame();
-		mPlayers.get(0).printFoodOwned();
-		//runMainGameLoop();
+
+		runMainGameLoop();
 	}
 
 
@@ -214,8 +214,7 @@ public class Game
 			mPlayers.add( new Player( "Åsa" ) );
 			mPlayers.add( new Player( "Östen" ) );
 			mPlayers.add( new Player( "Håkan" ) );
-			Carrots carrot = new Carrots("morot",5,100);
-			mPlayers.get(0).buyFood(carrot);
+
 	}
 
 
