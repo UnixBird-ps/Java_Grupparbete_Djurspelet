@@ -1,6 +1,8 @@
 package devops21_java_djurspelet;
 
 
+import java.util.Random;
+
 public abstract class AnimalBase // Enforce creation of subclasses
 {
 	static final int ATSTART_HEALTH = 100;
@@ -14,6 +16,8 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private int mHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
+	private Random rand;
+	int birthRate = rand.nextInt(2);
 
 
 	/**
@@ -77,4 +81,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		mAge++;
 		mHealth -= (int)(Math.random()*20)+10;
 	}
+	public double tryMate(){
+	if ((mKind.equals(mKind)) && (GENDER_MALE != GENDER_FEMALE) && (birthRate == 1));
+		return mGender;
+	}
+
 }
