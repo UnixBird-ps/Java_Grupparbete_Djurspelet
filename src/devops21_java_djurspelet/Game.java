@@ -224,6 +224,8 @@ public class Game
 			lCurrentPlayer.printLivestock();
 			lCurrentPlayer.printCredits();
 
+			System.out.println( "\n" + "Vad vill du köpa?\n:" );
+
 		} // Player's turn loop end
 
 		// For testing. Removes a player. Prints out who was removed
