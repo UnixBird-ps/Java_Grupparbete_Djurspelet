@@ -42,6 +42,8 @@ public class Store
 		mAnimals.add( new Cattle( 10000 ) );
 		mFoods.add( new Forage( "Grovfoder", 2, ATSTART_QUANTITY_PER_FOOD ) );
 		mFoods.add( new Carrots( "Morötter", 15, ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new DogFood( "Torrfoder för hundar", 50, ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new CatFood( "Torrfoder för katter", 50, ATSTART_QUANTITY_PER_FOOD ) );
 	}
 
 
@@ -50,7 +52,7 @@ public class Store
 	*/
 	protected void displayGreeting()
 	{
-		System.out.println( "Välkommen till " + mName );
+		System.out.println( "\nVälkommen till " + mName );
 	}
 
 
@@ -68,6 +70,7 @@ public class Store
 			System.out.println( lStr );
 		}
 	}
+
 
 	/**
 	 *  Loops through the list av foods available in store
@@ -91,19 +94,23 @@ public class Store
 		displayGreeting();
 		// Show what is available in the store
 		displayAnimalInventory();
+		System.out.println( "mAnimals.size(): " + mAnimals.size() );
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
 		//pPlayer.printFood();
 		pPlayer.printCredits();
 
-		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något: ", "JNjn" );
+		// Ask if the player wants to buy an animal
+		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något?", "JN" );
 		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
 		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
 		{
-			// Show a player a message and wait for a valid input
-			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa:", 1, mAnimals.size() );
-			mAnimals.get( lPlayerChoiceInt );
+			int lLastIndex = mAnimals.size() - 1;
+			if ( lLastIndex < 0 ) lLastIndex = 0;
+			// Show a message and wait for a valid input
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+			System.out.println( "Spelarens val" + mAnimals.get( lPlayerChoiceInt ).getName() );
 		}
 	}
 
@@ -114,19 +121,23 @@ public class Store
 		displayGreeting();
 		// Show what is available in the store
 		displayFoodInventory();
+		System.out.println( "mFoods.size(): " + mFoods.size() );
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
-		//pPlayer.printFood();
+		pPlayer.printFoodOwned();
 		pPlayer.printCredits();
 
-		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något: ", "JNjn" );
+		// Ask if the player wants to buy food for the animals
+		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något?", "JN" );
 		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
 		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
 		{
-			// Show a player a message and wait for a valid input
-			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa:", 1, mFoods.size() );
-			mFoods.get( lPlayerChoiceInt );
+			int lLastIndex = mFoods.size() - 1;
+			if ( lLastIndex < 0 ) lLastIndex = 0;
+			// Show a message and wait for a valid input
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+			System.out.println( "Spelarens val" + mFoods.get( lPlayerChoiceInt ).getName() );
 		}
 
 	}
