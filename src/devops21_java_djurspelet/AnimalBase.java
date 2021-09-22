@@ -16,7 +16,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private int mHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
-	private Random rand;
+	Random rand = new Random();
 	int birthRate = rand.nextInt(2);
 
 
@@ -77,9 +77,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*/
 	public int getAge() { return mAge; }
 
-	public void growOlder(){
+	public void growOlder() {
 		mAge++;
-		mHealth -= (int)(Math.random()*20)+10;
+		mHealth -= (int) (Math.random() * 20) + 10;
 	}
 	public int tryMate(AnimalBase a, AnimalBase b){
 	if ((a.mKind.equals(b.mKind)) && (GENDER_MALE != GENDER_FEMALE) && (birthRate == 1));
