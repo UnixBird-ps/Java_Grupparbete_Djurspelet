@@ -57,7 +57,7 @@ public class Store
 		}
 
 		// Write to screen name of food, price and how much there is left
-		System.out.println( "Vi har dessa djurfoder till försäljning:" );
+		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
 		for ( FoodBase f : mFoods )
 		{
 			String lStr = String.format( "%s   pris: %d/Kg    : %d kg", f.getName(), f.getPrice(), f.getQuantity() );
