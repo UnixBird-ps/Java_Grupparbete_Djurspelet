@@ -74,7 +74,7 @@ public class Player {
                         mFoods.add(pFood);
                         int temp = mFoods.indexOf(pFood);
                         mFoods.get(temp).setQuantity(lQuantity);
-                        pFood.removeQuantity(lQuantity);
+                        //pFood.removeQuantity(lQuantity); unintended effect
                     } else {
                         int temp = mFoods.indexOf(pFood);
                         mFoods.get(temp).addQuantity(lQuantity);
@@ -124,6 +124,9 @@ public class Player {
         }
     }
 
+    /**
+     * prints the food and amount of said food the player holds in their supply
+     */
     public void printFoodOwned() {
         System.out.print("I " + mName + "'s matförråd finns det: ");
         if (!mFoods.isEmpty()) {
