@@ -20,7 +20,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private int mExpectedLifeLength;
 
 	private FoodBase mRightFood;
-	int birthRate = rand.nextInt(2);
+	int mBirthRate = rand.nextInt(2);
 
 
 	/**
