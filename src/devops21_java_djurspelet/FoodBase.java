@@ -12,6 +12,7 @@ public abstract class FoodBase
 	*
 	* @param pName food name
 	* @param pPrice  In kilograms
+	 * @param pQuantity quantity of food held
 	*/
 	public FoodBase( String pName, int pPrice, int pQuantity )
 	{

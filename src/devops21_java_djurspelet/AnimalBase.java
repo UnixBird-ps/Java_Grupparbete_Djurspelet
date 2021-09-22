@@ -72,4 +72,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* @return  Animal's age
 	*/
 	public int getAge() { return mAge; }
+
+	public void growOlder(){
+		mAge++;
+		mHealth -= (int)(Math.random()*20)+10;
+	}
 }
