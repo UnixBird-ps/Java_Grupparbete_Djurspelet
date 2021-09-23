@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Player
-{
+public class Player {
 
     private static final int ATSTART_CREDITS = 25000;
     private String mName;
@@ -20,19 +19,13 @@ public class Player
         mFoods = new ArrayList<>();
     }
 
-    public String getName() {
-        return mName;
-    }
-
-
     /**
      * Stores any AnimalBase child object sent into the player ArrayList
      *
      * @param pAnimal animal to add to local AnimalBase ArrayList
      * @param pStore  store to remove the animal from
      */
-    public void buyAnimal( AnimalBase pAnimal, Store pStore )
-    {
+    public void buyAnimal(AnimalBase pAnimal, Store pStore) {
         if (mCredits >= pAnimal.getPrice()) {
             mCredits -= pAnimal.getPrice();
             mAnimals.add(pAnimal);
@@ -41,7 +34,6 @@ public class Player
             System.out.println("Du har inte råd att köpa detta djur!");
         }
     }
-
 
     /**
      * method sells an animal adding it to store sent and removing it from player
@@ -57,13 +49,13 @@ public class Player
 
     /**
      * sells animal to no recipient
+     *
      * @param pAnimal sells animal for equivalent value
      */
     public void sellAnimal(AnimalBase pAnimal) {
         mCredits += pAnimal.getPrice();
         mAnimals.remove(pAnimal);
     }
-
 
     /**
      * Receives food from store as chosen type to purchase.
@@ -103,7 +95,6 @@ public class Player
         }
     }
 
-
     /**
      * filters out int from players choice through console input
      * catches any other wrongful inputs
@@ -132,20 +123,17 @@ public class Player
      * prints out list of animals in a vertical format
      * includes index animal is at
      */
-    public void printLivestock()
-    {
-			int index = 0;
-			if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
-			System.out.println("I " + mName + "'s djurbestånd finns det:");
-			for (  int i = 0; i < mAnimals.size(); i++ )
-			{
-				//System.out.println(index++ + ". " + temp.getKind() + "(" + temp.getName() + ")" );
-				AnimalBase a = mAnimals.get( i );
-				String lStr = String.format( "%d. art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
-				System.out.println( lStr );
-			}
-		}
-
+    public void printLivestock() {
+        int index = 0;
+        if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
+        System.out.println("I " + mName + "'s djurbestånd finns det:");
+        for (int i = 0; i < mAnimals.size(); i++) {
+            //System.out.println(index++ + ". " + temp.getKind() + "(" + temp.getName() + ")" );
+            AnimalBase a = mAnimals.get(i);
+            String lStr = String.format("%d. art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice());
+            System.out.println(lStr);
+        }
+    }
 
     /**
      * prints the food and amount of said food the player holds in their supply
@@ -154,13 +142,12 @@ public class Player
         System.out.println("I " + mName + "'s matförråd finns det:");
         if (!mFoods.isEmpty()) {
             for (FoodBase food : mFoods) {
-                System.out.println( food.getName() + food.getQuantity() + " kg");
+                System.out.println(food.getName() + food.getQuantity() + " kg");
             }
-        }else{
-            System.out.println(mName+" du har ju ingen mat!");
+        } else {
+            System.out.println(mName + " du har ju ingen mat!");
         }
     }
-
 
     /**
      * prints to console the current amount this Player holds
@@ -169,4 +156,7 @@ public class Player
         System.out.println(mName + " has " + mCredits + " Credit(s)");
     }
 
+    public String getName() {
+        return mName;
+    }
 }
