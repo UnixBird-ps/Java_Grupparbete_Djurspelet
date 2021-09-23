@@ -28,7 +28,9 @@ public class Game
 	private static Store mStore;
 	private static ArrayList<Player> mPlayers;
 	private static int mNumOfPlayersRequested;
+	private static int mNumOfRoundsRequested;
 	private static int mRoundsStillToRun;
+	private static int mRoundNumber;
 
 
 	/**
@@ -53,9 +55,12 @@ public class Game
 	 */
 	private void setupGame()
 	{
+		mRoundNumber = 0;
+
 //		Following commented out lines are important in the game when testing is over
 //		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-//		mRoundsStillToRun = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+//		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+//		mRoundsStillToRun = mNumOfRoundsRequested;
 //
 //		// Ask for player names and add players to the game.
 //		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
@@ -65,11 +70,19 @@ public class Game
 //		}
 
 		// For testing only
-		mRoundsStillToRun = ATSTART_MAX_ROUNDS - ATSTART_MIN_ROUNDS;
-		mNumOfPlayersRequested = 3;
+		mNumOfRoundsRequested = ATSTART_MAX_ROUNDS;
+		mRoundsStillToRun = mNumOfRoundsRequested;
+
 		mPlayers.add( new Player( "Åsa" ) );
+		mPlayers.get( 0 ).mAnimals.add( new Cat( 1000 ) );
+		mPlayers.get( 0 ).mAnimals.add( new Dog( 1000 ) );
 		mPlayers.add( new Player( "Östen" ) );
+		mPlayers.get( 1 ).mAnimals.add( new Dog( 1000 ) );
+		mPlayers.get( 1 ).mAnimals.add( new Rabbit( 1000 ) );
 		mPlayers.add( new Player( "Håkan" ) );
+		mPlayers.get( 2 ).mAnimals.add( new Rabbit( 1000 ) );
+		mPlayers.get( 2 ).mAnimals.add( new Cattle( 1000 ) );
+		mNumOfPlayersRequested = mPlayers.size();
 	}
 
 
@@ -239,8 +252,10 @@ public class Game
 		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
+			mRoundNumber++;
+			System.out.println( "Round: " + mRoundNumber + " of " + mNumOfRoundsRequested + "   Rounds left: " + mRoundsStillToRun );
+
 			// For testing only
-//			System.out.println( "RoundsStillToRun: " + mRoundsStillToRun );
 //			System.out.println( "mPlayers.size(): " + mPlayers.size() );
 
 			runOneRound();
@@ -263,23 +278,6 @@ public class Game
 
 		// The round logic starts here
 
-		for ( Player p: mPlayers )
-		{
-			// Remove animals that has died from players' animal list
-			// Create a temp list, copy over only animals that are still alive
-			ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
-			for ( AnimalBase a: p.mAnimals )
-			{
-				a.growOlder();
-				if ( a.getHealth() > 0 )
-					lNewAnimalList.add( a );
-				else
-					System.out.println( p.getName() + "s " + a.getKind() + "(" + a.getName() + ") har dött." );
-			}
-			p.mAnimals.clear();
-			p.mAnimals.addAll( lNewAnimalList );
-		}
-
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			// Maybe replacable by a different for loop, should be ordered maybe
@@ -290,6 +288,23 @@ public class Game
 			//boolean lEndPlayerTurn = false;
 
 			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
+
+
+			//if ( mRoundNumber > 1 )
+			//{
+				// Remove animals that has died from players' animal list
+				// Create a temp list, copy over only animals that are still alive
+				ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
+				for ( AnimalBase a: lCurrentPlayer.mAnimals )
+				{
+					if ( a.getHealth() > 0 )
+						lNewAnimalList.add( a );
+					else
+						System.out.println( lCurrentPlayer.getName() + "s " + a.getKind() + "(" + a.getName() + ") har dött." );
+				}
+				lCurrentPlayer.mAnimals.clear();
+				lCurrentPlayer.mAnimals.addAll( lNewAnimalList );
+			//}
 
 			// Show what animals the player owns
 			lCurrentPlayer.printLivestock();
@@ -309,7 +324,7 @@ public class Game
 			switch ( askForValidChoiceWithDesc( "Vad vill du göra?", lPlayerChoiceDesc ) )
 			{
 				case 1 :
-					mStore.playerEntersAnimalStore( lCurrentPlayer );
+					mStore.playerEntersAnimalBuyStore( lCurrentPlayer );
 					break;
 				case 2 :
 					mStore.playerEntersFoodStore( lCurrentPlayer );
@@ -322,8 +337,12 @@ public class Game
 					break;
 				case 5 :
 					// Player selling an animal
+					mStore.playerEntersAnimalSellStore( lCurrentPlayer );
 					break;
 			}
+
+			// Every animal the player owns
+			for ( AnimalBase a: lCurrentPlayer.mAnimals ) { a.growOlder(); }
 
 		} // Player's turn loop end
 
