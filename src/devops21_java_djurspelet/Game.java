@@ -5,18 +5,6 @@ import java.util.ArrayList;
 
 
 public class Game {
-    // Local class for testing only
-//	private static class TestPlayer
-//	{
-//		static final int ATSTART_CREDITS = 10000;
-//		private String mName;
-//		private int mCredits;
-//		// Constructor
-//		TestPlayer( String pReqName )
-//		{ mName = pReqName; mCredits = ATSTART_CREDITS; }
-//		public String getName()
-//		{ return mName; }
-//	}
 
     private static final String mName = "Djurspelet";
     private static final int ATSTART_MIN_PLAYERS = 2;
