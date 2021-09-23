@@ -49,9 +49,18 @@ public class Player
      * @param pAnimal player animal to sell
      * @param pStore  store for list adress to send animal to
      */
-    public void sellAnimal(AnimalBase pAnimal, Store pStore) {
+    public void sellAnimaltoStore(AnimalBase pAnimal, Store pStore) {
         mCredits += pAnimal.getPrice();
         pStore.mAnimals.add(pAnimal);
+        mAnimals.remove(pAnimal);
+    }
+
+    /**
+     * sells animal to no recipient
+     * @param pAnimal sells animal for equivalent value
+     */
+    public void sellAnimal(AnimalBase pAnimal) {
+        mCredits += pAnimal.getPrice();
         mAnimals.remove(pAnimal);
     }
 
