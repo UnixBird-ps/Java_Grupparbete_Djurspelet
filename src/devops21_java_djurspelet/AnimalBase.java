@@ -47,15 +47,25 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	/**
-	* @return
+	* @return   GENDER_MALE or GENDER_FEMALE
 	*/
 	public int getGender() { return mGender; }
+
+
+	/**
+	* @return   A string "hona" or "hane"
+	*/
 	public String getGenderStr()
 	{
-		String lGenderStr = switch ( mGender ) {
-			case GENDER_MALE -> "hane";
-			case GENDER_FEMALE -> "hona";
-			default -> "";
+		String lGenderStr = "";
+		switch ( mGender )
+		{
+			case GENDER_MALE :
+				lGenderStr = "hane";
+				break;
+			case GENDER_FEMALE :
+				lGenderStr = "hona";
+				break;
 		};
 		return lGenderStr;
 	}
