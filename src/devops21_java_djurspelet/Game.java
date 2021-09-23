@@ -206,6 +206,7 @@ public class Game
 	{
 		System.out.println( pMsg );
 
+		// Loop through pPlayerChoiceDesc array and write to screen every element
 		for ( int i = 0; i < pPlayerChoiceDesc.length; i++ )
 		{
 			String s = pPlayerChoiceDesc[ i ];
@@ -289,7 +290,6 @@ public class Game
 			//boolean lEndPlayerTurn = false;
 
 			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
-			System.out.println( lCurrentPlayer.getName() + " har:" );
 
 			// Show what animals the player owns
 			lCurrentPlayer.printLivestock();
