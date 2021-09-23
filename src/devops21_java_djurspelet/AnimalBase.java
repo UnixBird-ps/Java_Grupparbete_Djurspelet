@@ -94,7 +94,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 			case FEMALE :
 				lGenderStr = "hona";
 				break;
-		};
+		}
 		return lGenderStr;
 	}
 
@@ -146,5 +146,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	public boolean canEatThis( FoodBase pWhatFood )
 	{
 		return mRightFood.getName().equalsIgnoreCase( pWhatFood.getName() );
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 }
