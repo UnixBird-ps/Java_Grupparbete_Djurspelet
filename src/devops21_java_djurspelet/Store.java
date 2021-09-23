@@ -140,7 +140,7 @@ public class Store
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
 			AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
 			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
-			pPlayer.buyAnimal( lChosenAnimal, this );
+			pPlayer.buyAnimal( lChosenAnimal );
 		}
 	}
 
