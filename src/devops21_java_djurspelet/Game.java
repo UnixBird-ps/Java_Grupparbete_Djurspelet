@@ -306,10 +306,8 @@ public class Game {
                     break;
             }
 
-            // Every animal the player owns
-            for (AnimalBase a : lCurrentPlayer.mAnimals) {
-                a.growOlder();
-            }
+            // Every animal the player owns grows older
+            lCurrentPlayer.decayAnimalsOwned();
 
         } // Player's turn loop end
 
