@@ -20,18 +20,29 @@ public class Player {
     }
 
     /**
-     * Stores any AnimalBase child object sent into the player ArrayList
-     *
-     * @param pAnimal animal to add to local AnimalBase ArrayList
-     * @param pStore  store to remove the animal from
+     * lets you choose how many of received animals to purchase
+     * @param pAnimal animal to purchase
      */
-    public void buyAnimal(AnimalBase pAnimal, Store pStore) {
-        if (mCredits >= pAnimal.getPrice()) {
-            mCredits -= pAnimal.getPrice();
-            mAnimals.add(pAnimal);
-            pStore.mAnimals.remove(pAnimal);
-        } else {
-            System.out.println("Du har inte råd att köpa detta djur!");
+    public void buyAnimal(AnimalBase pAnimal) {
+        boolean lLoop = true;
+        while (lLoop){
+            System.out.print("Välj hur många djur du vill köpa: ");
+            int animalAmount = playerIntChoice();
+            if (mCredits >= pAnimal.getPrice()*animalAmount) {
+                mCredits -= pAnimal.getPrice();
+                for(int i =0; i<animalAmount;i++){
+                    mAnimals.add(pAnimal);
+                }
+                lLoop =false;
+            } else {
+                System.out.println("Du har inte råd!");
+                switch(Game.askForValidChar("Avbryt köp?","jn")){
+                    case 'j':
+                        lLoop = false;
+                        break;
+                    case 'n':
+                }
+            }
         }
     }
 
@@ -114,6 +125,10 @@ public class Player {
             } catch (Exception e) {
                 System.out.println("Endast heltal!\nförsök igen:");
             }
+        }
+        if(result<0){
+            System.out.println("Inga negativa siffror!\nförsök igen:");
+            playerIntChoice();
         }
         return result;
     }
