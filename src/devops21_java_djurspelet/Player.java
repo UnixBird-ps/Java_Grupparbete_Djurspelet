@@ -27,7 +27,7 @@ public class Player {
         boolean lLoop = true;
         while (lLoop){
             System.out.print("Välj hur många djur du vill köpa: ");
-            int animalAmount = playerIntChoice();
+            int animalAmount = Game.askForValidNumber("",1,1000);
             if (mCredits >= pAnimal.getPrice()*animalAmount) {
                 mCredits -= pAnimal.getPrice();
                 for(int i =0; i<animalAmount;i++){
@@ -77,25 +77,28 @@ public class Player {
      */
     public void buyFood(FoodBase pFood) {
         if (pFood.getQuantity() != 0) {
-            System.out.print("Hur mycket " + pFood.getName() + " Vill du köpa?\nAnge mängd i kg:");
-            int lQuantity = playerIntChoice();
+            System.out.println("Hur mycket " + pFood.getName() + " Vill du köpa?");
+            int lQuantity = Game.askForValidNumber("Ange kg: ",1,10000);
             if (lQuantity <= pFood.getQuantity()) {
                 System.out.println("Det kommer kosta: " + (lQuantity * pFood.getPrice()) + " Credits");
-                System.out.println("Är du säker? 1:fortsätt , allt annat:avbryt");
-                if (playerIntChoice() == 1) {
+                if (Game.askForValidChar("Är du säker? j/n", "jn") == 'j') {
+                    if(mCredits < lQuantity * pFood.getPrice()) {
                     /*
                       adds obj food into list if not present and sets quantity to amount bought
                       else adds quantity bought onto existing obj in list
                      */
-                    if (!mFoods.contains(pFood)) {
-                        mFoods.add(pFood);
-                        int temp = mFoods.indexOf(pFood);
-                        mFoods.get(temp).setQuantity(lQuantity);
-                        //pFood.removeQuantity(lQuantity); unintended effect
-                    } else {
-                        int temp = mFoods.indexOf(pFood);
-                        mFoods.get(temp).addQuantity(lQuantity);
-                        pFood.removeQuantity(lQuantity);
+                        if (!mFoods.contains(pFood)) {
+                            mFoods.add(pFood);
+                            int temp = mFoods.indexOf(pFood);
+                            mFoods.get(temp).setQuantity(lQuantity);
+                            //pFood.removeQuantity(lQuantity); unintended effect
+                        } else {
+                            int temp = mFoods.indexOf(pFood);
+                            mFoods.get(temp).addQuantity(lQuantity);
+                            pFood.removeQuantity(lQuantity);
+                        }
+                    }else{
+                        System.out.println("Du har inte råd!");
                     }
                 } else {
                     System.out.println("För dyrt för dig?");
