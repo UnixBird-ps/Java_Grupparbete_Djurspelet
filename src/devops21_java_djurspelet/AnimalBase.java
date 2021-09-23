@@ -24,15 +24,40 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	/**
-	 * @param pKind                What animal
-	 * @param pPriceAtMaxHealth    Original price
-	 * @param pExpectedLifeLength  Dies at end
-	 */
+	* Initializes Animal object.
+	* Sets kind, price at 100% health, expected life length
+	* Randomizes gender
+	*
+	* @param pKind                What animal
+	* @param pPriceAtMaxHealth    Original price
+	* @param pExpectedLifeLength  Dies at end
+	*/
 	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
 	{
 		mName = "Unnamed";
 		mKind = pKind;
 		mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? GENDER_MALE : GENDER_FEMALE;
+		mPriceAtMaxHealth = pPriceAtMaxHealth;
+		mHealth = ATSTART_HEALTH;
+		mAge = 0;
+		mExpectedLifeLength = pExpectedLifeLength;
+	}
+
+
+	/**
+	* Initializes Animal object.
+	* Sets kind, price at 100% health, expected life length and gender
+	*
+	* @param pKind                What animal
+	* @param pPriceAtMaxHealth    Original price
+	* @param pExpectedLifeLength  Dies at end
+	* @param pGender              GENDER_MALE or GENDER_FEMALE
+	*/
+	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, int pGender )
+	{
+		mName = "Unnamed";
+		mKind = pKind;
+		mGender = pGender;
 		mPriceAtMaxHealth = pPriceAtMaxHealth;
 		mHealth = ATSTART_HEALTH;
 		mAge = 0;
