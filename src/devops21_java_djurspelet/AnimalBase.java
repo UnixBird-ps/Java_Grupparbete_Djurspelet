@@ -3,17 +3,20 @@ package devops21_java_djurspelet;
 
 import java.util.Random;
 
+enum AnimalGender
+{
+	MALE, FEMALE
+}
+
 public abstract class AnimalBase // Enforce creation of subclasses
 {
 	Random rand = new Random();
 
 	static final int ATSTART_HEALTH = 100;
-	static final int GENDER_MALE    = 1;
-	static final int GENDER_FEMALE  = 2;
 
 	private String mName;
 	private String mKind;
-	private int mGender;
+	private AnimalGender mGender;
 	private int mPriceAtMaxHealth;
 	private int mHealth;
 	private int mAge;
@@ -36,7 +39,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	{
 		mName = "Unnamed";
 		mKind = pKind;
-		mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? GENDER_MALE : GENDER_FEMALE;
+		mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? AnimalGender.MALE : AnimalGender.FEMALE;
 		mPriceAtMaxHealth = pPriceAtMaxHealth;
 		mHealth = ATSTART_HEALTH;
 		mAge = 0;
@@ -53,7 +56,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* @param pExpectedLifeLength  Dies at end
 	* @param pGender              GENDER_MALE or GENDER_FEMALE
 	*/
-	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, int pGender )
+	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, AnimalGender pGender )
 	{
 		mName = "Unnamed";
 		mKind = pKind;
@@ -72,9 +75,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	/**
-	* @return   GENDER_MALE or GENDER_FEMALE
+	* @return   AnimalGender.MALE or AnimalGender.FEMALE
 	*/
-	public int getGender() { return mGender; }
+	public AnimalGender getGender() { return mGender; }
 
 
 	/**
@@ -85,10 +88,10 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		String lGenderStr = "";
 		switch ( mGender )
 		{
-			case GENDER_MALE :
+			case MALE :
 				lGenderStr = "hane";
 				break;
-			case GENDER_FEMALE :
+			case FEMALE :
 				lGenderStr = "hona";
 				break;
 		};
@@ -127,9 +130,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
-	public int tryMate(AnimalBase a, AnimalBase b){
+	public AnimalGender tryMate(AnimalBase a, AnimalBase b){
 
-		if (a.mKind.equals(b.mKind) && GENDER_MALE != GENDER_FEMALE && (mBirthRate == 1));
+		if (a.mKind.equals(b.mKind) && AnimalGender.MALE != AnimalGender.FEMALE && (mBirthRate == 1));
         return mGender;
 	}
 
