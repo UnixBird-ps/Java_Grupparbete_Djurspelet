@@ -25,8 +25,7 @@ public class Player {
     public void buyAnimal(AnimalBase pAnimal) {
         boolean lLoop = true;
         while (lLoop){
-            System.out.print("Välj hur många djur du vill köpa: ");
-            int animalAmount = Game.askForValidNumber("",1,1000);
+            int animalAmount = Game.askForValidNumber("Välj hur många djur du vill köpa: ",1,1000);
             if (mCredits >= pAnimal.getPrice()*animalAmount) {
                 mCredits -= pAnimal.getPrice()*animalAmount;
                 for(int i =0; i<animalAmount;i++){
