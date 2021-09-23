@@ -1,7 +1,7 @@
 # IntelliJ project data
 /.idea
 /*.iml
-/.out
+/out
 
 # Eclipse project data
 /.classpath
