@@ -12,4 +12,10 @@ public class Rabbit extends AnimalBase
 	{
 		super( "Kanin", pPriceAtMaxHealth, 10 );
 	}
+
+
+	public Rabbit( int pPriceAtMaxHealth, AnimalGender pAnimalGender )
+	{
+		super( "Kanin", pPriceAtMaxHealth, 10, pAnimalGender );
+	}
 }

@@ -12,4 +12,10 @@ public class Cattle extends AnimalBase
 	{
 		super( "Nötkreatur", pPriceAtMaxHealth, 20 );
 	}
+
+
+	public Cattle( int pPriceAtMaxHealth, AnimalGender pAnimalGender )
+	{
+		super( "Nötkreatur", pPriceAtMaxHealth, 10, pAnimalGender );
+	}
 }
