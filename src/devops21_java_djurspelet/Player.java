@@ -118,6 +118,16 @@ public class Player {
         return result;
     }
 
+    /**
+     * Makes all animals the player hold age (take health damage)
+     */
+    public void decayAnimalsOwned(){
+        if(!mAnimals.isEmpty()){
+            for (AnimalBase animal: mAnimals) {
+                animal.growOlder();
+            }
+        }
+    }
 
     /**
      * prints out list of animals in a vertical format
