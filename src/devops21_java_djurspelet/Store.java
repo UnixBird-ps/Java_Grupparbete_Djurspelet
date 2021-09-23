@@ -22,24 +22,16 @@ public class Store
 		mFoods   = new ArrayList<>();
 
 		// Create data
-		mAnimals.add( new Cat( 1000 ) );
-		mAnimals.add( new Cat( 1000 ) );
-		mAnimals.add( new Cat( 1000 ) );
-		mAnimals.add( new Cat( 1000 ) );
-		mAnimals.add( new Cat( 1000 ) );
-		mAnimals.add( new Dog( 1000 ) );
-		mAnimals.add( new Dog( 1000 ) );
-		mAnimals.add( new Dog( 1000 ) );
-		mAnimals.add( new Dog( 1000 ) );
-		mAnimals.add( new Rabbit( 1000 ) );
-		mAnimals.add( new Rabbit( 1000 ) );
-		mAnimals.add( new Rabbit( 1000 ) );
-		mAnimals.add( new Horse( 10000 ) );
-		mAnimals.add( new Horse( 10000 ) );
-		mAnimals.add( new Horse( 10000 ) );
-		mAnimals.add( new Cattle( 10000 ) );
-		mAnimals.add( new Cattle( 10000 ) );
-		mAnimals.add( new Cattle( 10000 ) );
+		mAnimals.add( new Cat( 1000, AnimalGender.MALE ) );
+		mAnimals.add( new Cat( 1000, AnimalGender.FEMALE ) );
+		mAnimals.add( new Dog( 1000, AnimalGender.MALE) );
+		mAnimals.add( new Dog( 1000, AnimalGender.FEMALE ) );
+		mAnimals.add( new Rabbit( 1000, AnimalGender.MALE ) );
+		mAnimals.add( new Rabbit( 1000, AnimalGender.FEMALE ) );
+		mAnimals.add( new Cattle( 10000, AnimalGender.MALE ) );
+		mAnimals.add( new Cattle( 10000, AnimalGender.FEMALE ) );
+		mAnimals.add( new Horse( 10000, AnimalGender.MALE ) );
+		mAnimals.add( new Horse( 10000, AnimalGender.FEMALE ) );
 		mFoods.add( new Forage( "Grovfoder", 2, ATSTART_QUANTITY_PER_FOOD ) );
 		mFoods.add( new Carrots( "Morötter", 15, ATSTART_QUANTITY_PER_FOOD ) );
 		mFoods.add( new DogFood( "Torrfoder för hundar", 50, ATSTART_QUANTITY_PER_FOOD ) );
@@ -140,8 +132,10 @@ public class Store
 		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
 		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
 		{
+			// Prevent index go beyond the bounds
 			int lLastIndex = mAnimals.size() - 1;
 			if ( lLastIndex < 0 ) lLastIndex = 0;
+
 			// Show a message and wait for a valid input
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
 			AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
@@ -174,7 +168,7 @@ public class Store
 		if ( lLastIndex < 0 ) lLastIndex = 0;
 
 		// Show a message and wait for a valid input
-		int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+		int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, lLastIndex );
 		AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
 		System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
 		pPlayer.sellAnimal( lChosenAnimal );
