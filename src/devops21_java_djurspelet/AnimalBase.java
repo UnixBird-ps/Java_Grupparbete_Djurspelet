@@ -5,6 +5,8 @@ import java.util.Random;
 
 public abstract class AnimalBase // Enforce creation of subclasses
 {
+	Random rand = new Random();
+
 	static final int ATSTART_HEALTH = 100;
 	static final int GENDER_MALE    = 1;
 	static final int GENDER_FEMALE  = 2;
@@ -16,9 +18,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private int mHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
+
 	private FoodBase mRightFood;
-	Random rand = new Random();
-	int birthRate = rand.nextInt(2);
+	int mBirthRate = rand.nextInt(2);
 
 
 	/**
@@ -91,8 +93,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	public int tryMate(AnimalBase a, AnimalBase b){
-	if ((a.mKind.equals(b.mKind)) && (GENDER_MALE != GENDER_FEMALE) && (birthRate == 1));
-		return mGender;
+
+		if (a.mKind.equals(b.mKind) && GENDER_MALE != GENDER_FEMALE && (mBirthRate == 1));
+        return mGender;
 	}
 
 
