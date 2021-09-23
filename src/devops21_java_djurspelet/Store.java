@@ -57,48 +57,82 @@ public class Store
 
 
 	/**
+	*  Displays a nicely formated list
 	*  Loops through the list av animals available in store
 	*/
 	protected void displayAnimalInventory()
 	{
 		// Write to screen kind, health and price of animals
 		System.out.println( "\nVi har dessa djur till försäljning :" );
+
+		int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
 			AnimalBase a = mAnimals.get( i );
-			String lStr = String.format( "%d art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
+			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+			if ( a.getKind().length() > lKindLength ) lKindLength = a.getKind().length();
+			if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
+			if ( Integer.toString( a.getHealth() ).length() > lHealthLength ) lHealthLength = Integer.toString( a.getHealth() ).length();
+			if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
+		}
+		System.out.println( lNumLength + " " + lKindLength + " " + lHealthLength + " " + lGenderLength + " " + lPriceLength );
+
+		for (  int i = 0; i < mAnimals.size(); i++ )
+		{
+			AnimalBase a = mAnimals.get( i );
+			String lStr = String.format( "%" + lNumLength + "d  art: %" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%   kön: %" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
 			System.out.println( lStr );
 		}
 	}
 
 
 	/**
-	 *  Loops through the list av foods available in store
-	 */
+	*  Displays a nicely formated list
+	*  Loops through the list av foods available in store
+	*/
 	protected void displayFoodInventory()
 	{
 		// Write to screen name of food, price and how much there is left
 		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
+
+		int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
 			FoodBase f = mFoods.get( i );
-			String lStr = String.format( "%d namn: %s   pris: %dkr/Kg    : %d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
+			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+			if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
+			if ( Integer.toString( f.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( f.getPrice() ).length();
+			if ( Integer.toString( f.getQuantity() ).length() > lQuantityLength ) lQuantityLength = Integer.toString( f.getQuantity() ).length();
+		}
+		System.out.println( lNumLength + " " + lNameLength + " " + lPriceLength + " " + lQuantityLength );
+
+		for (  int i = 0; i < mFoods.size(); i++ )
+		{
+			FoodBase f = mFoods.get( i );
+			String lStr = String.format( "%" + lNumLength + "d  namn: %" + lNameLength + "s   pris: %" + lPriceLength + "dkr/Kg", i, f.getName(), f.getPrice() );
 			System.out.println( lStr );
 		}
 	}
 
 
-	protected void playerEntersAnimalStore( Player pPlayer )
+	/**
+	 * Show what animals the player owns
+	 * Ask if the player wants to buy food for the animals
+	 * Show a message and wait for a valid input
+	 * Calls a method that does the actual movement of data
+	 *
+	 * @param pPlayer  The player object who enters the store
+	 */
+	protected void playerEntersAnimalBuyStore( Player pPlayer )
 	{
 		// Say Hi
 		displayGreeting();
 		// Show what is available in the store
 		displayAnimalInventory();
-		//System.out.println( "mAnimals.size(): " + mAnimals.size() );
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
-		//pPlayer.printFood();
+		pPlayer.printFoodOwned();
 		pPlayer.printCredits();
 
 		// Ask if the player wants to buy an animal
@@ -117,13 +151,50 @@ public class Store
 	}
 
 
+	/**
+	* Show what animals and food the player owns
+	* Ask if the player wants to sell an animal
+	* Show a message and wait for a valid input
+	* Calls a method that does the actual movement of data
+	*/
+	protected void playerEntersAnimalSellStore( Player pPlayer )
+	{
+		// Say Hi
+		displayGreeting();
+
+		System.out.println( "TODO: Visa en meny där spelare kan välja ett eller flera djur som spelaren äger" );
+
+		// Show what animals the player owns
+		pPlayer.printLivestock();
+		pPlayer.printFoodOwned();
+		pPlayer.printCredits();
+
+		// Prevent index go beyond the bounds
+		int lLastIndex = pPlayer.mAnimals.size() - 1;
+		if ( lLastIndex < 0 ) lLastIndex = 0;
+
+		// Show a message and wait for a valid input
+		int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+		AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
+		System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+		pPlayer.sellAnimal( lChosenAnimal );
+	}
+
+
+	/**
+	* Show what animals the player owns
+	* Ask if the player wants to buy food for the animals
+	* Show a message and wait for a valid input
+	* Calls a method that does the actual movement of data
+	*
+	* @param pPlayer  The player object who enters the store
+	*/
 	protected void playerEntersFoodStore( Player pPlayer )
 	{
 		// Say Hi
 		displayGreeting();
 		// Show what is available in the store
 		displayFoodInventory();
-		//System.out.println( "mFoods.size(): " + mFoods.size() );
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
@@ -135,12 +206,16 @@ public class Store
 		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
 		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
 		{
+			// Prevent index go beyond the bounds
 			int lLastIndex = mFoods.size() - 1;
 			if ( lLastIndex < 0 ) lLastIndex = 0;
+
 			// Show a message and wait for a valid input
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
 			FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );
 			System.out.println( "Spelarens val: " + lChosenFood.getName() );
+
+			// Do the actual buy
 			pPlayer.buyFood( lChosenFood ); //, this );
 		}
 
