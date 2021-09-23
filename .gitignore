@@ -1,3 +1,6 @@
+# Mac Finder files
+.DS_Store
+
 # IntelliJ project data
 /.idea
 /*.iml
