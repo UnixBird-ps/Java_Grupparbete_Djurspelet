@@ -200,7 +200,7 @@ public class Game
 
 
 	/**
-	* Shows a list of otions
+	* Shows a list of options
 	* Asks for user input. Loops until a valid value has been entered
 	*
 	* @param pMsg Message shown on th screen
