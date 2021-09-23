@@ -315,10 +315,13 @@ public class Game
 					mStore.playerEntersFoodStore( lCurrentPlayer );
 					break;
 				case 3 :
+					// Player feeding an animal
 					break;
 				case 4 :
+					// Player tries animal breeding
 					break;
 				case 5 :
+					// Player selling an animal
 					break;
 			}
 
