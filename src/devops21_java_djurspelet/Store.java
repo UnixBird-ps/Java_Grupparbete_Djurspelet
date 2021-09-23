@@ -156,8 +156,6 @@ public class Store
 		// Say Hi
 		displayGreeting();
 
-		System.out.println( "TODO: Visa en meny där spelare kan välja ett eller flera djur som spelaren äger" );
-
 		// Show what animals the player owns
 		pPlayer.printLivestock();
 		pPlayer.printFoodOwned();
