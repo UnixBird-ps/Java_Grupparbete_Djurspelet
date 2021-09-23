@@ -1,7 +1,6 @@
 package devops21_java_djurspelet;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Player {
@@ -29,9 +28,10 @@ public class Player {
             System.out.print("Välj hur många djur du vill köpa: ");
             int animalAmount = Game.askForValidNumber("",1,1000);
             if (mCredits >= pAnimal.getPrice()*animalAmount) {
-                mCredits -= pAnimal.getPrice();
+                mCredits -= pAnimal.getPrice()*animalAmount;
                 for(int i =0; i<animalAmount;i++){
                     mAnimals.add(pAnimal);
+                    mAnimals.get(mAnimals.size()-1).setmName(Game.askForValidName("Döp ditt djur!"));
                 }
                 lLoop =false;
             } else {
@@ -109,32 +109,6 @@ public class Player {
         }
     }
 
-    /**
-     * filters out int from players choice through console input
-     * catches any other wrongful inputs
-     *
-     * @return returns chosen integer
-     */
-    public int playerIntChoice() {
-        Scanner scan = new Scanner(System.in);
-        boolean badInput = true;
-        String lTemp;
-        int result = 0;
-        while (badInput) {
-            lTemp = scan.nextLine();
-            try {
-                result = Integer.parseInt(lTemp);
-                badInput = false;
-            } catch (Exception e) {
-                System.out.println("Endast heltal!\nförsök igen:");
-            }
-        }
-        if(result<0){
-            System.out.println("Inga negativa siffror!\nförsök igen:");
-            playerIntChoice();
-        }
-        return result;
-    }
 
     /**
      * Makes all animals the player hold age (take health damage)
