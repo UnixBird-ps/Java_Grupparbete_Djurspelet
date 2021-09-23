@@ -10,9 +10,9 @@ public abstract class FoodBase
 	/**
 	* Initializes this object
 	*
-	* @param pName food name
-	* @param pPrice  In kilograms
-	 * @param pQuantity quantity of food held
+	* @param pName      Food name
+	* @param pPrice     In whole SEK
+	* @param pQuantity  Quantity of food held in whole kilograms
 	*/
 	public FoodBase( String pName, int pPrice, int pQuantity )
 	{
