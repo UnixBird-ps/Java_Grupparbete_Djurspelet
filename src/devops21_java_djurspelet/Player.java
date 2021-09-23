@@ -136,6 +136,7 @@ public class Player
     {
 			int index = 0;
 			if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
+			System.out.println("I " + mName + "'s djurbestånd finns det:");
 			for (  int i = 0; i < mAnimals.size(); i++ )
 			{
 				//System.out.println(index++ + ". " + temp.getKind() + "(" + temp.getName() + ")" );
@@ -150,10 +151,10 @@ public class Player
      * prints the food and amount of said food the player holds in their supply
      */
     public void printFoodOwned() {
-        System.out.print("I " + mName + "'s matförråd finns det: ");
+        System.out.println("I " + mName + "'s matförråd finns det:");
         if (!mFoods.isEmpty()) {
             for (FoodBase food : mFoods) {
-                System.out.print( food.getName() + food.getQuantity() + " kg");
+                System.out.println( food.getName() + food.getQuantity() + " kg");
             }
         }else{
             System.out.println(mName+" du har ju ingen mat!");
