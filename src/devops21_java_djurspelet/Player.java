@@ -193,7 +193,8 @@ public class Player {
 	/**
 	* Show a list of animals the player owns
 	* Let the player select an animal
-	* Feed the aninal
+	* Let the player select food
+	* Feed the animal
 	*
 	* @author P.S.
 	*/
