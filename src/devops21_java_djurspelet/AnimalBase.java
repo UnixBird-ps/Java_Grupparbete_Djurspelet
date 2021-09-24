@@ -15,6 +15,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private AnimalGender mGender;
 	protected int mPriceAtMaxHealth;
 	private int mHealth;
+	private int mLastHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
 
@@ -40,6 +41,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? AnimalGender.MALE : AnimalGender.FEMALE;
 		mPriceAtMaxHealth = pPriceAtMaxHealth;
 		mHealth = ATSTART_HEALTH;
+		mLastHealth = mHealth;
 		mAge = 0;
 		mExpectedLifeLength = pExpectedLifeLength;
 	}
@@ -114,11 +116,35 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	/**
-	* @return  Animal's health
+	* @return  Animal's health as int
 	*
 	* @author P.S.
 	*/
 	public int getHealth() { return mHealth; }
+
+
+	/**
+	 * @return  Animal's health as String
+	 *
+	 * @author P.S.
+	 */
+	public String getHealthStr() { return String.valueOf( mHealth ); }
+
+
+	/**
+	 * @return  Animal's health change as int
+	 *
+	 * @author P.S.
+	 */
+	public int getHealthDelta() { return mHealth - mLastHealth; }
+
+
+	/**
+	 * @return  Animal's health change as text
+	 *
+	 * @author P.S.
+	 */
+	public String getHealthDeltaStr() { return String.valueOf( mHealth - mLastHealth ); }
 
 
 	/**
@@ -139,6 +165,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 	public void growOlder() {
 		mAge++;
+		mLastHealth = mHealth;
 		mHealth -= (int) (Math.random() * 20) + 10;
 		if ( mHealth < 0 ) mHealth = 0;
 	}
