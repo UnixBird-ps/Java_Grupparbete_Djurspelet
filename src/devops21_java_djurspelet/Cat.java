@@ -2,19 +2,28 @@ package devops21_java_djurspelet;
 
 public class Cat extends AnimalBase
 {
+	protected static final int ATSTART_CAT_PRICE = 1000;
 
 	/**
 	* Initializes this object
 	*
-	* @param pPriceAtMaxHealth  Price at 100% health
+	* @author P.S.
 	*/
-	public Cat( int pPriceAtMaxHealth )
+	public Cat()
 	{
-		super( "Katt", pPriceAtMaxHealth, 15 );
+		super( "Katt", ATSTART_CAT_PRICE, 15 );
 	}
 
-	public Cat( int pPriceAtMaxHealth, AnimalGender pGender )
+
+	/**
+	* Initializes this object
+	*
+	* @param pGender  Desired gender of this animal
+	*
+	* @author P.S.
+	*/
+	public Cat( AnimalGender pGender )
 	{
-		super( "Katt", pPriceAtMaxHealth, 15, pGender );
+		super( "Katt", ATSTART_CAT_PRICE, 15, pGender );
 	}
 }

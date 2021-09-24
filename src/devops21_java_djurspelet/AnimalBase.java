@@ -8,7 +8,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 {
 	Random rand = new Random();
 
-	static final int ATSTART_HEALTH = 100;
+	protected static final int ATSTART_HEALTH = 100;
 
 	private String mName;
 	private String mKind;

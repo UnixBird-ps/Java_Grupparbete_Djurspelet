@@ -2,20 +2,28 @@ package devops21_java_djurspelet;
 
 public class Horse extends AnimalBase
 {
+	protected static final int ATSTART_HORSE_PRICE = 20000;
 
 	/**
 	* Initializes this object
 	*
-	* @param pPriceAtMaxHealth  Price at 100% health
+	* @author P.S.
 	*/
-	public Horse( int pPriceAtMaxHealth )
+	public Horse()
 	{
-		super( "Häst", pPriceAtMaxHealth, 25 );
+		super( "Häst", ATSTART_HORSE_PRICE, 25 );
 	}
 
 
-	public Horse( int pPriceAtMaxHealth, AnimalGender pAnimalGender )
+	/**
+	* Initializes this object
+	*
+	* @param pGender  Desired gender of this animal
+	*
+	* @author P.S.
+	*/
+	public Horse( AnimalGender pGender )
 	{
-		super( "Häst", pPriceAtMaxHealth, 10, pAnimalGender );
+		super( "Häst", ATSTART_HORSE_PRICE, 25, pGender );
 	}
 }
