@@ -140,12 +140,11 @@ public class Player {
 				if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
 				if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
 			}
-			System.out.println( lNumLength + " " + lKindLength + " " + lHealthLength + " " + lGenderLength + " " + lPriceLength );
 
         for (int i = 0; i < mAnimals.size(); i++) {
             //System.out.println(index++ + ". " + temp.getKind() + "(" + temp.getName() + ")" );
             AnimalBase a = mAnimals.get(i);
-            String lStr = String.format("%d. art: %s   hälsa: %d%%(%d%%)   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice());
+            String lStr = String.format( "%" + lNumLength + "d. art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%(%d%%)   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice() );
             System.out.println(lStr);
         }
     }
@@ -157,7 +156,7 @@ public class Player {
         System.out.println("I " + mName + "'s matförråd finns det:");
         if (!mFoods.isEmpty()) {
             for (FoodBase food : mFoods) {
-                System.out.println(food.getName() + food.getQuantity() + " kg");
+                System.out.println(food.getName() + " " + food.getQuantity() + " kg");
             }
         } else {
             System.out.println(mName + " du har ju ingen mat!");
