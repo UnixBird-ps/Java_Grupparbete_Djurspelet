@@ -1,7 +1,6 @@
 package devops21_java_djurspelet;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Player {
@@ -26,12 +25,12 @@ public class Player {
     public void buyAnimal(AnimalBase pAnimal) {
         boolean lLoop = true;
         while (lLoop){
-            System.out.print("Välj hur många djur du vill köpa: ");
-            int animalAmount = playerIntChoice();
+            int animalAmount = Game.askForValidNumber("Välj hur många djur du vill köpa: ",1,1000);
             if (mCredits >= pAnimal.getPrice()*animalAmount) {
-                mCredits -= pAnimal.getPrice();
+                mCredits -= pAnimal.getPrice()*animalAmount;
                 for(int i =0; i<animalAmount;i++){
                     mAnimals.add(pAnimal);
+                    mAnimals.get(mAnimals.size()-1).setmName(Game.askForValidName("Döp ditt djur!"));
                 }
                 lLoop =false;
             } else {
@@ -77,25 +76,28 @@ public class Player {
      */
     public void buyFood(FoodBase pFood) {
         if (pFood.getQuantity() != 0) {
-            System.out.print("Hur mycket " + pFood.getName() + " Vill du köpa?\nAnge mängd i kg:");
-            int lQuantity = playerIntChoice();
+            System.out.println("Hur mycket " + pFood.getName() + " Vill du köpa?");
+            int lQuantity = Game.askForValidNumber("Ange kg: ",1,10000);
             if (lQuantity <= pFood.getQuantity()) {
                 System.out.println("Det kommer kosta: " + (lQuantity * pFood.getPrice()) + " Credits");
-                System.out.println("Är du säker? 1:fortsätt , allt annat:avbryt");
-                if (playerIntChoice() == 1) {
+                if (Game.askForValidChar("Är du säker? j/n", "jn") == 'J') {
+                    if(mCredits > lQuantity * pFood.getPrice()) {
                     /*
                       adds obj food into list if not present and sets quantity to amount bought
                       else adds quantity bought onto existing obj in list
                      */
-                    if (!mFoods.contains(pFood)) {
-                        mFoods.add(pFood);
-                        int temp = mFoods.indexOf(pFood);
-                        mFoods.get(temp).setQuantity(lQuantity);
-                        //pFood.removeQuantity(lQuantity); unintended effect
-                    } else {
-                        int temp = mFoods.indexOf(pFood);
-                        mFoods.get(temp).addQuantity(lQuantity);
-                        pFood.removeQuantity(lQuantity);
+                        if (!mFoods.contains(pFood)) {
+                            mFoods.add(pFood);
+                            int temp = mFoods.indexOf(pFood);
+                            mFoods.get(temp).setQuantity(lQuantity);
+                            //pFood.removeQuantity(lQuantity); unintended effect
+                        } else {
+                            int temp = mFoods.indexOf(pFood);
+                            mFoods.get(temp).addQuantity(lQuantity);
+                            pFood.removeQuantity(lQuantity);
+                        }
+                    }else{
+                        System.out.println("Du har inte råd!");
                     }
                 } else {
                     System.out.println("För dyrt för dig?");
@@ -106,32 +108,6 @@ public class Player {
         }
     }
 
-    /**
-     * filters out int from players choice through console input
-     * catches any other wrongful inputs
-     *
-     * @return returns chosen integer
-     */
-    public int playerIntChoice() {
-        Scanner scan = new Scanner(System.in);
-        boolean badInput = true;
-        String lTemp;
-        int result = 0;
-        while (badInput) {
-            lTemp = scan.nextLine();
-            try {
-                result = Integer.parseInt(lTemp);
-                badInput = false;
-            } catch (Exception e) {
-                System.out.println("Endast heltal!\nförsök igen:");
-            }
-        }
-        if(result<0){
-            System.out.println("Inga negativa siffror!\nförsök igen:");
-            playerIntChoice();
-        }
-        return result;
-    }
 
     /**
      * Makes all animals the player hold age (take health damage)
