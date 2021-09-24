@@ -79,10 +79,10 @@ public class Game
 	* Asks for user input. Loops until a valid value within a range has been entered.
 	* Shows a notice if value is outside range.
 	*
-	* @param pMsg      Message shown on th screen
-	* @param pValidMin Lower limit
-	* @param pValidMax Upper limit
-	* @return A value between pValidMin and pValidMax, inclusive
+	* @param pMsg       Message shown on th screen
+	* @param pValidMin  Lower limit
+	* @param pValidMax  Upper limit
+	* @return           A value between pValidMin and pValidMax, inclusive
 	*/
 	public static int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
 	{
@@ -126,9 +126,9 @@ public class Game
 	* Asks for user input. Loops until a valid character has been entered
 	* Shows a notice if value is not valid.
 	*
-	* @param pMsg        Message shown on the screen
-	* @param pValidChars List of valid chars as a plain string
-	* @return The character entered
+	* @param pMsg         Message shown on the screen
+	* @param pValidChars  List of valid chars as a plain string
+	* @return             The character entered
 	*/
 	protected static char askForValidChar( String pMsg, String pValidChars )
 	{
@@ -172,15 +172,15 @@ public class Game
 	* @param pMsg Message shown on th screen
 	* @return Validated string
 	*/
-	protected static String askForValidName(String pMsg)
+	protected static String askForValidName( String pMsg )
 	{
 		boolean lIsValid = false; // Not yet!
-		Scanner lScanner = new Scanner(System.in);
+		Scanner lScanner = new Scanner( System.in );
 		String lInputStr = "";
 
 		String lRegExStr = "[A-ZÅÄÖ][A-ZÅÄÖa-zåäö -]+"; // Swedish alphabet
 
-		while (!lIsValid) // Keep asking for valid choice
+		while ( !lIsValid ) // Keep asking for valid choice
 		{
 			// Show the message on screen
 			System.out.print(pMsg + " : ");
@@ -189,10 +189,10 @@ public class Game
 			lInputStr = lScanner.nextLine();
 
 			// Validate input with regular expression
-			lIsValid = lInputStr.matches(lRegExStr);
+			lIsValid = lInputStr.matches( lRegExStr );
 
-			if (!lIsValid)
-				System.out.println("Namnet godtas inte.");
+			if ( !lIsValid )
+				System.out.println( "Namnet godtas inte.") ;
 		}
 
 		return lInputStr;
@@ -212,8 +212,8 @@ public class Game
 
 		// Loop through pPlayerChoiceDesc array and write to screen every element
 		for (int i = 0; i < pPlayerChoiceDesc.length; i++) {
-			String s = pPlayerChoiceDesc[i];
-			System.out.println((1 + i) + ": " + s);
+			String s = pPlayerChoiceDesc[ i ];
+			System.out.println( (1 + i) + ": " + s );
 		}
 
 		// Reuse method
