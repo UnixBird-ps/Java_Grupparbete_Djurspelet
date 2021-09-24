@@ -155,6 +155,8 @@ public class Store
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
 			AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
 			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+
+			// Do the actual buy
 			pPlayer.buyAnimal( lChosenAnimal );
 		}
 	}
@@ -186,6 +188,8 @@ public class Store
 		int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, lLastIndex );
 		AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
 		System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+
+		// Do the actual sell
 		pPlayer.sellAnimal( lChosenAnimal );
 	}
 
