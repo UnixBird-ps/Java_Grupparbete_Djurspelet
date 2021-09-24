@@ -2,7 +2,8 @@ package devops21_java_djurspelet;
 
 public class Dog extends AnimalBase
 {
-	protected static final int ATSTART_DOG_PRICE = 1000;
+	protected static final int ATSTART_PRICE = 1000;
+	protected static final String ATSTART_KIND = "hund";
 
 	/**
 	* Initializes this object
@@ -11,7 +12,7 @@ public class Dog extends AnimalBase
 	*/
 	public Dog()
 	{
-		super( "Hund", ATSTART_DOG_PRICE, 16 );
+		super( ATSTART_KIND, ATSTART_PRICE, 16 );
 	}
 
 
@@ -24,6 +25,6 @@ public class Dog extends AnimalBase
 	*/
 	public Dog( AnimalGender pGender )
 	{
-		super( "Hund", ATSTART_DOG_PRICE, 16, pGender );
+		super( ATSTART_KIND, ATSTART_PRICE, 16, pGender );
 	}
 }

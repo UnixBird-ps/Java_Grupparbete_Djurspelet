@@ -99,7 +99,7 @@ public class Game
 		while ( !lIsValid ) // Keep asking for a valid choice
 		{
 			// Print to screen the message and a valid intervall
-			System.out.print( pMsg + "Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
+			System.out.print( "\n" + pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
 
 			// Get input from user
 			String lInputStr = lScanner.nextLine();
@@ -193,7 +193,7 @@ public class Game
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
 			// Show the message on screen
-			System.out.print(pMsg + " : ");
+			System.out.print( "\n" + pMsg + " : " );
 
 			// Get input from user
 			lInputStr = lScanner.nextLine();
@@ -220,7 +220,7 @@ public class Game
 	*/
 	protected static int askForValidChoiceWithDesc( String pMsg, String[] pPlayerChoiceDesc )
 	{
-		System.out.println(pMsg);
+		System.out.println( "Dessa val finns:" );
 
 		// Loop through pPlayerChoiceDesc array and write to screen every element
 		for (int i = 0; i < pPlayerChoiceDesc.length; i++) {
@@ -229,7 +229,7 @@ public class Game
 		}
 
 		// Reuse method
-		return askForValidNumber( "", 1, pPlayerChoiceDesc.length );
+		return askForValidNumber( pMsg, 1, pPlayerChoiceDesc.length );
 	}
 
 
@@ -255,9 +255,6 @@ public class Game
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
 			mRoundNumber++;
-			System.out.println( "Round: " + mRoundNumber + " of " + mNumOfRoundsRequested );
-
-			//System.out.println( "mPlayers.size(): " + mPlayers.size() ); // For testing only
 
 			runOneRound();
 
@@ -281,6 +278,8 @@ public class Game
 	{
 		// For testing only
 		System.out.println( "\nGame round step entered." );
+
+		System.out.println( "Round: " + mRoundNumber + " of " + mNumOfRoundsRequested );
 
 		// The round logic starts here
 
@@ -313,6 +312,8 @@ public class Game
 			lCurrentPlayer.printFoodOwned();
 			lCurrentPlayer.printCredits();
 
+			System.out.println( "" );
+
 			// Give a player 5 choices
 			String lPlayerChoiceDesc[] =
 			{
@@ -323,7 +324,7 @@ public class Game
 				"Sälja djur"
 			};
 			// and send these choices to askForValidChoiceWithDesc
-			switch ( askForValidChoiceWithDesc( "Vad vill du göra?", lPlayerChoiceDesc ) )
+			switch ( askForValidChoiceWithDesc( lCurrentPlayer.getName() + " vad vill du göra?", lPlayerChoiceDesc ) )
 			{
 				case 1:
 					mStore.playerEntersAnimalBuyStore( lCurrentPlayer );
