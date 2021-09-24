@@ -68,6 +68,7 @@ public class Store
 		// Write to screen kind, health and price of animals
 		System.out.println( "\nVi har dessa djur till försäljning :" );
 
+		// Following lines are used to get largest string length of every property in the list, used for formatting
 		int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
@@ -100,6 +101,7 @@ public class Store
 		// Write to screen name of food, price and how much there is left
 		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
 
+		// Following lines are used to get largest string length of every property in the list, used for formatting
 		int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
