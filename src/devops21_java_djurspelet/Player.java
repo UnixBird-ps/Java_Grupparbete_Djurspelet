@@ -129,10 +129,23 @@ public class Player {
         int index = 0;
         if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
         System.out.println("I " + mName + "'s djurbestånd finns det:");
+
+			int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
+			for (  int i = 0; i < mAnimals.size(); i++ )
+			{
+				AnimalBase a = mAnimals.get( i );
+				if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+				if ( a.getKind().length() > lKindLength ) lKindLength = a.getKind().length();
+				if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
+				if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
+				if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
+			}
+			System.out.println( lNumLength + " " + lKindLength + " " + lHealthLength + " " + lGenderLength + " " + lPriceLength );
+
         for (int i = 0; i < mAnimals.size(); i++) {
             //System.out.println(index++ + ". " + temp.getKind() + "(" + temp.getName() + ")" );
             AnimalBase a = mAnimals.get(i);
-            String lStr = String.format("%d. art: %s   hälsa: %d%%   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice());
+            String lStr = String.format("%d. art: %s   hälsa: %d%%(%d%%)   kön: %s   pris: %d kr", i, a.getKind(), a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice());
             System.out.println(lStr);
         }
     }
@@ -176,4 +189,17 @@ public class Player {
 		{
 			System.out.println( "TODO: Method for animal breeding" );
 		}
+
+
+	/**
+	* Show a list of animals the player owns
+	* Let the player select an animal
+	* Feed the aninal
+	*
+	* @author P.S.
+	*/
+	public void tryAnimalFeeding()
+	{
+		System.out.println( "TODO: Method for animal feeding" );
+	}
 }
