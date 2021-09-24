@@ -250,17 +250,13 @@ public class Game
 			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
 		}
 
-		// For testing only
-		System.out.println("\nMain game loop entered.");
-
 		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
 			mRoundNumber++;
-			System.out.println( "Round: " + mRoundNumber + " of " + mNumOfRoundsRequested + "   Rounds left: " + mRoundsStillToRun );
+			System.out.println( "Round: " + mRoundNumber + " of " + mNumOfRoundsRequested );
 
-			// For testing only
-//			System.out.println( "mPlayers.size(): " + mPlayers.size() );
+			//System.out.println( "mPlayers.size(): " + mPlayers.size() ); // For testing only
 
 			runOneRound();
 
@@ -271,7 +267,6 @@ public class Game
 		// For testing only
 		System.out.println( "\nRoundsStillToRun: " + mRoundsStillToRun );
 		System.out.println( "mPlayers.size(): " + mPlayers.size() );
-		System.out.println( "\nMain game loop ended." );
 	}
 
 
