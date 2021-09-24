@@ -180,17 +180,22 @@ public class Store
 		pPlayer.printFoodOwned();
 		pPlayer.printCredits();
 
-		// Prevent index go beyond the bounds
-		int lLastIndex = pPlayer.mAnimals.size() - 1;
-		if ( lLastIndex < 0 ) lLastIndex = 0;
+		if ( pPlayer.mAnimals.size() > 0 )
+		{
+			// Prevent index go beyond the bounds
+			int lLastIndex = pPlayer.mAnimals.size() - 1;
+			if ( lLastIndex < 0 ) lLastIndex = 0;
 
-		// Show a message and wait for a valid input
-		int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, lLastIndex );
-		AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
-		System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+			// Show a message and wait for a valid input
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, lLastIndex );
+			AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
+			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
 
-		// Do the actual sell
-		pPlayer.sellAnimal( lChosenAnimal );
+			// Do the actual sell
+			pPlayer.sellAnimal( lChosenAnimal );
+		}
+		else
+			System.out.println( pPlayer.getName() + ", du äger inga djur." );
 	}
 
 
