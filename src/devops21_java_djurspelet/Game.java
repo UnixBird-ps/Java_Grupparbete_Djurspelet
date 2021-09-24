@@ -340,6 +340,7 @@ public class Game
 					break;
 				case 4:
 					// Player tries animal breeding
+					lCurrentPlayer.tryAnimalBreeding();
 					break;
 				case 5:
 					// Player selling an animal

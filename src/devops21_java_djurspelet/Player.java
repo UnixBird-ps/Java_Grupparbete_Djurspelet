@@ -161,4 +161,19 @@ public class Player {
     public String getName() {
         return mName;
     }
+
+
+		/**
+		* Show a list of animals the player owns
+		* Let the player select an animal
+		* Let the player select another animal of same kind but different gender
+		* Create new animal using the keyword new and right constructor, there are two
+		* Add the newly crated animal to player's list of animals
+		*
+		* @author P.S.
+		*/
+		public void tryAnimalBreeding()
+		{
+			System.out.println( "TODO: Method for animal breeding" );
+		}
 }

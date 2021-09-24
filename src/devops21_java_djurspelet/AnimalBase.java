@@ -13,7 +13,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private String mName;
 	private String mKind;
 	private AnimalGender mGender;
-	private int mPriceAtMaxHealth;
+	protected int mPriceAtMaxHealth;
 	private int mHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
@@ -144,11 +144,14 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
-	public AnimalGender tryMate(AnimalBase a, AnimalBase b){
+	// Hint: in Player.tryAnimalBreeding()
+
+	public AnimalGender tryMateWith(AnimalBase a, AnimalBase b){
 
 		if (a.mKind.equals(b.mKind) && AnimalGender.MALE != AnimalGender.FEMALE && (mBirthRate == 1));
         return mGender;
 	}
+
 
 
 	/**
