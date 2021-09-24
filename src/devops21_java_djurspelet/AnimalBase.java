@@ -36,7 +36,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*/
 	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
 	{
-		mName = "Unnamed";
+		mName = "Namnlös";
 		mKind = pKind;
 		mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? AnimalGender.MALE : AnimalGender.FEMALE;
 		mPriceAtMaxHealth = pPriceAtMaxHealth;
