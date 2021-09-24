@@ -83,7 +83,7 @@ public class Store
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
 			AnimalBase a = mAnimals.get( i );
-			String lStr = String.format( "%" + lNumLength + "d  art: %" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%   kön: %" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
+			String lStr = String.format( "%" + lNumLength + "d  art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
 			System.out.println( lStr );
 		}
 	}
@@ -114,7 +114,7 @@ public class Store
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
 			FoodBase f = mFoods.get( i );
-			String lStr = String.format( "%" + lNumLength + "d  namn: %" + lNameLength + "s   pris: %" + lPriceLength + "dkr/Kg", i, f.getName(), f.getPrice() );
+			String lStr = String.format( "%" + lNumLength + "d  namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "dkr/Kg", i, f.getName(), f.getPrice() );
 			System.out.println( lStr );
 		}
 	}
