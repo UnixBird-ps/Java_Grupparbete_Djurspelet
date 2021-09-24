@@ -62,18 +62,18 @@ public class Game
 //			mPlayers.add( new TestPlayer( lReqPlayerName ) );
 //		}
 
-		// For testing only
+		// For testing only, to generate data
 		mNumOfRoundsRequested = ATSTART_MAX_ROUNDS;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
-		mPlayers.get( 0 ).mAnimals.add( new Cat( 1000 ) );
-		mPlayers.get( 0 ).mAnimals.add( new Dog( 1000 ) );
+		mPlayers.get( 0 ).mAnimals.add( new Cat() );
+		mPlayers.get( 0 ).mAnimals.add( new Horse() );
 		mPlayers.add( new Player( "Östen" ) );
-		mPlayers.get( 1 ).mAnimals.add( new Dog( 1000 ) );
-		mPlayers.get( 1 ).mAnimals.add( new Rabbit( 1000 ) );
+		mPlayers.get( 1 ).mAnimals.add( new Dog() );
+		mPlayers.get( 1 ).mAnimals.add( new Rabbit() );
 		mPlayers.add( new Player( "Håkan" ) );
-		mPlayers.get( 2 ).mAnimals.add( new Rabbit( 1000 ) );
-		mPlayers.get( 2 ).mAnimals.add( new Cattle( 1000 ) );
+		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
+		mPlayers.get( 2 ).mAnimals.add( new Cattle() );
 		mNumOfPlayersRequested = mPlayers.size();
 	}
 
@@ -242,13 +242,14 @@ public class Game
 	*/
 	private void runMainGameLoop()
 	{
-		// For testing only
+		// start For testing only
 		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
 		System.out.println( "Players:" );
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
 		}
+		// end For testing only
 
 		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
@@ -349,12 +350,11 @@ public class Game
 
 		} // Player's turn loop end
 
-		// For testing. Removes a player. Prints out who was removed
+		// For testing. But code can be used in game. Prints out who was removed
 		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
 		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
 
-		// For testing only
-		System.out.println( "\nGame round step ended." );
+		System.out.println( "\nGame round step ended." ); // For testing only
 	}
 
 	static String getName()

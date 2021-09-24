@@ -29,20 +29,20 @@ public class Store
 		mFoods   = new ArrayList<>();
 
 		// Create data
-		mAnimals.add( new Cat( 1000, AnimalGender.MALE ) );
-		mAnimals.add( new Cat( 1000, AnimalGender.FEMALE ) );
-		mAnimals.add( new Dog( 1000, AnimalGender.MALE) );
-		mAnimals.add( new Dog( 1000, AnimalGender.FEMALE ) );
-		mAnimals.add( new Rabbit( 1000, AnimalGender.MALE ) );
-		mAnimals.add( new Rabbit( 1000, AnimalGender.FEMALE ) );
-		mAnimals.add( new Cattle( 10000, AnimalGender.MALE ) );
-		mAnimals.add( new Cattle( 10000, AnimalGender.FEMALE ) );
-		mAnimals.add( new Horse( 10000, AnimalGender.MALE ) );
-		mAnimals.add( new Horse( 10000, AnimalGender.FEMALE ) );
-		mFoods.add( new Forage( "Grovfoder", 2, ATSTART_QUANTITY_PER_FOOD ) );
-		mFoods.add( new Carrots( "Morötter", 15, ATSTART_QUANTITY_PER_FOOD ) );
-		mFoods.add( new DogFood( "Torrfoder för hundar", 50, ATSTART_QUANTITY_PER_FOOD ) );
-		mFoods.add( new CatFood( "Torrfoder för katter", 50, ATSTART_QUANTITY_PER_FOOD ) );
+		mAnimals.add( new Cat( AnimalGender.MALE ) );
+		mAnimals.add( new Cat( AnimalGender.FEMALE ) );
+		mAnimals.add( new Dog( AnimalGender.MALE) );
+		mAnimals.add( new Dog( AnimalGender.FEMALE ) );
+		mAnimals.add( new Rabbit( AnimalGender.MALE ) );
+		mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
+		mAnimals.add( new Cattle( AnimalGender.MALE ) );
+		mAnimals.add( new Cattle( AnimalGender.FEMALE ) );
+		mAnimals.add( new Horse( AnimalGender.MALE ) );
+		mAnimals.add( new Horse( AnimalGender.FEMALE ) );
+		mFoods.add( new Forage( "Grovfoder", ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new Carrots( "Morötter", ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new DogFood( "Torrfoder för hundar", ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new CatFood( "Torrfoder för katter", ATSTART_QUANTITY_PER_FOOD ) );
 	}
 
 
