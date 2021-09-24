@@ -321,7 +321,7 @@ public class Game
 				"Försöka para djur",
 				"Sälja djur"
 			};
-
+			// and send these choices to askForValidChoiceWithDesc
 			switch ( askForValidChoiceWithDesc( "Vad vill du göra?", lPlayerChoiceDesc ) )
 			{
 				case 1:
@@ -331,7 +331,8 @@ public class Game
 					mStore.playerEntersFoodStore( lCurrentPlayer) ;
 					break;
 				case 3:
-					// Player feeding an animal
+					// Player tries feeding an animal
+					lCurrentPlayer.tryAnimalFeeding();
 					break;
 				case 4:
 					// Player tries animal breeding
