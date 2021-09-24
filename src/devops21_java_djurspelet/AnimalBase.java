@@ -30,6 +30,8 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* @param pKind                What animal
 	* @param pPriceAtMaxHealth    Original price
 	* @param pExpectedLifeLength  Dies at end
+	*
+	* @author P.S.
 	*/
 	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
 	{
@@ -51,6 +53,8 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* @param pPriceAtMaxHealth    Original price
 	* @param pExpectedLifeLength  Dies at end
 	* @param pGender              GENDER_MALE or GENDER_FEMALE
+	*
+	* @author P.S.
 	*/
 	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, AnimalGender pGender )
 	{
@@ -66,18 +70,24 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 	/**
 	* @return  This animal's kind
+	*
+	* @author P.S.
 	*/
 	public String getKind() { return mKind; }
 
 
 	/**
 	* @return   AnimalGender.MALE or AnimalGender.FEMALE
+	*
+	* @author P.S.
 	*/
 	public AnimalGender getGender() { return mGender; }
 
 
 	/**
 	* @return   A string "hona" or "hane"
+	*
+	* @author P.S.
 	*/
 	public String getGenderStr()
 	{
@@ -97,24 +107,32 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 	/**
 	* @return  Animal's name, if set
+	*
+	* @author P.S.
 	*/
 	public String getName() { return mName; }
 
 
 	/**
 	* @return  Animal's health
+	*
+	* @author P.S.
 	*/
 	public int getHealth() { return mHealth; }
 
 
 	/**
 	* @return  Computed price, from health and original price
+	*
+	* @author P.S.
 	*/
 	public int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
 
 
 	/**
 	* @return  Animal's age
+	*
+	* @author P.S.
 	*/
 	public int getAge() { return mAge; }
 
@@ -138,6 +156,8 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @param pWhatFood  A food object
 	* @return           True if same
+	*
+	* @author P.S.
 	*/
 	public boolean canEatThis( FoodBase pWhatFood )
 	{

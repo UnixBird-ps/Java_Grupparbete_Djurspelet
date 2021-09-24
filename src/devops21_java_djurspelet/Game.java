@@ -23,6 +23,8 @@ public class Game
 	/**
 	* Calls method where game is set up by asking players some values
 	* Calls method where main loop runs
+	*
+	* @author P.S.
 	*/
 	Game()
 	{
@@ -41,6 +43,8 @@ public class Game
 	* Asks the user for values to initialize the game with.
 	* Asks for number of rounds to play.
 	* Asks for number of players in this game.
+	*
+	* @author P.S.
 	*/
 	private void setupGame()
 	{
@@ -83,6 +87,8 @@ public class Game
 	* @param pValidMin  Lower limit
 	* @param pValidMax  Upper limit
 	* @return           A value between pValidMin and pValidMax, inclusive
+	*
+	* @author P.S.
 	*/
 	public static int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
 	{
@@ -129,6 +135,8 @@ public class Game
 	* @param pMsg         Message shown on the screen
 	* @param pValidChars  List of valid chars as a plain string
 	* @return             The character entered
+	*
+	* @author P.S.
 	*/
 	protected static char askForValidChar( String pMsg, String pValidChars )
 	{
@@ -171,6 +179,8 @@ public class Game
 	*
 	* @param pMsg Message shown on th screen
 	* @return Validated string
+	*
+	* @author P.S.
 	*/
 	protected static String askForValidName( String pMsg )
 	{
@@ -205,6 +215,8 @@ public class Game
 	*
 	* @param pMsg Message shown on th screen
 	* @return Validated string
+	*
+	* @author P.S.
 	*/
 	protected static int askForValidChoiceWithDesc( String pMsg, String[] pPlayerChoiceDesc )
 	{
@@ -225,6 +237,8 @@ public class Game
 	* Runs the main game loop
 	* Until number of players still in this game is 1
 	* or all of this game rounds has been run
+	*
+	* @author P.S.
 	*/
 	private void runMainGameLoop()
 	{
@@ -261,6 +275,12 @@ public class Game
 	}
 
 
+	/**
+	* Runs one game round
+	* Until number of players still in this game is 1
+	*
+	* @author P.S.
+	*/
 	private void runOneRound()
 	{
 		// For testing only
