@@ -80,7 +80,8 @@ public class Player {
             int lQuantity = Game.askForValidNumber("Ange kg: ",1,10000);
             if (lQuantity <= pFood.getQuantity()) {
                 System.out.println("Det kommer kosta: " + (lQuantity * pFood.getPrice()) + " Credits");
-                if (Game.askForValidChar("Är du säker? j/n", "jn") == 'J') {
+                char lPlayerChoiceChar = Game.askForValidChar("Är du säker? j/n", "jn");
+							  if (  lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' ) {
                     if(mCredits > lQuantity * pFood.getPrice()) {
                     /*
                       adds obj food into list if not present and sets quantity to amount bought
