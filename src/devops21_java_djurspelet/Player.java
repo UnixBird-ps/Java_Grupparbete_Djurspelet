@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private static final int ATSTART_CREDITS = 25000;
+    private static final int ATSTART_CREDITS = 50000;
     private String mName;
     public int mCredits;
     public ArrayList<AnimalBase> mAnimals;
@@ -126,34 +126,39 @@ public class Player {
      * includes index animal is at
      */
     public void printLivestock() {
+        System.out.println( "" );
         int index = 0;
-        if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
         System.out.println("I " + mName + "'s djurbestånd finns det:");
+        if (mAnimals.isEmpty())
+            System.out.println(getName() + " har inga djur.");
+        else
+        {
+            // Following lines are used to get largest string length of every property in the list, used for formatting
+            int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
+            for (  int i = 0; i < mAnimals.size(); i++ )
+            {
+                AnimalBase a = mAnimals.get( i );
+                if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+                if ( a.getKind().length() > lKindLength ) lKindLength = a.getKind().length();
+                if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
+                if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
+                if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
+            }
 
-			// Following lines are used to get largest string length of every property in the list, used for formatting
-			int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
-			for (  int i = 0; i < mAnimals.size(); i++ )
-			{
-				AnimalBase a = mAnimals.get( i );
-				if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
-				if ( a.getKind().length() > lKindLength ) lKindLength = a.getKind().length();
-				if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
-				if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
-				if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
-			}
-
-        for (int i = 0; i < mAnimals.size(); i++) {
-            //System.out.println(index++ + ". " + temp.getKind() + "(" + temp.getName() + ")" );
-            AnimalBase a = mAnimals.get(i);
-            String lStr = String.format( "%" + lNumLength + "d. art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%(%d%%)   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice() );
-            System.out.println(lStr);
+            for (int i = 0; i < mAnimals.size(); i++)
+            {
+                AnimalBase a = mAnimals.get(i);
+                String lStr = String.format( "%" + lNumLength + "d. art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%(%d%%)   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice() );
+                System.out.println(lStr);
+            }
         }
-    }
+		}
 
     /**
      * prints the food and amount of said food the player holds in their supply
      */
     public void printFoodOwned() {
+        System.out.println( "" );
         System.out.println("I " + mName + "'s matförråd finns det:");
         if (!mFoods.isEmpty()) {
             for (FoodBase food : mFoods) {
@@ -201,6 +206,23 @@ public class Player {
 	*/
 	public void tryAnimalFeeding()
 	{
+		System.out.println( "" );
 		System.out.println( "TODO: Method for animal feeding" );
+
+		System.out.println( "" );
+		System.out.println( getName() + " ska nu mata sina djur." );
+
+		printLivestock();
+		printFoodOwned();
+
+		// Prevent index go beyond the bounds
+		int lLastIndex = mAnimals.size() - 1;
+		if ( lLastIndex < 0 ) lLastIndex = 0;
+
+		// Show a message and wait for a valid input
+		int lPlayerChoiceInt = Game.askForValidNumber( "Vilket djur vill du mata?", 0, lLastIndex );
+		AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
+
+		System.out.println( getName() +" vill mata sin " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
 	}
 }
