@@ -14,7 +14,14 @@ public class Store
 	public ArrayList<AnimalBase> mAnimals; // Sellable to players
 	public ArrayList<FoodBase> mFoods;     // Sellable to players
 
-	// Creates a store with a name
+
+	/**
+	* Creates a store with a name
+	*
+	* @param pName
+	*
+	* @author P.S.
+	*/
 	public Store( String pName )
 	{
 		mName = pName;
@@ -40,7 +47,9 @@ public class Store
 
 
 	/**
-	*  Greets a player
+	* Greets a player
+	*
+	* @author P.S.
 	*/
 	protected void displayGreeting()
 	{
@@ -49,8 +58,10 @@ public class Store
 
 
 	/**
-	*  Displays a nicely formated list
-	*  Loops through the list av animals available in store
+	* Displays a nicely formated list
+	* Loops through the list av animals available in store
+	*
+	* @author P.S.
 	*/
 	protected void displayAnimalInventory()
 	{
@@ -79,8 +90,10 @@ public class Store
 
 
 	/**
-	*  Displays a nicely formated list
-	*  Loops through the list av foods available in store
+	* Displays a nicely formated list
+	* Loops through the list av foods available in store
+	*
+	* @author P.S.
 	*/
 	protected void displayFoodInventory()
 	{
@@ -108,13 +121,15 @@ public class Store
 
 
 	/**
-	 * Show what animals the player owns
-	 * Ask if the player wants to buy food for the animals
-	 * Show a message and wait for a valid input
-	 * Calls a method that does the actual movement of data
-	 *
-	 * @param pPlayer  The player object who enters the store
-	 */
+	* Show what animals the player owns
+	* Ask if the player wants to buy food for the animals
+	* Show a message and wait for a valid input
+	* Calls a method that does the actual movement of data
+	*
+	* @param pPlayer  The player object who enters the store
+	*
+	* @author P.S.
+	*/
 	protected void playerEntersAnimalBuyStore( Player pPlayer )
 	{
 		// Say Hi
@@ -150,6 +165,8 @@ public class Store
 	* Ask if the player wants to sell an animal
 	* Show a message and wait for a valid input
 	* Calls a method that does the actual movement of data
+	*
+	* @author P.S.
 	*/
 	protected void playerEntersAnimalSellStore( Player pPlayer )
 	{
@@ -180,6 +197,8 @@ public class Store
 	* Calls a method that does the actual movement of data
 	*
 	* @param pPlayer  The player object who enters the store
+	*
+	* @author P.S.
 	*/
 	protected void playerEntersFoodStore( Player pPlayer )
 	{
