@@ -3,10 +3,6 @@ package devops21_java_djurspelet;
 
 import java.util.Random;
 
-enum AnimalGender
-{
-	MALE, FEMALE
-}
 
 public abstract class AnimalBase // Enforce creation of subclasses
 {
