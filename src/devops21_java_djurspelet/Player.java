@@ -130,6 +130,7 @@ public class Player {
         if (mAnimals.isEmpty()) System.out.println(getName() + " har inga djur.");
         System.out.println("I " + mName + "'s djurbestånd finns det:");
 
+			// Following lines are used to get largest string length of every property in the list, used for formatting
 			int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
 			for (  int i = 0; i < mAnimals.size(); i++ )
 			{
