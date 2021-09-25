@@ -138,7 +138,7 @@ public class Player {
             {
                 AnimalBase a = mAnimals.get( i );
                 if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
-                if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength ) lKindLength = ( a.getKindStr() + a.getName() ).length();
+                if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength ) lKindLength = ( a.getKindStr() + "(" + a.getName() + ")" ).length();
                 if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
                 if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
                 if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
@@ -225,9 +225,6 @@ public class Player {
 	*/
 	public void tryAnimalFeeding()
 	{
-		System.out.println( "" );
-		System.out.println( "TODO: Method for animal feeding" );
-
 		System.out.println( "" );
 		System.out.println( getName() + " ska nu mata sina djur." );
 
