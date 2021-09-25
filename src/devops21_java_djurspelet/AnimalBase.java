@@ -2,7 +2,7 @@ package devops21_java_djurspelet;
 
 
 import java.util.Random;
-
+import java.util.ArrayList;
 
 public abstract class AnimalBase // Enforce creation of subclasses
 {
@@ -11,15 +11,14 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	protected static final int ATSTART_HEALTH = 100;
 
 	private String mName;
-	private String mKind;
+	private AnimalKind mKind;
 	private AnimalGender mGender;
 	protected int mPriceAtMaxHealth;
 	private int mHealth;
 	private int mLastHealth;
 	private int mAge;
 	private int mExpectedLifeLength;
-
-	private FoodBase mRightFood;
+	protected ArrayList<String> mRightFood;
 	int mBirthRate = rand.nextInt(2);
 
 
@@ -34,7 +33,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
+	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
 	{
 		mName = "Namnlös";
 		mKind = pKind;
@@ -44,6 +43,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		mLastHealth = mHealth;
 		mAge = 0;
 		mExpectedLifeLength = pExpectedLifeLength;
+		mRightFood = new ArrayList<>();
 	}
 
 
@@ -58,15 +58,16 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	protected AnimalBase( String pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, AnimalGender pGender )
+	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, AnimalGender pGender )
 	{
-		mName = "Unnamed";
+		mName = "Namnlös";
 		mKind = pKind;
 		mGender = pGender;
 		mPriceAtMaxHealth = pPriceAtMaxHealth;
 		mHealth = ATSTART_HEALTH;
 		mAge = 0;
 		mExpectedLifeLength = pExpectedLifeLength;
+		mRightFood = new ArrayList<>();
 	}
 
 
@@ -75,7 +76,10 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public String getKind() { return mKind; }
+	public AnimalKind getKind() { return mKind; }
+
+
+	abstract public String getKindStr();
 
 
 	/**
@@ -108,14 +112,6 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	/**
-	* @return  Animal's name, if set
-	*
-	* @author P.S.
-	*/
-	public String getName() { return mName; }
-
-
-	/**
 	* @return  Animal's health as int
 	*
 	* @author P.S.
@@ -128,7 +124,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	 *
 	 * @author P.S.
 	 */
-	public String getHealthStr() { return String.valueOf( mHealth ); }
+	public String getHealthStr() { return String.valueOf( getHealth() ); }
 
 
 	/**
@@ -144,7 +140,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	 *
 	 * @author P.S.
 	 */
-	public String getHealthDeltaStr() { return String.valueOf( mHealth - mLastHealth ); }
+	public String getHealthDeltaStr() { return String.valueOf( getHealthDelta() ); }
 
 
 	/**
@@ -180,21 +176,71 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
+	/**
+	* Tests if this animal can eat certain type of food
+	*
+	* @param pWhatFoodStr  A food object
+	* @return              True if same
+	*
+	* @author P.S.
+	*/
+	public boolean canEatThis( String pWhatFoodStr )
+	{
+		for ( String fStr : mRightFood )
+		{
+			if ( fStr.equalsIgnoreCase( pWhatFoodStr ) ) return true;;
+		}
+		return false;
+	}
+
 
 	/**
-	* Tests if food is of the same type
+	* Tests if this animal can eat certain type of food
 	*
-	* @param pWhatFood  A food object
+	* @param pWhatFood  A food String
 	* @return           True if same
 	*
 	* @author P.S.
 	*/
 	public boolean canEatThis( FoodBase pWhatFood )
 	{
-		return mRightFood.getName().equalsIgnoreCase( pWhatFood.getName() );
+		for ( String fStr : mRightFood )
+		{
+			if ( fStr.equalsIgnoreCase( pWhatFood.getName() ) ) return true;
+		}
+		return false;
 	}
 
-	public void setmName(String mName) {
-		this.mName = mName;
+
+	/**
+	* Writes to screen a list of what this animal can eat
+	*
+	* @author P.S.
+	*/
+	public void printRightFoodList()
+	{
+		System.out.println( this.getKind() + " kan äta:" );
+
+		for ( String fStr : mRightFood )
+		{
+			System.out.println( fStr );
+		}
 	}
+
+
+	/**
+	*
+	* @param mName  Animal's name
+	*
+	* @author P.S.
+	*/
+	public void setName( String mName ) { this.mName = mName; }
+
+
+	/**
+	* @return  Animal's name, preset if not set
+	*
+	* @author P.S.
+	*/
+	public String getName() { return mName; }
 }
