@@ -212,6 +212,27 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
+	public boolean tryEat( FoodBase pWichFoodBacket, int pQuantity )
+	{
+		if ( this.canEatThis( pWichFoodBacket ) )
+		{
+			int lDiff = pWichFoodBacket.getQuantity() - pQuantity;
+			if ( lDiff < 0 ) pQuantity += lDiff;
+
+			pWichFoodBacket.removeQuantity( pQuantity );
+
+			this.mHealth += 10 * pQuantity;
+			if ( this.mHealth > 100 ) this.mHealth = 100;
+
+			return true;
+		}
+		else
+			System.out.println( this.mName + "(" + this.getKindStr() + ") kan inte äta " + pWichFoodBacket.getName() );
+
+		return false;
+	}
+
+
 	/**
 	* Writes to screen a list of what this animal can eat
 	*

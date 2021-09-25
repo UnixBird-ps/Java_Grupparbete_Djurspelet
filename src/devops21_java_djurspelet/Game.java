@@ -68,12 +68,18 @@ public class Game
 		mPlayers.add( new Player( "Åsa" ) );
 		mPlayers.get( 0 ).mAnimals.add( new Cat() );
 		mPlayers.get( 0 ).mAnimals.add( new Horse() );
+		mPlayers.get( 0 ).mFoods.add( new CatFood( 10 ) );
+		mPlayers.get( 0 ).mFoods.add( new Forage( 50 ) );
 		mPlayers.add( new Player( "Östen" ) );
 		mPlayers.get( 1 ).mAnimals.add( new Dog() );
 		mPlayers.get( 1 ).mAnimals.add( new Rabbit() );
+		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
+		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
 		mPlayers.add( new Player( "Håkan" ) );
 		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
 		mPlayers.get( 2 ).mAnimals.add( new Cattle() );
+		mPlayers.get( 2 ).mFoods.add( new Carrots( 10 ) );
+		mPlayers.get( 2 ).mFoods.add( new Forage( 50 ) );
 		mNumOfPlayersRequested = mPlayers.size();
 	}
 
@@ -95,6 +101,8 @@ public class Game
 		boolean lIsValid = false; // Not yet!
 		Scanner lScanner = new Scanner( System.in );
 		int lParsedInt = 0;
+
+		if ( pValidMax < pValidMin ) pValidMax = pValidMin;
 
 		while ( !lIsValid ) // Keep asking for a valid choice
 		{
@@ -138,10 +146,10 @@ public class Game
 	*
 	* @author P.S.
 	*/
-	protected static char askForValidChar( String pMsg, String pValidChars )
+	protected static String askForValidChar( String pMsg, String pValidChars )
 	{
 		boolean lIsValid = false; // Not yet!
-		char lReturnChar = ' ';
+		String lReturnChar = "";
 		pValidChars = pValidChars.toUpperCase();
 		String lRegExStr = "[" + pValidChars + "]";  // Square brackets are for matching one of possible chars
 		Scanner lScanner = new Scanner( System.in );
@@ -161,7 +169,7 @@ public class Game
 			// Check if input is valid
 			if ( lIsValid )
 			{
-					lReturnChar = lInputStr.charAt( 0 );
+					lReturnChar = String.valueOf( lInputStr.charAt( 0 ) );
 			}
 			else
 			{
@@ -323,7 +331,7 @@ public class Game
 				"Sälja djur"
 			};
 			// and send these choices to askForValidChoiceWithDesc
-			switch ( askForValidChoiceWithDesc( lCurrentPlayer.getName() + " vad vill du göra?", lPlayerChoiceDesc ) )
+			switch ( askForValidChoiceWithDesc( lCurrentPlayer.getName() + ", vad vill du göra?", lPlayerChoiceDesc ) )
 			{
 				case 1:
 					mStore.playerEntersAnimalBuyStore( lCurrentPlayer );

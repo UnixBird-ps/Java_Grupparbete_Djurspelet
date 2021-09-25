@@ -9,7 +9,7 @@ public class Carrots extends FoodBase
 	/**
 	* Initializes this object
 	*
-	* @param pQuantity  Quantity of food held in whole kilograms
+	* @param pQuantity  Quantity of food held (whole kilograms)
 	*/
 	public Carrots( int pQuantity )
 	{

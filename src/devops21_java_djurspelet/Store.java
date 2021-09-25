@@ -108,7 +108,7 @@ public class Store
 		// Write to screen name of food, price and how much there is left
 		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
 
-		// Following lines are used to get largest string length of every property in the list, used for formatting
+		// Following for loop is used to get largest string length of every property in the list, used for formatting
 		int lNumLength = 0, lNameLength = 0, lPriceLength = 0;
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
@@ -121,7 +121,7 @@ public class Store
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
 			FoodBase f = mFoods.get( i );
-			String lStr = String.format( "%" + lNumLength + "d  namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "dkr/Kg", i, f.getName(), f.getPrice() );
+			String lStr = String.format( "%" + lNumLength + "d  namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg", i, f.getName(), f.getPrice() );
 			System.out.println( lStr );
 		}
 	}
@@ -155,22 +155,18 @@ public class Store
 		while ( !lPlayerDoneFlag )
 		{
 			// Ask if the player wants to buy an animal
-			char lPlayerChoiceChar;
+			String lPlayerChoiceStr;
 			if ( lFirstTime )
-				lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa djur?", "JN" );
+				lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa djur?", "JN" );
 			else
-				lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa mer djur?", "JN" );
+				lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa mer djur?", "JN" );
 
 			lFirstTime = false;
 
-			if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
+			if ( lPlayerChoiceStr.equalsIgnoreCase( "j" ) )
 			{
-				// Prevent index go beyond the bounds
-				int lLastIndex = mAnimals.size() - 1;
-				if ( lLastIndex < 0 ) lLastIndex = 0;
-
 				// Show a message and wait for a valid input
-				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+				int lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", vad vill du köpa?", 0, mAnimals.size() - 1 );
 				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
 				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
 
@@ -203,12 +199,8 @@ public class Store
 
 		if ( pPlayer.mAnimals.size() > 0 )
 		{
-			// Prevent index go beyond the bounds
-			int lLastIndex = pPlayer.mAnimals.size() - 1;
-			if ( lLastIndex < 0 ) lLastIndex = 0;
-
 			// Show a message and wait for a valid input
-			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, lLastIndex );
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1 );
 			AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
 			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
 
@@ -247,12 +239,9 @@ public class Store
 		//System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
 		//if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
 		//{
-			// Prevent index go beyond the bounds
-			int lLastIndex = mFoods.size() - 1;
-			if ( lLastIndex < 0 ) lLastIndex = 0;
 
 			// Show a message and wait for a valid input
-			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, mFoods.size() - 1 );
 			FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );
 			System.out.println( "Spelarens val: " + lChosenFood.getName() );
 
