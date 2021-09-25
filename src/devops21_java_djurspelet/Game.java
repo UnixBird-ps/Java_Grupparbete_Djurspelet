@@ -350,7 +350,9 @@ public class Game
 
 		} // Player's turn loop end
 
-		// For testing. But code can be used in game. Prints out who was removed
+		// For testing. But code can be used in game.
+		// Selects randomly a player to remove from game.
+		// Prints out who was removed.
 		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
 		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
 
