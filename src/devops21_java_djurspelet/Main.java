@@ -4,7 +4,10 @@ public class Main
 {
 	public static void main( String[] args )
 	{
+		Carrots carrot = new Carrots("newCarrot", 100);
+		double health = carrot.carrotFood("dog");
+		System.out.println(health);
 		//Start the game here
-		Game mGame = new Game(); // The g	ame runs within this object
+		//ame mGame = new Game(); // The game runs within this object
 	}
 }
