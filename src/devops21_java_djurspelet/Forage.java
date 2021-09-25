@@ -2,16 +2,17 @@ package devops21_java_djurspelet;
 
 public class Forage extends FoodBase
 {
-	protected static final int ATSTART_FORAGE_PRICE = 20;
+	protected static final int PRICE = 20;
+	protected static final String NAME = "Grovfoder";
+
 
 	/**
 	* Initializes this object
 	*
-	* @param pName      Food name
 	* @param pQuantity  Quantity of food held in whole kilograms
 	*/
-	public Forage( String pName, int pQuantity )
+	public Forage( int pQuantity )
 	{
-		super( pName, ATSTART_FORAGE_PRICE, pQuantity );
+		super( NAME, FoodKind.FORAGE, PRICE, pQuantity );
 	}
 }

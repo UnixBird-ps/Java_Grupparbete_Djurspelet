@@ -2,17 +2,18 @@ package devops21_java_djurspelet;
 
 public class Carrots extends FoodBase
 {
-	protected static final int ATSTART_CARROTS_PRICE = 20;
+	protected static final int PRICE = 20;
+	protected static final String NAME = "Morötter";
+
 
 	/**
 	* Initializes this object
 	*
-	* @param pName      Food name
 	* @param pQuantity  Quantity of food held in whole kilograms
 	*/
-	public Carrots( String pName, int pQuantity )
+	public Carrots( int pQuantity )
 	{
-		super( pName, ATSTART_CARROTS_PRICE, pQuantity );
+		super( NAME, FoodKind.CARROTS, PRICE, pQuantity );
 	}
 
 }
