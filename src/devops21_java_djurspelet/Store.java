@@ -235,19 +235,22 @@ public class Store
 		pPlayer.printCredits();
 
 		// Ask if the player wants to buy food for the animals
-		//char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något?", "JN" );
-		//System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
-		//if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
-		//{
+		String lPlayerChoiceStr = Game.askForValidChar( "Vill du köpa något?", "JN" );
+		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceStr );
+		if ( lPlayerChoiceStr.equalsIgnoreCase( "j" ) )
+		{
 
 			// Show a message and wait for a valid input
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, mFoods.size() - 1 );
 			FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );
 			System.out.println( "Spelarens val: " + lChosenFood.getName() );
 
+			lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, 50 );
+
+			//FoodBase lNewFood = lChosenFood.getClass().getConstructor().newInstance();
 			// Do the actual buy
 			pPlayer.buyFood( lChosenFood ); // .getKind()
-		//}
+		}
 
 	}
 

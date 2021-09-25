@@ -203,7 +203,7 @@ public class Player {
 	* Show a list of animals the player owns
 	* Let the player select an animal
 	* Let the player select another animal of same kind but different gender
-	* Create new animal instance using the keyword new and right constructor, there are two
+	* Create new animal instance using the keyword new and the right constructor, there are two
 	* Add the newly crated animal to player's list of animals
 	*
 	* @author P.S.
