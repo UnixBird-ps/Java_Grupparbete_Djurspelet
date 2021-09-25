@@ -2,37 +2,38 @@ package devops21_java_djurspelet;
 
 public abstract class FoodBase
 {
-	private String mName;
+	protected String mName;
+	protected FoodKind mKind;
 	private int mPrice;
 	private int mQuantity;
 	int eatFood;
+
 
 	/**
 	* Initializes this object
 	*
 	* @param pName      Food name
+	* @param pKind      Food kind
 	* @param pPrice     In whole SEK
 	* @param pQuantity  Quantity of food held in whole kilograms
+	*
+	* @author P.S.
 	*/
-	public FoodBase( String pName, int pPrice, int pQuantity )
+	public FoodBase( String pName, FoodKind pKind, int pPrice, int pQuantity )
 	{
-		mName = pName;
-		mPrice = pPrice;
-		mQuantity = pQuantity;
+		this.mName = pName;
+		this.mKind = pKind;
+		this.mPrice = pPrice;
+		this.mQuantity = pQuantity;
 	}
 
-	public String getName() { return mName; }
-	public int getPrice() { return mPrice; }
-	public int getQuantity() { return mQuantity; }
 
-	public void setQuantity(int mQuantity) {
-		this.mQuantity = mQuantity;
-	}
-	public void addQuantity(int addQuantity){
-		this.mQuantity += addQuantity;
-	}
-	public void removeQuantity(int toRemove){
-		this.mQuantity -=toRemove;
-	}
+	public String getName() { return this.mName; }
+	public FoodKind getKind() { return this.mKind; }
+	public int getPrice() { return this.mPrice; }
 
-	}
+	public void addQuantity( int pQuantity ) { this.mQuantity += pQuantity; }
+	public void removeQuantity( int pQuantity ) { this.mQuantity -= pQuantity; }
+	public void setQuantity( int pQuantity ) { this.mQuantity = pQuantity; }
+	public int getQuantity() { return this.mQuantity; }
+}
