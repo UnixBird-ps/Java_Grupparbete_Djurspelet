@@ -1,13 +1,13 @@
 package devops21_java_djurspelet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *  Holds foods and animals for sale
  */
 public class Store
 {
-	static final int ATSTART_QUANTITY_PER_ANIMAL = 5;
 	static final int ATSTART_QUANTITY_PER_FOOD   = 2000; // in kilograms
 
 	String mName;                          // Initialized in the constructor
@@ -29,20 +29,30 @@ public class Store
 		mFoods   = new ArrayList<>();
 
 		// Create data
-		mAnimals.add( new Cat( AnimalGender.MALE ) );
-		mAnimals.add( new Cat( AnimalGender.FEMALE ) );
-		mAnimals.add( new Dog( AnimalGender.MALE) );
-		mAnimals.add( new Dog( AnimalGender.FEMALE ) );
-		mAnimals.add( new Rabbit( AnimalGender.MALE ) );
-		mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
-		mAnimals.add( new Cattle( AnimalGender.MALE ) );
-		mAnimals.add( new Cattle( AnimalGender.FEMALE ) );
-		mAnimals.add( new Horse( AnimalGender.MALE ) );
-		mAnimals.add( new Horse( AnimalGender.FEMALE ) );
-		mFoods.add( new Forage( "Grovfoder", ATSTART_QUANTITY_PER_FOOD ) );
-		mFoods.add( new Carrots( "Morötter", ATSTART_QUANTITY_PER_FOOD ) );
-		mFoods.add( new DogFood( "Torrfoder för hundar", ATSTART_QUANTITY_PER_FOOD ) );
-		mFoods.add( new CatFood( "Torrfoder för katter", ATSTART_QUANTITY_PER_FOOD ) );
+		mAnimals.add( new Cat() );
+		mAnimals.add( new Dog() );
+		mAnimals.add( new Rabbit() );
+		mAnimals.add( new Cattle() );
+		mAnimals.add( new Horse() );
+		mFoods.add( new Forage( ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new Carrots( ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new DogFood( ATSTART_QUANTITY_PER_FOOD ) );
+		mFoods.add( new CatFood( ATSTART_QUANTITY_PER_FOOD ) );
+	}
+
+
+	public void addAnimalsOfSameKind( AnimalKind pKind, AnimalGender pGender, int pNum )
+	{
+		if ( pNum > 0 )
+			switch ( pKind )
+			{
+				case CAT -> { for ( int i = 0; i < pNum; i++ ) mAnimals.add( new Cat( pGender ) ); }
+				case CATTLE -> { for ( int i = 0; i < pNum; i++ ) mAnimals.add( new Cattle( pGender ) ); }
+				case DOG -> { for ( int i = 0; i < pNum; i++ ) mAnimals.add( new Dog( pGender ) ); }
+				case HORSE -> { for ( int i = 0; i < pNum; i++ ) mAnimals.add( new Horse( pGender ) ); }
+				case RABBIT -> { for ( int i = 0; i < pNum; i++ ) mAnimals.add( new Rabbit( pGender ) ); }
+			}
+
 	}
 
 
@@ -69,22 +79,19 @@ public class Store
 		System.out.println( "\nVi har dessa djur till försäljning :" );
 
 		// Following lines are used to get largest string length of every property in the list, used for formatting
-		int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
+		int lNumLength = 0, lKindLength = 0, lPriceLength = 0;
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
 			AnimalBase a = mAnimals.get( i );
 			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
-			if ( a.getKind().length() > lKindLength ) lKindLength = a.getKind().length();
-			if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
-			if ( Integer.toString( a.getHealth() ).length() > lHealthLength ) lHealthLength = Integer.toString( a.getHealth() ).length();
+			if ( a.getKindStr().length() > lKindLength ) lKindLength = a.getKindStr().length();
 			if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
 		}
-		System.out.println( lNumLength + " " + lKindLength + " " + lHealthLength + " " + lGenderLength + " " + lPriceLength );
 
 		for (  int i = 0; i < mAnimals.size(); i++ )
 		{
 			AnimalBase a = mAnimals.get( i );
-			String lStr = String.format( "%" + lNumLength + "d  art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getGenderStr(), a.getPrice() );
+			String lStr = String.format( "%" + lNumLength + "d  art: %-" + lKindLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr(), a.getPrice() );
 			System.out.println( lStr );
 		}
 	}
@@ -102,16 +109,14 @@ public class Store
 		System.out.println( "\nVi har dessa djurfoder till försäljning:" );
 
 		// Following lines are used to get largest string length of every property in the list, used for formatting
-		int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
+		int lNumLength = 0, lNameLength = 0, lPriceLength = 0;
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
 			FoodBase f = mFoods.get( i );
 			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
 			if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
 			if ( Integer.toString( f.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( f.getPrice() ).length();
-			if ( Integer.toString( f.getQuantity() ).length() > lQuantityLength ) lQuantityLength = Integer.toString( f.getQuantity() ).length();
 		}
-		System.out.println( lNumLength + " " + lNameLength + " " + lPriceLength + " " + lQuantityLength );
 
 		for (  int i = 0; i < mFoods.size(); i++ )
 		{
@@ -144,22 +149,36 @@ public class Store
 		pPlayer.printFoodOwned();
 		pPlayer.printCredits();
 
-		// Ask if the player wants to buy an animal
-		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något?", "JN" );
-		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
-		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
+		boolean lPlayerDoneFlag = false;
+		boolean lFirstTime = true;
+
+		while ( !lPlayerDoneFlag )
 		{
-			// Prevent index go beyond the bounds
-			int lLastIndex = mAnimals.size() - 1;
-			if ( lLastIndex < 0 ) lLastIndex = 0;
+			// Ask if the player wants to buy an animal
+			char lPlayerChoiceChar;
+			if ( lFirstTime )
+				lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa djur?", "JN" );
+			else
+				lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa mer djur?", "JN" );
 
-			// Show a message and wait for a valid input
-			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
-			AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
-			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+			lFirstTime = false;
 
-			// Do the actual buy
-			pPlayer.buyAnimal( lChosenAnimal );
+			if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
+			{
+				// Prevent index go beyond the bounds
+				int lLastIndex = mAnimals.size() - 1;
+				if ( lLastIndex < 0 ) lLastIndex = 0;
+
+				// Show a message and wait for a valid input
+				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, lLastIndex );
+				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
+				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+
+				// Do the actual buy
+				pPlayer.buyAnimal( lChosenAnimal ); //.getKind()
+			}
+			else
+				lPlayerDoneFlag = true;
 		}
 	}
 
@@ -224,10 +243,10 @@ public class Store
 		pPlayer.printCredits();
 
 		// Ask if the player wants to buy food for the animals
-		char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något?", "JN" );
-		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
-		if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
-		{
+		//char lPlayerChoiceChar = Game.askForValidChar( "Vill du köpa något?", "JN" );
+		//System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceChar );
+		//if ( lPlayerChoiceChar == 'J' || lPlayerChoiceChar == 'j' )
+		//{
 			// Prevent index go beyond the bounds
 			int lLastIndex = mFoods.size() - 1;
 			if ( lLastIndex < 0 ) lLastIndex = 0;
@@ -238,8 +257,8 @@ public class Store
 			System.out.println( "Spelarens val: " + lChosenFood.getName() );
 
 			// Do the actual buy
-			pPlayer.buyFood( lChosenFood ); //, this );
-		}
+			pPlayer.buyFood( lChosenFood ); // .getKind()
+		//}
 
 	}
 
