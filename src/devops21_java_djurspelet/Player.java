@@ -30,7 +30,7 @@ public class Player {
                 mCredits -= pAnimal.getPrice()*animalAmount;
                 for(int i =0; i<animalAmount;i++){
                     mAnimals.add(pAnimal);
-                    mAnimals.get(mAnimals.size()-1).setmName(Game.askForValidName("Döp ditt djur!"));
+                    mAnimals.get(mAnimals.size()-1).setName(Game.askForValidName("Döp ditt djur!"));
                 }
                 lLoop =false;
             } else {
@@ -139,7 +139,7 @@ public class Player {
             {
                 AnimalBase a = mAnimals.get( i );
                 if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
-                if ( a.getKind().length() > lKindLength ) lKindLength = a.getKind().length();
+                if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength ) lKindLength = ( a.getKindStr() + a.getName() ).length();
                 if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
                 if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
                 if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
@@ -148,7 +148,7 @@ public class Player {
             for (int i = 0; i < mAnimals.size(); i++)
             {
                 AnimalBase a = mAnimals.get(i);
-                String lStr = String.format( "%" + lNumLength + "d. art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%(%d%%)   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKind(), a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice() );
+                String lStr = String.format( "%" + lNumLength + "d. art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%(%d%%)   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr() + "(" + a.getName() + ")", a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice() );
                 System.out.println(lStr);
             }
         }
@@ -181,19 +181,19 @@ public class Player {
     }
 
 
-		/**
-		* Show a list of animals the player owns
-		* Let the player select an animal
-		* Let the player select another animal of same kind but different gender
-		* Create new animal using the keyword new and right constructor, there are two
-		* Add the newly crated animal to player's list of animals
-		*
-		* @author P.S.
-		*/
-		public void tryAnimalBreeding()
-		{
-			System.out.println( "TODO: Method for animal breeding" );
-		}
+	/**
+	* Show a list of animals the player owns
+	* Let the player select an animal
+	* Let the player select another animal of same kind but different gender
+	* Create new animal instance using the keyword new and right constructor, there are two
+	* Add the newly crated animal to player's list of animals
+	*
+	* @author P.S.
+	*/
+	public void tryAnimalBreeding()
+	{
+		System.out.println( "TODO: Method for animal breeding" );
+	}
 
 
 	/**
@@ -223,6 +223,7 @@ public class Player {
 		int lPlayerChoiceInt = Game.askForValidNumber( "Vilket djur vill du mata?", 0, lLastIndex );
 		AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
 
-		System.out.println( getName() +" vill mata sin " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+		System.out.println( getName() +" vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
+		lChosenAnimal.printRightFoodList();
 	}
 }
