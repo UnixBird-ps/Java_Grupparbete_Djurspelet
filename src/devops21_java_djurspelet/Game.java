@@ -270,7 +270,6 @@ public class Game
 
 	/**
 	* Runs one game round
-	* Until number of players still in this game is 1
 	*
 	* @author P.S.
 	*/
