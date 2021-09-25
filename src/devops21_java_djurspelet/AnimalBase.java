@@ -175,7 +175,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 	public AnimalGender tryMateWith(AnimalBase a, AnimalBase b){
 
-		if (a.mKind.equals(b.mKind) && AnimalGender.MALE != AnimalGender.FEMALE && (mBirthRate == 1));
+		if (a.mKind.equals(b.mKind) && a.mGender != b.mGender && (mBirthRate == 1));
         return mGender;
 	}
 
