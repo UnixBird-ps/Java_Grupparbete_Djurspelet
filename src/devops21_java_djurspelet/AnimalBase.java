@@ -238,28 +238,28 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* Increases health of this animal
 	* Writes to screen a notice if this animal can not eat that food
 	*
-	* @param pWichFoodBacket  From wich food object to take
-	* @param pQuantity        How much to give
-	* @return                 true or false
+	* @param pWhichFoodBacket  From which food object to take
+	* @param pQuantity         How much to give
+	* @return                  true or false
 	*
 	* @author P.S
 	*/
-	public boolean tryEat( FoodBase pWichFoodBacket, int pQuantity )
+	public boolean tryEat( FoodBase pWhichFoodBacket, int pQuantity )
 	{
-		if ( this.canEatThis( pWichFoodBacket ) )
+		if ( this.canEatThis( pWhichFoodBacket ) )
 		{
-			int lDiff = pWichFoodBacket.getQuantity() - pQuantity;
+			int lDiff = pWhichFoodBacket.getQuantity() - pQuantity;
 			if ( lDiff < 0 ) pQuantity += lDiff;
 
-			pWichFoodBacket.removeQuantity( pQuantity );
+			pWhichFoodBacket.removeQuantity( pQuantity );
 
-			this.mHealth += 10 * pQuantity;
+			this.mHealth += 10 * pQuantity / this.mFoodQuantityHealthReq;
 			if ( this.mHealth > 100 ) this.mHealth = 100;
 
 			return true;
 		}
 		else
-			System.out.println( this.mName + "(" + this.getKindStr() + ") kan inte äta " + pWichFoodBacket.getName() );
+			System.out.println( this.mName + "(" + this.getKindStr() + ") kan inte äta " + pWhichFoodBacket.getName() );
 
 		return false;
 	}

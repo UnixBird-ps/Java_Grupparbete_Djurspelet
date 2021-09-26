@@ -41,7 +41,7 @@ public class Cat extends AnimalBase
 	* Creates a random number of new offspring up to TYPICAL_NUMBER_OF_OFFSPRING
 	* Sends this list to the caller
 	*
-	* @param pOtherAnimal  Wich animal for mating
+	* @param pOtherAnimal  Which animal for mating
 	* @return              An ArrayList of AnimalBase
 	*
 	* @author P.S.
