@@ -63,7 +63,6 @@ public class Cattle extends AnimalBase
 				int lNum = 1 + lRandom.nextInt( TYPICAL_NUMBER_OF_OFFSPRING );
 				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Cattle() );
 				System.out.println( "Parningen lyckades!" );
-				System.out.println( "Fått " + lNewOffspringList.size() + " ny(a).");
 			}
 			else
 				System.out.println( "Parningen misslyckades!" );

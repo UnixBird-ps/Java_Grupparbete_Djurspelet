@@ -27,7 +27,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* Sets kind, price at 100% health, expected life length
 	* Randomizes gender
 	*
-	* @param pKind                What animal
+	* @param pKind                What kind of animal
 	* @param pPriceAtMaxHealth    Original price
 	* @param pExpectedLifeLength  Dies at end
 	*
@@ -52,7 +52,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* Initializes Animal object.
 	* Sets kind, price at 100% health, expected life length and gender
 	*
-	* @param pKind                What animal
+	* @param pKind                What kind of animal
 	* @param pPriceAtMaxHealth    Original price
 	* @param pExpectedLifeLength  Dies at end
 	* @param pGender              GENDER_MALE or GENDER_FEMALE
@@ -115,42 +115,42 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 
 	/**
-	* @return  Animal's health as int
+	* @return  Animal's health as float
 	*
-	* @author P.S.
+	* @author  P.S.
 	*/
 	public float getHealth() { return this.mHealth; }
 
 
 	/**
-	 * @return  Animal's health as String
-	 *
-	 * @author P.S.
-	 */
+	* @return  Animal's health as String
+	*
+	* @author P.S.
+	*/
 	public String getHealthStr() { return String.format( "%.2f%%", this.getHealth() ); }
 
 
 	/**
-	 * @return  Animal's health change as int
-	 *
-	 * @author P.S.
-	 */
+	* @return  Animal's health change as int
+	*
+	* @author P.S.
+	*/
 	public float getHealthDelta() { return this.mHealth - this.mLastHealth; }
 
 
 	/**
-	 * @return  Animal's health change as text
-	 *
-	 * @author P.S.
-	 */
+	* @return  Animal's health change as text
+	*
+	* @author P.S.
+	*/
 	public String getHealthDeltaStr() { return String.format( "%.2f%%", this.getHealthDelta() ); }
 
 
 	/**
-	 * @return  Animal's health change as text
-	 *
-	 * @author P.S.
-	 */
+	* @return  Animal's health change as text
+	*
+	* @author P.S.
+	*/
 	public String getHealthFullStr() { return String.format( "%.2f%%(%.2f%%)", this.getHealth(), this.getHealthDelta() ); }
 
 
@@ -179,6 +179,12 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
+	/**
+	* @param pOtherAnimal  The animal to check
+	* @return              True if this animal can mate with the specified animal
+	*
+	* @author P.S.
+	*/
 	public boolean canMateWith( AnimalBase pOtherAnimal )
 	{
 		if ( ( this.getKind() == pOtherAnimal.getKind() ) && ( this.getGender() != pOtherAnimal.getGender() ) )
@@ -189,9 +195,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 		return false;
 	}
 
-
-	// Hint: in Player.tryAnimalBreeding()
-
+	// Enforce creation of this method in a subclass
 	public abstract ArrayList<AnimalBase> tryMateWith( AnimalBase pOtherAnimal );
 
 

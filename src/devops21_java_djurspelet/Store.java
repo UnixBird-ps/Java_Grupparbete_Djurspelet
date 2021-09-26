@@ -3,6 +3,7 @@ package devops21_java_djurspelet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 /**
  *  Holds foods and animals for sale
  */
@@ -18,7 +19,7 @@ public class Store
 	/**
 	* Creates a store with a name
 	*
-	* @param pName
+	* @param pName  What is the store called? Is displayed when played enters this store
 	*
 	* @author P.S.
 	*/

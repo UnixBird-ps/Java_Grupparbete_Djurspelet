@@ -63,6 +63,15 @@ public class Game
 //		}
 
 		// For testing only, to generate data
+		setupTestData();
+	}
+
+
+	/**
+	* To setup test data
+	*/
+	private void setupTestData()
+	{
 		mNumOfRoundsRequested = ATSTART_MAX_ROUNDS;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
