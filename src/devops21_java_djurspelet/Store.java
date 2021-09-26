@@ -239,7 +239,6 @@ public class Store
 		System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceStr );
 		if ( lPlayerChoiceStr.equalsIgnoreCase( "j" ) )
 		{
-
 			// Show a message and wait for a valid input
 			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, mFoods.size() - 1 );
 			FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );

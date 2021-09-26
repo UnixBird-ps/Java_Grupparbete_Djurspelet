@@ -124,33 +124,64 @@ public class Player {
      * prints out list of animals in a vertical format
      * includes index animal is at
      */
-    public void printLivestock() {
-        System.out.println( "" );
-        int index = 0;
-        System.out.println("I " + mName + "'s djurbestånd finns det:");
-        if (mAnimals.isEmpty())
-            System.out.println(getName() + " har inga djur.");
-        else
-        {
-            // This for loop is used to get largest string length of every property in the list, used for formatting
-            int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
-            for (  int i = 0; i < mAnimals.size(); i++ )
-            {
-                AnimalBase a = mAnimals.get( i );
-                if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
-                if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength ) lKindLength = ( a.getKindStr() + "(" + a.getName() + ")" ).length();
-                if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
-                if ( ( a.getHealthStr() + a.getHealthDeltaStr() ).length() > lHealthLength ) lHealthLength = ( a.getHealthStr() + a.getHealthDeltaStr() ).length();
-                if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
-            }
+    public void printLivestock()
+    {
+			System.out.println( "" );
+			//int index = 0;
+			System.out.println("I " + mName + "'s djurbestånd finns det:");
+			if (mAnimals.isEmpty())
+				System.out.println(getName() + " har inga djur.");
+			else
+			{
+				// This for loop is used to get largest string length of every property in the list, used for formatting
+				int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
+				for (  int i = 0; i < mAnimals.size(); i++ )
+				{
+					AnimalBase a = mAnimals.get( i );
+					if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+					if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength ) lKindLength = ( a.getKindStr() + "(" + a.getName() + ")" ).length();
+					if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
+					if ( a.getHealthFullStr().length() > lHealthLength ) lHealthLength = a.getHealthFullStr().length();
+					if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
+				}
 
-            for (int i = 0; i < mAnimals.size(); i++)
-            {
-                AnimalBase a = mAnimals.get(i);
-                String lStr = String.format( "%" + lNumLength + "d.   art: %-" + lKindLength + "s   hälsa: %" + lHealthLength + "d%%(%d%%)   kön: %-" + lGenderLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr() + "(" + a.getName() + ")", a.getHealth(), a.getHealthDelta(), a.getGenderStr(), a.getPrice() );
-                System.out.println(lStr);
-            }
-        }
+				for (int i = 0; i < mAnimals.size(); i++)
+				{
+					AnimalBase a = mAnimals.get(i);
+					String lStr = String.format( "%" + lNumLength + "d.   art: %-" + lKindLength + "s   kön: %-" + lGenderLength + "s   hälsa: %" + lHealthLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr() + "(" + a.getName() + ")", a.getGenderStr(), a.getHealthFullStr(), a.getPrice() );
+					System.out.println(lStr);
+				}
+			}
+		}
+
+
+		public void printLivestockInList( ArrayList<AnimalBase> pWhichAnimalList )
+		{
+			if ( pWhichAnimalList.isEmpty() )
+				System.out.println( "I listan finns inga djur." );
+			else
+			{
+				System.out.println( "I listan finns dessa djur:" );
+				// This for loop is used to get largest string length of every property in the list, used for formatting
+				int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
+				for (  int i = 0; i < pWhichAnimalList.size(); i++ )
+				{
+					AnimalBase a = pWhichAnimalList.get( i );
+					if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+					if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength ) lKindLength = ( a.getKindStr() + "(" + a.getName() + ")" ).length();
+					if ( a.getGenderStr().length() > lGenderLength ) lGenderLength = a.getGenderStr().length();
+					if ( a.getHealthFullStr().length() > lHealthLength ) lHealthLength = a.getHealthFullStr().length();
+					if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
+				}
+
+				// Write to screen the list
+				for (int i = 0; i < pWhichAnimalList.size(); i++)
+				{
+					AnimalBase a = pWhichAnimalList.get(i);
+					String lStr = String.format( "%" + lNumLength + "d.   art: %-" + lKindLength + "s   kön: %-" + lGenderLength + "s   hälsa: %" + lHealthLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr() + "(" + a.getName() + ")", a.getGenderStr(), a.getHealthFullStr(), a.getPrice() );
+					System.out.println(lStr);
+				}
+			}
 		}
 
 
@@ -163,7 +194,7 @@ public class Player {
 			System.out.println("I " + mName + "'s matförråd finns det:");
 			if ( !mFoods.isEmpty() )
 			{
-				// Following for loop is used to get largest string length of every property in the list, used for formatting
+				// The following for loop is used to get largest string length of every property in the list, used for formatting
 				int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
 				for (  int i = 0; i < mFoods.size(); i++ )
 				{
@@ -210,7 +241,57 @@ public class Player {
 	*/
 	public void tryAnimalBreeding()
 	{
-		System.out.println( "TODO: Method for animal breeding" );
+		System.out.println( "" );
+		System.out.println( getName() + " ska nu försöka para sina djur." );
+
+		if ( mAnimals.size() > 0 )
+		{
+			boolean lPlayerDoneFlag = false;
+			int lPlayerChoiceInt;
+
+			while ( !lPlayerDoneFlag )
+			{
+				printLivestock();
+				printFoodOwned();
+
+				// Ask which animal the player wants to breed
+				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du para?", 0, mAnimals.size() - 1 );
+				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
+
+				// Create a temporary list of animals of same kind but other gender and skip same animal
+				ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
+				for ( AnimalBase a : mAnimals )
+				{
+					// Adds compatible animal to the temporary list
+					if ( lChosenAnimal.canMateWith( a ) ) lNewAnimalList.add( a );
+				}
+
+				// Where there any compatible animals
+				if ( lNewAnimalList.size() > 0 )
+				{
+					this.printLivestockInList( lNewAnimalList );
+
+					// Player selects another animal of same kind but different gender
+					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du para?", 0, lNewAnimalList.size() - 1 );
+					// Store the animal
+					AnimalBase lOtherAnimal = lNewAnimalList.get( lPlayerChoiceInt );
+
+					// Make the animal do the actual mating and get a list of newborn animals if mating was successful
+					ArrayList<AnimalBase> lNewOffspringList = lChosenAnimal.tryMateWith( lOtherAnimal );
+
+					System.out.println( "Fått " + lNewOffspringList.size() + " nytt/nya djur.");
+
+					mAnimals.addAll( lNewOffspringList );
+
+					//lNewOffspringList.clear();
+
+					// Ask if the player wants to breed another animal
+					if ( Game.askForValidChar(  getName() + ", vill du para ett djur till?", "JN" ).equalsIgnoreCase( "n" ) ) lPlayerDoneFlag = true;
+				}
+				else
+					System.out.println( getName() + ", du har inga djur som du kan para " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ") med." );
+			}
+		}
 	}
 
 
@@ -228,6 +309,7 @@ public class Player {
 		System.out.println( "" );
 		System.out.println( getName() + " ska nu mata sina djur." );
 
+		// Cannot choose an animal if the list is empty
 		if ( mAnimals.size() > 0 )
 		{
 			boolean lPlayerDoneFlag = false;
@@ -238,7 +320,7 @@ public class Player {
 				printLivestock();
 				printFoodOwned();
 
-				// Ask wich animal the player wants to feed
+				// Ask which animal the player wants to feed
 				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du mata?", 0, mAnimals.size() - 1 );
 				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
 
@@ -246,9 +328,10 @@ public class Player {
 				System.out.println( getName() +", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
 				lChosenAnimal.printRightFoodList();
 
+				// Cannot feed an animal if food is missing
 				if ( mFoods.size() > 0 )
 				{
-					// Ask wich food the player wants to feed the animal with
+					// Ask which food the player wants to feed the animal with
 					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket foder vill du ge din" + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")?", 0, mFoods.size() - 1 );
 					FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );
 

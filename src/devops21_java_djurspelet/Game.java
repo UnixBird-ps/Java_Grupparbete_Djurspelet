@@ -66,73 +66,24 @@ public class Game
 		mNumOfRoundsRequested = ATSTART_MAX_ROUNDS;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
-		mPlayers.get( 0 ).mAnimals.add( new Cat() );
+		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.MALE ) );
+		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.FEMALE ) );
 		mPlayers.get( 0 ).mAnimals.add( new Horse() );
 		mPlayers.get( 0 ).mFoods.add( new CatFood( 10 ) );
 		mPlayers.get( 0 ).mFoods.add( new Forage( 50 ) );
 		mPlayers.add( new Player( "Östen" ) );
 		mPlayers.get( 1 ).mAnimals.add( new Dog() );
-		mPlayers.get( 1 ).mAnimals.add( new Rabbit() );
+		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
+		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
 		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
 		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
 		mPlayers.add( new Player( "Håkan" ) );
 		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
-		mPlayers.get( 2 ).mAnimals.add( new Cattle() );
+		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.MALE ) );
+		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.FEMALE ) );
 		mPlayers.get( 2 ).mFoods.add( new Carrots( 10 ) );
 		mPlayers.get( 2 ).mFoods.add( new Forage( 50 ) );
 		mNumOfPlayersRequested = mPlayers.size();
-	}
-
-
-	/**
-	* Prints to screen valid range.
-	* Asks for user input. Loops until a valid value within a range has been entered.
-	* Shows a notice if value is outside range.
-	*
-	* @param pMsg       Message shown on th screen
-	* @param pValidMin  Lower limit
-	* @param pValidMax  Upper limit
-	* @return           A value between pValidMin and pValidMax, inclusive
-	*
-	* @author P.S.
-	*/
-	public static int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
-	{
-		boolean lIsValid = false; // Not yet!
-		Scanner lScanner = new Scanner( System.in );
-		int lParsedInt = 0;
-
-		if ( pValidMax < pValidMin ) pValidMax = pValidMin;
-
-		while ( !lIsValid ) // Keep asking for a valid choice
-		{
-			// Print to screen the message and a valid intervall
-			System.out.print( "\n" + pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
-
-			// Get input from user
-			String lInputStr = lScanner.nextLine();
-			String lRegExStr = "/[-0-9]+/";
-
-			// Validate input with regular expression
-			lIsValid = lInputStr.matches( lRegExStr );
-
-			try
-			{
-				lParsedInt = Integer.parseInt( lInputStr );
-				lIsValid = true;
-			}
-			catch ( Exception ignored )
-			{}
-
-			// Check if input is valid
-			if ( lParsedInt < pValidMin || lParsedInt > pValidMax )
-			{
-				System.out.println( "Värdet du har angett ligger inte inom intervallet." );
-				lIsValid = false;
-			}
-		}
-
-		return lParsedInt;
 	}
 
 
@@ -214,6 +165,58 @@ public class Game
 		}
 
 		return lInputStr;
+	}
+
+
+	/**
+	* Prints to screen valid range.
+	* Asks for user input. Loops until a valid value within a range has been entered.
+	* Shows a notice if value is outside range.
+	*
+	* @param pMsg       Message shown on th screen
+	* @param pValidMin  Lower limit
+	* @param pValidMax  Upper limit
+	* @return           A value between pValidMin and pValidMax, inclusive
+	*
+	* @author P.S.
+	*/
+	public static int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
+	{
+		boolean lIsValid = false; // Not yet!
+		Scanner lScanner = new Scanner( System.in );
+		int lParsedInt = 0;
+
+		if ( pValidMax < pValidMin ) pValidMax = pValidMin;
+
+		while ( !lIsValid ) // Keep asking for a valid choice
+		{
+			// Print to screen the message and a valid intervall
+			System.out.print( "\n" + pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
+
+			// Get input from user
+			String lInputStr = lScanner.nextLine();
+			String lRegExStr = "/[-0-9]+/";
+
+			// Validate input with regular expression
+			lIsValid = lInputStr.matches( lRegExStr );
+
+			try
+			{
+				lParsedInt = Integer.parseInt( lInputStr );
+				lIsValid = true;
+			}
+			catch ( Exception ignored )
+			{}
+
+			// Check if input is valid
+			if ( lParsedInt < pValidMin || lParsedInt > pValidMax )
+			{
+				System.out.println( "Värdet du har angett ligger inte inom intervallet." );
+				lIsValid = false;
+			}
+		}
+
+		return lParsedInt;
 	}
 
 

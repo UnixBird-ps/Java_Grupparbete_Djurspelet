@@ -13,13 +13,13 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	private String mName;
 	private AnimalKind mKind;
 	private AnimalGender mGender;
-	protected int mPriceAtMaxHealth;
-	private int mHealth;
-	private int mLastHealth;
+	protected int mPriceAtMaxHealth;  // Initial price at 100%
+	private float mHealth;              // Current health
+	private float mLastHealth;          // For compute deltas
 	private int mAge;
 	private int mExpectedLifeLength;
-	protected ArrayList<String> mRightFood;
-	int mBirthRate = rand.nextInt(2);
+	protected ArrayList<String> mRightFood;  // List of foods the anmial can eat
+	float mFoodQuantityHealthReq;              // Quantity required to increase health 10% points
 
 
 	/**
@@ -33,17 +33,18 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength )
+	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, float pFoodQuantityHealthReq )
 	{
-		mName = "Namnlös";
-		mKind = pKind;
-		mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? AnimalGender.MALE : AnimalGender.FEMALE;
-		mPriceAtMaxHealth = pPriceAtMaxHealth;
-		mHealth = ATSTART_HEALTH;
-		mLastHealth = mHealth;
-		mAge = 0;
-		mExpectedLifeLength = pExpectedLifeLength;
-		mRightFood = new ArrayList<>();
+		this.mName = "Namnlös";
+		this.mKind = pKind;
+		this.mGender = ( (int)( Math.random() * 2 ) + 1 ) > 1 ? AnimalGender.MALE : AnimalGender.FEMALE;
+		this.mPriceAtMaxHealth = pPriceAtMaxHealth;
+		this.mHealth = ATSTART_HEALTH;
+		this.mLastHealth = this.mHealth;
+		this.mAge = 0;
+		this.mExpectedLifeLength = pExpectedLifeLength;
+		this.mRightFood = new ArrayList<>();
+		this.mFoodQuantityHealthReq = pFoodQuantityHealthReq;
 	}
 
 
@@ -58,16 +59,18 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, AnimalGender pGender )
+	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, float pFoodQuantityHealthReq, AnimalGender pGender )
 	{
-		mName = "Namnlös";
-		mKind = pKind;
-		mGender = pGender;
-		mPriceAtMaxHealth = pPriceAtMaxHealth;
-		mHealth = ATSTART_HEALTH;
-		mAge = 0;
-		mExpectedLifeLength = pExpectedLifeLength;
-		mRightFood = new ArrayList<>();
+		this.mName = "Namnlös";
+		this.mKind = pKind;
+		this.mGender = pGender;
+		this.mPriceAtMaxHealth = pPriceAtMaxHealth;
+		this.mHealth = ATSTART_HEALTH;
+		this.mLastHealth = this.mHealth;
+		this.mAge = 0;
+		this.mExpectedLifeLength = pExpectedLifeLength;
+		this.mRightFood = new ArrayList<>();
+		this.mFoodQuantityHealthReq = pFoodQuantityHealthReq;
 	}
 
 
@@ -76,7 +79,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public AnimalKind getKind() { return mKind; }
+	public AnimalKind getKind() { return this.mKind; }
 
 
 	abstract public String getKindStr();
@@ -87,7 +90,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public AnimalGender getGender() { return mGender; }
+	public AnimalGender getGender() { return this.mGender; }
 
 
 	/**
@@ -116,7 +119,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public int getHealth() { return mHealth; }
+	public float getHealth() { return this.mHealth; }
 
 
 	/**
@@ -124,7 +127,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	 *
 	 * @author P.S.
 	 */
-	public String getHealthStr() { return String.valueOf( getHealth() ); }
+	public String getHealthStr() { return String.format( "%.2f%%", this.getHealth() ); }
 
 
 	/**
@@ -132,7 +135,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	 *
 	 * @author P.S.
 	 */
-	public int getHealthDelta() { return mHealth - mLastHealth; }
+	public float getHealthDelta() { return this.mHealth - this.mLastHealth; }
 
 
 	/**
@@ -140,7 +143,15 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	 *
 	 * @author P.S.
 	 */
-	public String getHealthDeltaStr() { return String.valueOf( getHealthDelta() ); }
+	public String getHealthDeltaStr() { return String.format( "%.2f%%", this.getHealthDelta() ); }
+
+
+	/**
+	 * @return  Animal's health change as text
+	 *
+	 * @author P.S.
+	 */
+	public String getHealthFullStr() { return String.format( "%.2f%%(%.2f%%)", this.getHealth(), this.getHealthDelta() ); }
 
 
 	/**
@@ -148,7 +159,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public int getPrice() { return mHealth * mPriceAtMaxHealth / 100; }
+	public int getPrice() { return (int)( mHealth * this.mPriceAtMaxHealth / 100); }
 
 
 	/**
@@ -156,24 +167,32 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public int getAge() { return mAge; }
+	public int getAge() { return this.mAge; }
 
 
-	public void growOlder() {
-		mAge++;
-		mLastHealth = mHealth;
-		mHealth -= (int) (Math.random() * 20) + 10;
-		if ( mHealth < 0 ) mHealth = 0;
+	public void growOlder()
+	{
+		this.mAge++;
+		this.mLastHealth = this.mHealth;
+		this.mHealth -= (int) ( Math.random() * 20 ) + 10;
+		if ( this.mHealth < 0 ) this.mHealth = 0;
+	}
+
+
+	public boolean canMateWith( AnimalBase pOtherAnimal )
+	{
+		if ( ( this.getKind() == pOtherAnimal.getKind() ) && ( this.getGender() != pOtherAnimal.getGender() ) )
+			return true;
+		else
+			System.out.println( this.getKindStr() + "(" + this.getName() + ") " + this.getGenderStr() + " kan inte paras med " + pOtherAnimal.getKindStr() + "(" + pOtherAnimal.getName() + ")" + pOtherAnimal.getGenderStr() + ".");
+
+		return false;
 	}
 
 
 	// Hint: in Player.tryAnimalBreeding()
 
-	public AnimalGender tryMateWith(AnimalBase a, AnimalBase b){
-
-		if (a.mKind.equals(b.mKind) && a.mGender != b.mGender && (mBirthRate == 1));
-        return mGender;
-	}
+	public abstract ArrayList<AnimalBase> tryMateWith( AnimalBase pOtherAnimal );
 
 
 	/**
@@ -212,6 +231,19 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
+	/**
+	* Checks if food is eatable
+	* Makes sure that the amount of food in the food backet never gets below 0
+	* Decreases quantity in food backet by the computed quantity
+	* Increases health of this animal
+	* Writes to screen a notice if this animal can not eat that food
+	*
+	* @param pWichFoodBacket  From wich food object to take
+	* @param pQuantity        How much to give
+	* @return                 true or false
+	*
+	* @author P.S
+	*/
 	public boolean tryEat( FoodBase pWichFoodBacket, int pQuantity )
 	{
 		if ( this.canEatThis( pWichFoodBacket ) )
@@ -251,11 +283,11 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 	/**
 	*
-	* @param mName  Animal's name
+	* @param pName  Animal's name
 	*
 	* @author P.S.
 	*/
-	public void setName( String mName ) { this.mName = mName; }
+	public void setName( String pName ) { this.mName = pName; }
 
 
 	/**
@@ -263,5 +295,5 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	public String getName() { return mName; }
+	public String getName() { return this.mName; }
 }
