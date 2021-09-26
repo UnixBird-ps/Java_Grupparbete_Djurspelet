@@ -160,7 +160,7 @@ public class Store
 			if ( lFirstTime )
 				lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa djur?", "JN" );
 			else
-				lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa mer djur?", "JN" );
+				lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa fler djur?", "JN" );
 
 			lFirstTime = false;
 
@@ -169,7 +169,7 @@ public class Store
 				// Show a message and wait for a valid input
 				int lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", vad vill du köpa?", 0, mAnimals.size() - 1 );
 				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
-				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+				System.out.println( "Spelarens val: " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
 
 				// Do the actual buy
 				pPlayer.buyAnimal( lChosenAnimal ); //.getKind()
