@@ -276,7 +276,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*/
 	public void printRightFoodList()
 	{
-		System.out.println( this.getKind() + " kan äta:" );
+		System.out.println( this.getKindStr() + " kan äta:" );
 
 		for ( String fStr : mRightFood )
 		{
