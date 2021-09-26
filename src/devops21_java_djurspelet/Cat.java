@@ -48,8 +48,6 @@ public class Cat extends AnimalBase
 	*/
 	public ArrayList<AnimalBase> tryMateWith( AnimalBase pOtherAnimal )
 	{
-		System.out.println( "TODO: tryMateWith" );
-
 		// Create a list that holds animals to be sent back to the caller later
 		ArrayList<AnimalBase> lNewOffspringList = new ArrayList<>();
 
