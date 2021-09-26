@@ -33,6 +33,7 @@ public class Cattle extends AnimalBase
 	public Cattle( AnimalGender pGender )
 	{
 		super( AnimalKind.CATTLE, PRICE, 20, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( Forage.NAME );
 	}
 
 

@@ -32,6 +32,7 @@ public class Horse extends AnimalBase
 	public Horse( AnimalGender pGender )
 	{
 		super( AnimalKind.HORSE, PRICE, 25, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( Forage.NAME );
 	}
 
 

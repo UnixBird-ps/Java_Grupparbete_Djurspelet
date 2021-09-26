@@ -32,6 +32,7 @@ public class Dog extends AnimalBase
 	public Dog( AnimalGender pGender )
 	{
 		super( AnimalKind.DOG, PRICE, 16, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( DogFood.NAME );
 	}
 
 

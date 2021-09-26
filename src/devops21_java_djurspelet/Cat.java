@@ -33,6 +33,7 @@ public class Cat extends AnimalBase
 	public Cat( AnimalGender pGender )
 	{
 		super( AnimalKind.CAT, PRICE, 15, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( CatFood.NAME );
 	}
 
 

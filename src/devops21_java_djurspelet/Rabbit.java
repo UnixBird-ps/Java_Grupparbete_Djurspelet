@@ -34,6 +34,8 @@ public class Rabbit extends AnimalBase
 	public Rabbit( AnimalGender pGender )
 	{
 		super( AnimalKind.RABBIT, PRICE, 10, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( Carrots.NAME );
+		this.mRightFood.add( Forage.NAME );
 	}
 
 
