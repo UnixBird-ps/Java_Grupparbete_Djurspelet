@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 
 /**
- * Holds foods and animals for sale
- */
+* Holds foods and animals for sale
+*/
 public class Store
 {
 	static final int ATSTART_QUANTITY_PER_FOOD = 2000; // in kilograms
@@ -17,11 +17,12 @@ public class Store
 
 
 	/**
-	 * Creates a store with a name
-	 *
-	 * @param pName What is the store called? Is displayed when played enters this store
-	 * @author P.S.
-	 */
+	* Creates a store with a name
+	*
+	* @param pName What is the store called? Is displayed when played enters this store
+	*
+	* @author P.S.
+	*/
 	public Store( String pName )
 	{
 		this.mName = pName;
@@ -41,6 +42,13 @@ public class Store
 	}
 
 
+	/**
+	* @param pKind    Kind of animals to create
+	* @param pGender  Gender of all animals
+	* @param pNum     Count
+	*
+	* @author P.S.
+	*/
 	public void addAnimalsOfSameKind( AnimalKind pKind, AnimalGender pGender, int pNum )
 	{
 		if ( pNum > 0 ) switch ( pKind )
@@ -77,11 +85,11 @@ public class Store
 
 
 	/**
-	 * Displays a nicely formated list
-	 * Loops through the list av animals available in store
-	 *
-	 * @author P.S.
-	 */
+	* Displays a nicely formated list
+	* Loops through the list av animals available in store
+	*
+	* @author P.S.
+	*/
 	protected void displayAnimalInventory()
 	{
 		// Write to screen kind, health and price of animals
@@ -108,11 +116,11 @@ public class Store
 
 
 	/**
-	 * Displays a nicely formated list
-	 * Loops through the list av foods available in store
-	 *
-	 * @author P.S.
-	 */
+	* Displays a nicely formated list
+	* Loops through the list av foods available in store
+	*
+	* @author P.S.
+	*/
 	protected void displayFoodInventory()
 	{
 		// Write to screen name of food, price and how much there is left
@@ -139,14 +147,14 @@ public class Store
 
 
 	/**
-	 * Show what animals the player owns
-	 * Ask if the player wants to buy food for the animals
-	 * Show a message and wait for a valid input
-	 * Calls a method that does the actual movement of data
-	 *
-	 * @param pPlayer The player object who enters the store
-	 * @author P.S.
-	 */
+	* Show what animals the player owns
+	* Ask if the player wants to buy food for the animals
+	* Show a message and wait for a valid input
+	* Calls a method that does the actual movement of data
+	*
+	* @param pPlayer The player object who enters the store
+	* @author P.S.
+	*/
 	protected void playerEntersAnimalBuyStore( Player pPlayer )
 	{
 		// Say Hi
@@ -193,14 +201,14 @@ public class Store
 
 
 	/**
-	 * Show what animals the player owns
-	 * Ask if the player wants to buy food for the animals
-	 * Show a message and wait for a valid input
-	 * Calls a method that does the actual movement of data
-	 *
-	 * @param pPlayer The player object who enters the store
-	 * @author P.S.
-	 */
+	* Show what animals the player owns
+	* Ask if the player wants to buy food for the animals
+	* Show a message and wait for a valid input
+	* Calls a method that does the actual movement of data
+	*
+	* @param pPlayer The player object who enters the store
+	* @author P.S.
+	*/
 	protected void playerEntersFoodStore( Player pPlayer )
 	{
 		// Say Hi
@@ -241,13 +249,13 @@ public class Store
 
 
 	/**
-	 * Show what animals and food the player owns
-	 * Ask if the player wants to sell an animal
-	 * Show a message and wait for a valid input
-	 * Calls a method that does the actual movement of data
-	 *
-	 * @author P.S.
-	 */
+	* Show what animals and food the player owns
+	* Ask if the player wants to sell an animal
+	* Show a message and wait for a valid input
+	* Calls a method that does the actual movement of data
+	*
+	* @author P.S.
+	*/
 	protected void playerEntersAnimalSellStore( Player pPlayer )
 	{
 		// Say Hi
