@@ -91,46 +91,74 @@ public class Player
 	 */
 	public void buyFood( FoodBase pFood )
 	{
-		if ( pFood.getQuantity() != 0 )
+		if ( mCredits >= pFood.getPriceTotal() )
 		{
-			System.out.println( "Hur mycket " + pFood.getName() + " Vill du köpa?" );
-			int lQuantity = Game.askForValidNumber( "Ange kg: ", 1, 10000 );
-			if ( lQuantity <= pFood.getQuantity() )
+			mCredits -= pFood.getPriceTotal();
+
+			int lFoundFoodIndex = -1;
+			for ( int i = 0; i < mFoods.size(); i++ )
 			{
-				System.out.println( "Det kommer kosta: " + ( lQuantity * pFood.getPrice() ) + " Credits" );
-				if ( Game.askForValidChar( "Är du säker? j/n", "jn" ).equalsIgnoreCase( "j" ) )
+				if ( pFood.getName().equalsIgnoreCase( mFoods.get( i ).getName() ) )
 				{
-					if ( mCredits > lQuantity * pFood.getPrice() )
-					{
-                    /*
-                      adds obj food into list if not present and sets quantity to amount bought
-                      else adds quantity bought onto existing obj in list
-                     */
-						if ( !mFoods.contains( pFood ) )
-						{
-							mFoods.add( pFood );
-							int temp = mFoods.indexOf( pFood );
-							mFoods.get( temp ).setQuantity( lQuantity );
-							//pFood.removeQuantity(lQuantity); unintended effect
-						} else
-						{
-							int temp = mFoods.indexOf( pFood );
-							mFoods.get( temp ).addQuantity( lQuantity );
-							pFood.removeQuantity( lQuantity );
-						}
-					} else
-					{
-						System.out.println( "Du har inte råd!" );
-					}
-				} else
-				{
-					System.out.println( "För dyrt för dig?" );
+					lFoundFoodIndex = i;
+					break;
 				}
 			}
-		} else
-		{
-			System.out.println( "Det finns ingen mat att köpa!" );
+
+			if ( lFoundFoodIndex < 0 )
+			{
+				// Not found
+				mFoods.add( pFood.createNewWithQuantity( pFood.getQuantity() ) );
+			}
+			else
+			{
+				// Found
+				mFoods.get( lFoundFoodIndex ).setQuantity( mFoods.get( lFoundFoodIndex ).getQuantity() + pFood.getQuantity() );
+			}
+
+//		if ( pFood.getQuantity() != 0 )
+//		{
+//			System.out.println( "Hur mycket " + pFood.getName() + " Vill du köpa?" );
+//			int lQuantity = Game.askForValidNumber( "Ange kg: ", 1, 10000 );
+//			if ( lQuantity <= pFood.getQuantity() )
+//			{
+//				System.out.println( "Det kommer kosta: " + ( lQuantity * pFood.getPrice() ) + " Credits" );
+//				if ( Game.askForValidChar( "Är du säker? j/n", "jn" ).equalsIgnoreCase( "j" ) )
+//				{
+//					if ( mCredits > lQuantity * pFood.getPrice() )
+//					{
+//                    /*
+//                      adds obj food into list if not present and sets quantity to amount bought
+//                      else adds quantity bought onto existing obj in list
+//                     */
+//						if ( !mFoods.contains( pFood ) )
+//						{
+//							mFoods.add( pFood );
+//							int temp = mFoods.indexOf( pFood );
+//							mFoods.get( temp ).setQuantity( lQuantity );
+//							//pFood.removeQuantity(lQuantity); unintended effect
+//						} else
+//						{
+//							int temp = mFoods.indexOf( pFood );
+//							mFoods.get( temp ).addQuantity( lQuantity );
+//							pFood.removeQuantity( lQuantity );
+//						}
+//					} else
+//					{
+//						System.out.println( "Du har inte råd!" );
+//					}
+//				} else
+//				{
+//					System.out.println( "För dyrt för dig?" );
+//				}
+//			}
+//		} else
+//		{
+//			System.out.println( "Det finns ingen mat att köpa!" );
+//		}
 		}
+		else
+			System.out.println( "Du har inte råd!" );
 	}
 
 

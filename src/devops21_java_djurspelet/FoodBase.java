@@ -28,9 +28,18 @@ public abstract class FoodBase
 	}
 
 
+	/**
+	* Create a new separate instance of same class
+	* @return  New object with specified quantity
+	*
+	* @author  P.S.
+	*/
+	public abstract FoodBase createNewWithQuantity( int pQuantity );
+
 	public String getName() { return this.mName; }
 	public FoodKind getKind() { return this.mKind; }
 	public int getPrice() { return this.mPrice; }
+	public int getPriceTotal() { return this.mPrice * this.getQuantity(); }
 
 	public void addQuantity( int pQuantity ) { this.mQuantity += pQuantity; }
 	public void removeQuantity( int pQuantity ) { this.mQuantity -= pQuantity; }

@@ -230,33 +230,49 @@ public class Store
 		if ( this.mFoods.isEmpty() )
 		{
 			System.out.println( "Affären har ingen mat till salu för tillfället." );
-		} else
+		}
+		else
 		{
-			// Show what animals the player owns
-			pPlayer.printLivestock();
-			pPlayer.printFoodOwned();
-			pPlayer.printCredits();
+			boolean lPlayerDoneFlag = false;
 
-			// Show what is available in the store
-			this.displayFoodInventory();
-
-			// Ask if the player wants to buy food for the animals
-			String lPlayerChoiceStr = Game.askForValidChar( "Vill du köpa något?", "JN" );
-			System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceStr );
-
-			if ( lPlayerChoiceStr.equalsIgnoreCase( "j" ) )
+			do
 			{
+				// Show what animals the player owns
+				pPlayer.printLivestock();
+				pPlayer.printFoodOwned();
+				pPlayer.printCredits();
+
+				// Show what is available in the store
+				this.displayFoodInventory();
+
 				// Show a message and wait for a valid input
-				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, this.mFoods.size() - 1 );
+				int lPlayerChoiceInt;
+				lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, this.mFoods.size() - 1 );
 				FoodBase lChosenFood = this.mFoods.get( lPlayerChoiceInt );
-				System.out.println( "Spelarens val: " + lChosenFood.getName() );
 
-				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, 100 );
+				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, lChosenFood.getQuantity() );
 
-				//FoodBase lNewFoodBucket = lChosenFood.getClass().getConstructor().newInstance();
-				// Do the actual buy
-				pPlayer.buyFood( lChosenFood ); // .getKind()
-			}
+				FoodBase lNewFood = lChosenFood.createNewWithQuantity( lPlayerChoiceInt );
+
+				// Show player's choice
+				System.out.println( "Spelarens val: " + lNewFood.getName() );
+
+				System.out.println( lNewFood.getPriceTotal() + " kommer att dras från ditt konto." );
+
+				if ( Game.askForValidChar( "Vill du fortsätta?", "JN" ).equalsIgnoreCase( "j" ) )
+				{
+					// Do the actual buy
+					pPlayer.buyFood( lNewFood );
+				}
+
+				// Show what foods the player owns
+				pPlayer.printFoodOwned();
+
+				// Ask if the player wants to buy more food
+				if ( Game.askForValidChar( pPlayer.getName() + ", vill du köpa mer djurmat?", "JN" ).equalsIgnoreCase( "n" ) )
+					lPlayerDoneFlag = true;
+
+			} while ( !lPlayerDoneFlag );
 		}
 	}
 

@@ -15,4 +15,16 @@ public class DogFood extends FoodBase
 	{
 		super( NAME, FoodKind.DOGFOOD, PRICE, pQuantity );
 	}
+
+
+	/**
+	* Create a new separate instance of same class
+	* @return  New object with specified quantity
+	*
+	* @author  P.S.
+	*/
+	public FoodBase createNewWithQuantity( int pQuantity )
+	{
+		return new DogFood( pQuantity );
+	}
 }
