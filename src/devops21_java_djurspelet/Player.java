@@ -128,7 +128,7 @@ public class Player {
     {
 			System.out.println( "" );
 			//int index = 0;
-			System.out.println("I " + mName + "'s djurbestånd finns det:");
+			System.out.println("I " + mName + "s djurbestånd finns det:");
 			if (mAnimals.isEmpty())
 				System.out.println(getName() + " har inga djur.");
 			else
@@ -192,7 +192,7 @@ public class Player {
 		public void printFoodOwned()
 		{
 			System.out.println( "" );
-			System.out.println("I " + mName + "'s matförråd finns det:");
+			System.out.println("I " + mName + "s matförråd finns det:");
 			if ( !mFoods.isEmpty() )
 			{
 				// The following for loop is used to get largest string length of every property in the list, used for formatting
@@ -220,34 +220,38 @@ public class Player {
 		}
 
 
-		public void printFoodInList( ArrayList<FoodBase> pWhichFoodlList )
+	/**
+	* @param pWhichFoodlList
+	* @author P.S.
+	*/
+	public void printFoodInList( ArrayList<FoodBase> pWhichFoodlList )
+	{
+		if ( pWhichFoodlList.isEmpty() )
+			System.out.println( "Listan är tom." );
+		else
 		{
-			if ( pWhichFoodlList.isEmpty() )
-				System.out.println( "Listan är tom." );
-			else
+			System.out.println( "I listan finns:" );
+
+			// The following for loop is used to get largest string length of every property in the list, used for formatting
+			int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
+			for (  int i = 0; i < pWhichFoodlList.size(); i++ )
 			{
-				System.out.println( "I listan finns:" );
+				FoodBase f = pWhichFoodlList.get( i );
+				if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+				if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
+				if ( Integer.toString( f.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( f.getPrice() ).length();
+				if ( Integer.toString( f.getQuantity() ).length() > lQuantityLength ) lQuantityLength = Integer.toString( f.getQuantity() ).length();
+			}
 
-				// The following for loop is used to get largest string length of every property in the list, used for formatting
-				int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
-				for (  int i = 0; i < pWhichFoodlList.size(); i++ )
-				{
-					FoodBase f = pWhichFoodlList.get( i );
-					if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
-					if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
-					if ( Integer.toString( f.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( f.getPrice() ).length();
-					if ( Integer.toString( f.getQuantity() ).length() > lQuantityLength ) lQuantityLength = Integer.toString( f.getQuantity() ).length();
-				}
-
-				// Write to screen the list
-				for (int i = 0; i < pWhichFoodlList.size(); i++)
-				{
-					FoodBase f = pWhichFoodlList.get( i );
-					String lStr = String.format( "%" + lNumLength + "d.   namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg   mängd: %" + lQuantityLength + "d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
-					System.out.println(lStr);
-				}
+			// Write to screen the list
+			for ( int i = 0; i < pWhichFoodlList.size(); i++ )
+			{
+				FoodBase f = pWhichFoodlList.get( i );
+				String lStr = String.format( "%" + lNumLength + "d.   namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg   mängd: %" + lQuantityLength + "d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
+				System.out.println( lStr );
 			}
 		}
+	}
 
 
     /**
@@ -277,12 +281,13 @@ public class Player {
 		System.out.println( "" );
 		System.out.println( getName() + " ska nu försöka para sina djur." );
 
+		// Cannot choose an animal from an empty list
 		if ( this.mAnimals.size() > 0 )
 		{
 			boolean lPlayerDoneFlag = true;//false;
 			int lPlayerChoiceInt;
 
-			do
+			do // Until player is done. Only once if lPlayerDoneFlag is true
 			{
 				this.printLivestock();
 				this.printFoodOwned();
@@ -320,9 +325,13 @@ public class Player {
 
 					System.out.println( "Fått " + lNewOffspringList.size() + " nytt/nya djur.");
 
+					// Add offspring to livestock list
 					this.mAnimals.addAll( lNewOffspringList );
 
-					//lNewOffspringList.clear();
+					// Show total number of animals if the breeding was successful
+					if ( lNewOffspringList.size() > 0 ) this.printLivestock();
+
+					lNewOffspringList.clear();
 
 					// Ask if the player wants to breed another animal
 					if ( !lPlayerDoneFlag && Game.askForValidChar(  getName() + ", vill du para ett djur till?", "JN" ).equalsIgnoreCase( "n" ) ) lPlayerDoneFlag = true;
