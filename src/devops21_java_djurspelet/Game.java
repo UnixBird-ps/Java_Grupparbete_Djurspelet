@@ -295,6 +295,8 @@ public class Game
 	*/
 	private void runOneRound()
 	{
+		System.out.println( "\n" + "=".repeat( 80 ) );
+
 		// For testing only
 		System.out.println( "\nGame round step entered." );
 
@@ -305,6 +307,8 @@ public class Game
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
 			// Maybe replacable by a different for loop, should be ordered maybe
+
+			System.out.println( "\n" + "-".repeat( 80 ) );
 
 			// For every player
 			Player lCurrentPlayer = mPlayers.get( i );
