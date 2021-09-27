@@ -189,8 +189,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	{
 		if ( ( this.getKind() == pOtherAnimal.getKind() ) && ( this.getGender() != pOtherAnimal.getGender() ) )
 			return true;
-		else
-			System.out.println( this.getKindStr() + "(" + this.getName() + ") " + this.getGenderStr() + " kan inte paras med " + pOtherAnimal.getKindStr() + "(" + pOtherAnimal.getName() + ")" + pOtherAnimal.getGenderStr() + ".");
+		//else System.out.println( this.getKindStr() + "(" + this.getName() + ") " + this.getGenderStr() + " kan inte paras med " + pOtherAnimal.getKindStr() + "(" + pOtherAnimal.getName() + ")" + pOtherAnimal.getGenderStr() + ".");
 
 		return false;
 	}

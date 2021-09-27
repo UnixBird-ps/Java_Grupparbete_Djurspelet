@@ -339,7 +339,7 @@ public class Game
 				"Köpa djur",
 				"Köpa mat till djuren",
 				"Mata djur",
-				"Försöka para djur",
+				"Para djur",
 				"Sälja djur"
 			};
 			// and send these choices to askForValidChoiceWithDesc

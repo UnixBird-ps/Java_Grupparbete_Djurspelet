@@ -246,10 +246,10 @@ public class Player {
 
 		if ( mAnimals.size() > 0 )
 		{
-			boolean lPlayerDoneFlag = false;
+			boolean lPlayerDoneFlag = true;//false;
 			int lPlayerChoiceInt;
 
-			while ( !lPlayerDoneFlag )
+			do
 			{
 				printLivestock();
 				printFoodOwned();
@@ -286,11 +286,11 @@ public class Player {
 					//lNewOffspringList.clear();
 
 					// Ask if the player wants to breed another animal
-					if ( Game.askForValidChar(  getName() + ", vill du para ett djur till?", "JN" ).equalsIgnoreCase( "n" ) ) lPlayerDoneFlag = true;
+					if ( !lPlayerDoneFlag && Game.askForValidChar(  getName() + ", vill du para ett djur till?", "JN" ).equalsIgnoreCase( "n" ) ) lPlayerDoneFlag = true;
 				}
 				else
 					System.out.println( getName() + ", du har inga djur som du kan para " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ") med." );
-			}
+			} while ( !lPlayerDoneFlag );
 		}
 	}
 
