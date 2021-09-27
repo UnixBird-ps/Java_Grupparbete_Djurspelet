@@ -190,7 +190,7 @@ public class Store
 					lNewAnimal = lChosenAnimal.createNewWithGender( AnimalGender.FEMALE );
 
 				// Show player's choice
-				System.out.println( "Spelarens val: " + lNewAnimal.getKindStr()  );
+				System.out.println( "Spelarens val: " + lNewAnimal.getKindStr() + "(" + lNewAnimal.getGenderStr()+ ")" );
 
 				System.out.println( lNewAnimal.getPrice() + " kommer att dras från ditt konto." );
 

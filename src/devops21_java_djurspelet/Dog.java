@@ -78,8 +78,8 @@ public class Dog extends AnimalBase
 
 
 	/**
-	* Create a new separate instance of this object
-	* @return  New object with specified gender
+	* Create a new separate instance of same class
+	* @return  New animal of same kind but of specified gender
 	*
 	* @author  P.S.
 	*/

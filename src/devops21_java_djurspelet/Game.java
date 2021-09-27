@@ -33,6 +33,8 @@ public class Game
 		mStore = new Store( "Lantdjursbutiken" );
 		mPlayers = new ArrayList<>();
 
+		mRoundNumber = 0;
+
 		setupGame();
 
 		runMainGameLoop();
@@ -48,22 +50,20 @@ public class Game
 	*/
 	private void setupGame()
 	{
-		mRoundNumber = 0;
+		//Following commented out lines are important in the game when testing is over
+		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+		mRoundsStillToRun = mNumOfRoundsRequested;
 
-//		Following commented out lines are important in the game when testing is over
-//		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-//		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-//		mRoundsStillToRun = mNumOfRoundsRequested;
-//
-//		// Ask for player names and add players to the game.
-//		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
-//		{
-//			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
-//			mPlayers.add( new TestPlayer( lReqPlayerName ) );
-//		}
+		// Ask for player names and add players to the game.
+		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
+		{
+			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
+			mPlayers.add( new Player( lReqPlayerName ) );
+		}
 
 		// For testing only, to generate data
-		setupTestData();
+		//setupTestData();
 	}
 
 
@@ -262,7 +262,8 @@ public class Game
 	*/
 	private void runMainGameLoop()
 	{
-		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested ); // For testing only
+		// begin For testing only
+		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
 
 		System.out.println( "Players:" );
 		for ( int i = 0; i < mPlayers.size(); i++ )
@@ -282,8 +283,9 @@ public class Game
 			mRoundsStillToRun--;
 		}
 
-		System.out.println( "\nRoundsStillToRun: " + mRoundsStillToRun ); // For testing only
-		System.out.println( "mPlayers.size(): " + mPlayers.size() ); // For testing only
+		System.out.println( "");
+		System.out.println( "(For testing only) RoundsStillToRun: " + mRoundsStillToRun );
+		System.out.println( "(For testing only) mPlayers.size(): " + mPlayers.size() );
 	}
 
 
@@ -298,7 +300,7 @@ public class Game
 
 		//System.out.println( "\nGame round step entered." ); // For testing only
 
-		System.out.println( "\nRound: " + mRoundNumber + " of " + mNumOfRoundsRequested );
+		System.out.println( "\nSpelrunda: " + mRoundNumber + " av " + mNumOfRoundsRequested );
 
 		// The round logic starts here
 
