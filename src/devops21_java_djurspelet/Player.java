@@ -219,12 +219,44 @@ public class Player {
 			}
 		}
 
+
+		public void printFoodInList( ArrayList<FoodBase> pWhichFoodlList )
+		{
+			if ( pWhichFoodlList.isEmpty() )
+				System.out.println( "Listan är tom." );
+			else
+			{
+				System.out.println( "I listan finns:" );
+
+				// The following for loop is used to get largest string length of every property in the list, used for formatting
+				int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
+				for (  int i = 0; i < pWhichFoodlList.size(); i++ )
+				{
+					FoodBase f = pWhichFoodlList.get( i );
+					if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
+					if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
+					if ( Integer.toString( f.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( f.getPrice() ).length();
+					if ( Integer.toString( f.getQuantity() ).length() > lQuantityLength ) lQuantityLength = Integer.toString( f.getQuantity() ).length();
+				}
+
+				// Write to screen the list
+				for (int i = 0; i < pWhichFoodlList.size(); i++)
+				{
+					FoodBase f = pWhichFoodlList.get( i );
+					String lStr = String.format( "%" + lNumLength + "d.   namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg   mängd: %" + lQuantityLength + "d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
+					System.out.println(lStr);
+				}
+			}
+		}
+
+
     /**
      * prints to console the current amount this Player holds
      */
     public void printCredits() {
         System.out.println(mName + " has " + mCredits + " Credit(s)");
     }
+
 
     public String getName() {
         return mName;
@@ -257,7 +289,12 @@ public class Player {
 
 				// Ask which animal the player wants to breed
 				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du para?", 0, this.mAnimals.size() - 1 );
+
+					// Store the animal
 				AnimalBase lChosenAnimal = this.mAnimals.get( lPlayerChoiceInt );
+
+				// Show which animal the player has chosen to breed
+				System.out.println( getName() +", vill para sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")." );
 
 				// Create a temporary list of animals of same kind but other gender and skip same animal
 				ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
@@ -274,6 +311,7 @@ public class Player {
 
 					// Player selects another animal of same kind but different gender
 					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du para?", 0, lNewAnimalList.size() - 1 );
+
 					// Store the animal
 					AnimalBase lOtherAnimal = lNewAnimalList.get( lPlayerChoiceInt );
 
@@ -328,15 +366,25 @@ public class Player {
 				// Show which animal the player has chosen to feed
 				System.out.println( getName() +", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
 
-				// Cannot feed an animal if food is missing
-				if ( this.mFoods.size() > 0 )
+				// Create a temporary list of animals of same kind but other gender and skip same animal
+				ArrayList<FoodBase> lNewFoodList = new ArrayList<>();
+				for ( FoodBase f : this.mFoods )
 				{
+					// Adds compatible animal to the temporary list
+					if ( lChosenAnimal.canEatThis( f ) ) lNewFoodList.add( f );
+				}
+
+				// Cannot feed an animal if food is missing
+				if ( lNewFoodList.size() > 0 )
+				{
+					this.printFoodInList( lNewFoodList );
+
 					// Show a list containing foods the animal can eat
 					lChosenAnimal.printRightFoodList();
 
 					// Ask which food the player wants to feed the animal with
-					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket foder vill du ge din" + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")?", 0, this.mFoods.size() - 1 );
-					FoodBase lChosenFood = this.mFoods.get( lPlayerChoiceInt );
+					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket foder vill du ge din " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")?", 0, lNewFoodList.size() - 1 );
+					FoodBase lChosenFood = lNewFoodList.get( lPlayerChoiceInt );
 
 					// Show which food the player has chosen to feed the animal with
 					System.out.println( getName() +", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" + " med " + lChosenFood.getName() );

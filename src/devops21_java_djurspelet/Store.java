@@ -149,19 +149,19 @@ public class Store
 		}
 		else
 		{
-			// Show what is available in the store
-			this.displayAnimalInventory();
-
-			// Show what animals the player owns
-			pPlayer.printLivestock();
-			pPlayer.printFoodOwned();
-			pPlayer.printCredits();
-
 			boolean lPlayerDoneFlag = false;
 			boolean lFirstTime = true;
 
 			while ( !lPlayerDoneFlag )
 			{
+				// Show what animals the player owns
+				pPlayer.printLivestock();
+				pPlayer.printFoodOwned();
+				pPlayer.printCredits();
+
+				// Show what is available in the store
+				this.displayAnimalInventory();
+
 				// Ask if the player wants to buy an animal
 				String lPlayerChoiceStr;
 				if ( lFirstTime )
@@ -209,17 +209,18 @@ public class Store
 		}
 		else
 		{
-			// Show what is available in the store
-			this.displayFoodInventory();
-
 			// Show what animals the player owns
 			pPlayer.printLivestock();
 			pPlayer.printFoodOwned();
 			pPlayer.printCredits();
 
+			// Show what is available in the store
+			this.displayFoodInventory();
+
 			// Ask if the player wants to buy food for the animals
 			String lPlayerChoiceStr = Game.askForValidChar( "Vill du köpa något?", "JN" );
 			System.out.println( "lPlayerChoiceChar: " + lPlayerChoiceStr );
+
 			if ( lPlayerChoiceStr.equalsIgnoreCase( "j" ) )
 			{
 				// Show a message and wait for a valid input
