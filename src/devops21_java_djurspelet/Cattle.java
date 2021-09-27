@@ -74,8 +74,7 @@ public class Cattle extends AnimalBase
 
 	@Override
 	public AnimalBase createChild() {
-		Cattle lcattle = new Cattle();
-		return lcattle;
+		return new Cattle();
 	}
 
 

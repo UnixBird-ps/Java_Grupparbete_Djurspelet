@@ -74,8 +74,7 @@ public class Cat extends AnimalBase
 
 	@Override
 	public AnimalBase createChild() {
-		Cat lcat = new Cat();
-		return lcat;
+		return new Cat();
 	}
 
 

@@ -76,8 +76,7 @@ public class Rabbit extends AnimalBase
 
 	@Override
 	public AnimalBase createChild() {
-		Rabbit lrabbit = new Rabbit();
-		return lrabbit;
+		return new Rabbit();
 	}
 
 

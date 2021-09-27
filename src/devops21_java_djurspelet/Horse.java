@@ -73,8 +73,7 @@ public class Horse extends AnimalBase
 
 	@Override
 	public AnimalBase createChild() {
-		Horse lhorse = new Horse();
-		return lhorse;
+		return new Horse();
 	}
 
 

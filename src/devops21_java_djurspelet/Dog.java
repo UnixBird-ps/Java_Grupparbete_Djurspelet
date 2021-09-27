@@ -73,8 +73,7 @@ public class Dog extends AnimalBase
 
 	@Override
 	public AnimalBase createChild() {
-		Dog ldog = new Dog();
-		return ldog;
+		return new Dog();
 	}
 
 
