@@ -262,8 +262,8 @@ public class Game
 	*/
 	private void runMainGameLoop()
 	{
-		// start For testing only
-		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
+		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested ); // For testing only
+
 		System.out.println( "Players:" );
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
@@ -282,9 +282,8 @@ public class Game
 			mRoundsStillToRun--;
 		}
 
-		// For testing only
-		System.out.println( "\nRoundsStillToRun: " + mRoundsStillToRun );
-		System.out.println( "mPlayers.size(): " + mPlayers.size() );
+		System.out.println( "\nRoundsStillToRun: " + mRoundsStillToRun ); // For testing only
+		System.out.println( "mPlayers.size(): " + mPlayers.size() ); // For testing only
 	}
 
 
