@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 
 /**
- *  Holds foods and animals for sale
+ * Holds foods and animals for sale
  */
 public class Store
 {
-	static final int ATSTART_QUANTITY_PER_FOOD   = 2000; // in kilograms
+	static final int ATSTART_QUANTITY_PER_FOOD = 2000; // in kilograms
 
 	String mName;                          // Initialized in the constructor
 	public ArrayList<AnimalBase> mAnimals; // Sellable to players
@@ -17,17 +17,16 @@ public class Store
 
 
 	/**
-	* Creates a store with a name
-	*
-	* @param pName  What is the store called? Is displayed when played enters this store
-	*
-	* @author P.S.
-	*/
+	 * Creates a store with a name
+	 *
+	 * @param pName What is the store called? Is displayed when played enters this store
+	 * @author P.S.
+	 */
 	public Store( String pName )
 	{
 		this.mName = pName;
 		this.mAnimals = new ArrayList<>();
-		this.mFoods   = new ArrayList<>();
+		this.mFoods = new ArrayList<>();
 
 		// Create data
 		this.mAnimals.add( new Cat() );
@@ -44,24 +43,33 @@ public class Store
 
 	public void addAnimalsOfSameKind( AnimalKind pKind, AnimalGender pGender, int pNum )
 	{
-		if ( pNum > 0 )
-			switch ( pKind )
-			{
-				case CAT -> { for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Cat( pGender ) ); }
-				case CATTLE -> { for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Cattle( pGender ) ); }
-				case DOG -> { for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Dog( pGender ) ); }
-				case HORSE -> { for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Horse( pGender ) ); }
-				case RABBIT -> { for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Rabbit( pGender ) ); }
+		if ( pNum > 0 ) switch ( pKind )
+		{
+			case CAT -> {
+				for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Cat( pGender ) );
 			}
+			case CATTLE -> {
+				for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Cattle( pGender ) );
+			}
+			case DOG -> {
+				for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Dog( pGender ) );
+			}
+			case HORSE -> {
+				for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Horse( pGender ) );
+			}
+			case RABBIT -> {
+				for ( int i = 0; i < pNum; i++ ) this.mAnimals.add( new Rabbit( pGender ) );
+			}
+		}
 
 	}
 
 
 	/**
-	* Greets a player
-	*
-	* @author P.S.
-	*/
+	 * Greets a player
+	 *
+	 * @author P.S.
+	 */
 	protected void displayGreeting()
 	{
 		System.out.println( "\nVälkommen till " + this.mName );
@@ -69,11 +77,11 @@ public class Store
 
 
 	/**
-	* Displays a nicely formated list
-	* Loops through the list av animals available in store
-	*
-	* @author P.S.
-	*/
+	 * Displays a nicely formated list
+	 * Loops through the list av animals available in store
+	 *
+	 * @author P.S.
+	 */
 	protected void displayAnimalInventory()
 	{
 		// Write to screen kind, health and price of animals
@@ -81,15 +89,16 @@ public class Store
 
 		// Following lines are used to get largest string length of every property in the list, used for formatting
 		int lNumLength = 0, lKindLength = 0, lPriceLength = 0;
-		for (  int i = 0; i < this.mAnimals.size(); i++ )
+		for ( int i = 0; i < this.mAnimals.size(); i++ )
 		{
 			AnimalBase a = this.mAnimals.get( i );
 			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
 			if ( a.getKindStr().length() > lKindLength ) lKindLength = a.getKindStr().length();
-			if ( Integer.toString( a.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( a.getPrice() ).length();
+			if ( Integer.toString( a.getPrice() ).length() > lPriceLength )
+				lPriceLength = Integer.toString( a.getPrice() ).length();
 		}
 
-		for (  int i = 0; i < this.mAnimals.size(); i++ )
+		for ( int i = 0; i < this.mAnimals.size(); i++ )
 		{
 			AnimalBase a = this.mAnimals.get( i );
 			String lStr = String.format( "%" + lNumLength + "d  art: %-" + lKindLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr(), a.getPrice() );
@@ -99,11 +108,11 @@ public class Store
 
 
 	/**
-	* Displays a nicely formated list
-	* Loops through the list av foods available in store
-	*
-	* @author P.S.
-	*/
+	 * Displays a nicely formated list
+	 * Loops through the list av foods available in store
+	 *
+	 * @author P.S.
+	 */
 	protected void displayFoodInventory()
 	{
 		// Write to screen name of food, price and how much there is left
@@ -111,15 +120,16 @@ public class Store
 
 		// Following for loop is used to get largest string length of every property in the list, used for formatting
 		int lNumLength = 0, lNameLength = 0, lPriceLength = 0;
-		for (  int i = 0; i < this.mFoods.size(); i++ )
+		for ( int i = 0; i < this.mFoods.size(); i++ )
 		{
 			FoodBase f = this.mFoods.get( i );
 			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
 			if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
-			if ( Integer.toString( f.getPrice() ).length() > lPriceLength ) lPriceLength = Integer.toString( f.getPrice() ).length();
+			if ( Integer.toString( f.getPrice() ).length() > lPriceLength )
+				lPriceLength = Integer.toString( f.getPrice() ).length();
 		}
 
-		for (  int i = 0; i < this.mFoods.size(); i++ )
+		for ( int i = 0; i < this.mFoods.size(); i++ )
 		{
 			FoodBase f = this.mFoods.get( i );
 			String lStr = String.format( "%" + lNumLength + "d  namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg", i, f.getName(), f.getPrice() );
@@ -129,15 +139,14 @@ public class Store
 
 
 	/**
-	* Show what animals the player owns
-	* Ask if the player wants to buy food for the animals
-	* Show a message and wait for a valid input
-	* Calls a method that does the actual movement of data
-	*
-	* @param pPlayer  The player object who enters the store
-	*
-	* @author P.S.
-	*/
+	 * Show what animals the player owns
+	 * Ask if the player wants to buy food for the animals
+	 * Show a message and wait for a valid input
+	 * Calls a method that does the actual movement of data
+	 *
+	 * @param pPlayer The player object who enters the store
+	 * @author P.S.
+	 */
 	protected void playerEntersAnimalBuyStore( Player pPlayer )
 	{
 		// Say Hi
@@ -146,8 +155,7 @@ public class Store
 		if ( this.mAnimals.isEmpty() )
 		{
 			System.out.println( "Affären har inga djur till salu för tillfället." );
-		}
-		else
+		} else
 		{
 			boolean lPlayerDoneFlag = false;
 			boolean lFirstTime = true;
@@ -164,10 +172,8 @@ public class Store
 
 				// Ask if the player wants to buy an animal
 				String lPlayerChoiceStr;
-				if ( lFirstTime )
-					lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa djur?", "JN" );
-				else
-					lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa fler djur?", "JN" );
+				if ( lFirstTime ) lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa djur?", "JN" );
+				else lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa fler djur?", "JN" );
 
 				lFirstTime = false;
 
@@ -180,24 +186,21 @@ public class Store
 
 					// Do the actual buy
 					pPlayer.buyAnimal( lChosenAnimal ); //.getKind()
-				}
-				else
-					lPlayerDoneFlag = true;
+				} else lPlayerDoneFlag = true;
 			}
 		}
 	}
 
 
 	/**
-	* Show what animals the player owns
-	* Ask if the player wants to buy food for the animals
-	* Show a message and wait for a valid input
-	* Calls a method that does the actual movement of data
-	*
-	* @param pPlayer  The player object who enters the store
-	*
-	* @author P.S.
-	*/
+	 * Show what animals the player owns
+	 * Ask if the player wants to buy food for the animals
+	 * Show a message and wait for a valid input
+	 * Calls a method that does the actual movement of data
+	 *
+	 * @param pPlayer The player object who enters the store
+	 * @author P.S.
+	 */
 	protected void playerEntersFoodStore( Player pPlayer )
 	{
 		// Say Hi
@@ -206,8 +209,7 @@ public class Store
 		if ( this.mFoods.isEmpty() )
 		{
 			System.out.println( "Affären har ingen mat till salu för tillfället." );
-		}
-		else
+		} else
 		{
 			// Show what animals the player owns
 			pPlayer.printLivestock();
@@ -230,7 +232,7 @@ public class Store
 
 				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, 50 );
 
-				//FoodBase lNewFood = lChosenFood.getClass().getConstructor().newInstance();
+				//FoodBase lNewFoodBucket = lChosenFood.getClass().getConstructor().newInstance();
 				// Do the actual buy
 				pPlayer.buyFood( lChosenFood ); // .getKind()
 			}
@@ -239,13 +241,13 @@ public class Store
 
 
 	/**
-	* Show what animals and food the player owns
-	* Ask if the player wants to sell an animal
-	* Show a message and wait for a valid input
-	* Calls a method that does the actual movement of data
-	*
-	* @author P.S.
-	*/
+	 * Show what animals and food the player owns
+	 * Ask if the player wants to sell an animal
+	 * Show a message and wait for a valid input
+	 * Calls a method that does the actual movement of data
+	 *
+	 * @author P.S.
+	 */
 	protected void playerEntersAnimalSellStore( Player pPlayer )
 	{
 		// Say Hi
@@ -259,20 +261,20 @@ public class Store
 		if ( pPlayer.mAnimals.size() > 0 )
 		{
 			boolean selling = true;
-			while(selling && pPlayer.mAnimals.size() > 0) {
+			while ( selling && pPlayer.mAnimals.size() > 0 )
+			{
 				// Show a message and wait for a valid input
-				int lPlayerChoiceInt = Game.askForValidNumber("Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1);
-				AnimalBase lChosenAnimal = pPlayer.mAnimals.get(lPlayerChoiceInt);
-				System.out.println("Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")");
+				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1 );
+				AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
+				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
 				// Do the actual sale
-				pPlayer.sellAnimal(lChosenAnimal);
-				if(Game.askForValidChar("Vill du sälja fler djur?", "jn").equals("N")){
+				pPlayer.sellAnimal( lChosenAnimal );
+				if ( Game.askForValidChar( "Vill du sälja fler djur?", "jn" ).equals( "N" ) )
+				{
 					selling = false;
 				}
 			}
-		}
-		else
-			System.out.println( pPlayer.getName() + ", du äger inga djur." );
+		} else System.out.println( pPlayer.getName() + ", du äger inga djur." );
 	}
 
 }

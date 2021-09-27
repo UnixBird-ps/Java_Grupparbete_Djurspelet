@@ -72,7 +72,7 @@ public class Game
 	*/
 	private void setupTestData()
 	{
-		mNumOfRoundsRequested = ATSTART_MAX_ROUNDS;
+		mNumOfRoundsRequested = 10;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
 		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.MALE ) );
@@ -161,7 +161,7 @@ public class Game
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
 			// Show the message on screen
-			System.out.print( "\n" + pMsg + " : " );
+			System.out.print( pMsg + " : " );
 
 			// Get input from user
 			lInputStr = lScanner.nextLine();
@@ -297,10 +297,9 @@ public class Game
 	{
 		System.out.println( "\n" + "=".repeat( 80 ) );
 
-		// For testing only
-		System.out.println( "\nGame round step entered." );
+		//System.out.println( "\nGame round step entered." ); // For testing only
 
-		System.out.println( "Round: " + mRoundNumber + " of " + mNumOfRoundsRequested );
+		System.out.println( "\nRound: " + mRoundNumber + " of " + mNumOfRoundsRequested );
 
 		// The round logic starts here
 
@@ -325,7 +324,7 @@ public class Game
 				if (a.getHealth() > 0)
 					lNewAnimalList.add(a);
 				else
-					System.out.println( lCurrentPlayer.getName() + "s " + a.getKind() + "(" + a.getName() + ") har dött." );
+					System.out.println( lCurrentPlayer.getName() + "s " + a.getKindStr() + "(" + a.getName() + ") har dött." );
 			}
 			lCurrentPlayer.mAnimals.clear();
 			lCurrentPlayer.mAnimals.addAll( lNewAnimalList );
