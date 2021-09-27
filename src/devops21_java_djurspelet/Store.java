@@ -253,18 +253,23 @@ public class Store
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
-		pPlayer.printFoodOwned();
+		//pPlayer.printFoodOwned(); irrelevant
 		pPlayer.printCredits();
 
 		if ( pPlayer.mAnimals.size() > 0 )
 		{
-			// Show a message and wait for a valid input
-			int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1 );
-			AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
-			System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
-
-			// Do the actual sell
-			pPlayer.sellAnimal( lChosenAnimal );
+			boolean selling = true;
+			while(selling && pPlayer.mAnimals.size() > 0) {
+				// Show a message and wait for a valid input
+				int lPlayerChoiceInt = Game.askForValidNumber("Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1);
+				AnimalBase lChosenAnimal = pPlayer.mAnimals.get(lPlayerChoiceInt);
+				System.out.println("Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")");
+				// Do the actual sale
+				pPlayer.sellAnimal(lChosenAnimal);
+				if(Game.askForValidChar("Vill du sälja fler djur?", "jn").equals("N")){
+					selling = false;
+				}
+			}
 		}
 		else
 			System.out.println( pPlayer.getName() + ", du äger inga djur." );

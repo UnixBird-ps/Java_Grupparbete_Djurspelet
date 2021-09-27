@@ -45,17 +45,6 @@ public class Player {
         }
     }
 
-    /**
-     * method sells an animal adding it to store sent and removing it from player
-     *
-     * @param pAnimal player animal to sell
-     * @param pStore  store for list adress to send animal to
-     */
-    public void sellAnimaltoStore(AnimalBase pAnimal, Store pStore) {
-        mCredits += pAnimal.getPrice();
-        pStore.mAnimals.add(pAnimal);
-        mAnimals.remove(pAnimal);
-    }
 
     /**
      * sells animal to no recipient
