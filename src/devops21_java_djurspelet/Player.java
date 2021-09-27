@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Player
 {
 
-	private static final int ATSTART_CREDITS = 50000;
+	private static final int ATSTART_CREDITS = 100000;
 	private String mName;
 	public int mCredits;
 	public ArrayList<AnimalBase> mAnimals;
