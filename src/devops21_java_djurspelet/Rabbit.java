@@ -74,6 +74,12 @@ public class Rabbit extends AnimalBase
 		return lNewOffspringList;
 	}
 
+	@Override
+	public AnimalBase createChild() {
+		Rabbit lrabbit = new Rabbit();
+		return lrabbit;
+	}
+
 
 	public String getKindStr()
 	{

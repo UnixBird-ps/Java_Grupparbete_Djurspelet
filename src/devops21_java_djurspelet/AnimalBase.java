@@ -284,6 +284,9 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	}
 
 
+	public abstract AnimalBase createChild();
+
+
 	/**
 	*
 	* @param pName  Animal's name

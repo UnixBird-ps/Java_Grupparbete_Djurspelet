@@ -72,6 +72,12 @@ public class Cattle extends AnimalBase
 		return lNewOffspringList;
 	}
 
+	@Override
+	public AnimalBase createChild() {
+		Cattle lcattle = new Cattle();
+		return lcattle;
+	}
+
 
 	public String getKindStr()
 	{

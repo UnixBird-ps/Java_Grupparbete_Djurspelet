@@ -29,17 +29,17 @@ public class Player {
             if (mCredits >= pAnimal.getPrice()*animalAmount) {
                 mCredits -= pAnimal.getPrice()*animalAmount;
                 for(int i =0; i<animalAmount;i++){
-                    mAnimals.add(pAnimal);
+                    mAnimals.add(pAnimal.createChild());
                     mAnimals.get(mAnimals.size()-1).setName(Game.askForValidName("Döp ditt djur!"));
                 }
                 lLoop =false;
             } else {
                 System.out.println("Du har inte råd!");
                 switch(Game.askForValidChar("Avbryt köp?","jn")){
-                    case "j":
+                    case "J":
                         lLoop = false;
                         break;
-                    case "n":
+                    case "N":
                 }
             }
         }
