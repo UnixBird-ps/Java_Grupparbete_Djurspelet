@@ -162,6 +162,7 @@ public class Player {
 			else
 			{
 				System.out.println( "I listan finns dessa djur:" );
+
 				// This for loop is used to get largest string length of every property in the list, used for formatting
 				int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
 				for (  int i = 0; i < pWhichAnimalList.size(); i++ )
@@ -244,23 +245,23 @@ public class Player {
 		System.out.println( "" );
 		System.out.println( getName() + " ska nu försöka para sina djur." );
 
-		if ( mAnimals.size() > 0 )
+		if ( this.mAnimals.size() > 0 )
 		{
 			boolean lPlayerDoneFlag = true;//false;
 			int lPlayerChoiceInt;
 
 			do
 			{
-				printLivestock();
-				printFoodOwned();
+				this.printLivestock();
+				this.printFoodOwned();
 
 				// Ask which animal the player wants to breed
-				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du para?", 0, mAnimals.size() - 1 );
-				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
+				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du para?", 0, this.mAnimals.size() - 1 );
+				AnimalBase lChosenAnimal = this.mAnimals.get( lPlayerChoiceInt );
 
 				// Create a temporary list of animals of same kind but other gender and skip same animal
 				ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
-				for ( AnimalBase a : mAnimals )
+				for ( AnimalBase a : this.mAnimals )
 				{
 					// Adds compatible animal to the temporary list
 					if ( lChosenAnimal.canMateWith( a ) ) lNewAnimalList.add( a );
@@ -281,7 +282,7 @@ public class Player {
 
 					System.out.println( "Fått " + lNewOffspringList.size() + " nytt/nya djur.");
 
-					mAnimals.addAll( lNewOffspringList );
+					this.mAnimals.addAll( lNewOffspringList );
 
 					//lNewOffspringList.clear();
 
@@ -309,31 +310,33 @@ public class Player {
 		System.out.println( "" );
 		System.out.println( getName() + " ska nu mata sina djur." );
 
-		// Cannot choose an animal if the list is empty
-		if ( mAnimals.size() > 0 )
+		// Cannot choose an animal from an empty list
+		if ( this.mAnimals.size() > 0 )
 		{
 			boolean lPlayerDoneFlag = false;
 			int lPlayerChoiceInt;
 
-			while ( !lPlayerDoneFlag )
+			do
 			{
-				printLivestock();
-				printFoodOwned();
+				this.printLivestock();
+				this.printFoodOwned();
 
 				// Ask which animal the player wants to feed
-				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du mata?", 0, mAnimals.size() - 1 );
-				AnimalBase lChosenAnimal = mAnimals.get( lPlayerChoiceInt );
+				lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket djur vill du mata?", 0, this.mAnimals.size() - 1 );
+				AnimalBase lChosenAnimal = this.mAnimals.get( lPlayerChoiceInt );
 
 				// Show which animal the player has chosen to feed
 				System.out.println( getName() +", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
-				lChosenAnimal.printRightFoodList();
 
 				// Cannot feed an animal if food is missing
-				if ( mFoods.size() > 0 )
+				if ( this.mFoods.size() > 0 )
 				{
+					// Show a list containing foods the animal can eat
+					lChosenAnimal.printRightFoodList();
+
 					// Ask which food the player wants to feed the animal with
-					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket foder vill du ge din" + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")?", 0, mFoods.size() - 1 );
-					FoodBase lChosenFood = mFoods.get( lPlayerChoiceInt );
+					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket foder vill du ge din" + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")?", 0, this.mFoods.size() - 1 );
+					FoodBase lChosenFood = this.mFoods.get( lPlayerChoiceInt );
 
 					// Show which food the player has chosen to feed the animal with
 					System.out.println( getName() +", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" + " med " + lChosenFood.getName() );
@@ -344,12 +347,15 @@ public class Player {
 					// Feed the animal
 					lChosenAnimal.tryEat( lChosenFood, lPlayerChoiceInt );
 
-					printLivestock();
+					this.printLivestock();
 
 					// Ask if the player wants to feed another animal
 					if ( Game.askForValidChar(  getName() + ", vill du mata ett djur till?", "JN" ).equalsIgnoreCase( "n" ) ) lPlayerDoneFlag = true;
 				}
-			}
+				else
+					System.out.println( getName() + ", du har ingen mat att ge till djuren." );
+
+			} while ( !lPlayerDoneFlag );
 		}
 		else
 			System.out.println( getName() + ", du äger inga djur." );
