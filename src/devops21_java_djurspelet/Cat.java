@@ -72,6 +72,12 @@ public class Cat extends AnimalBase
 		return lNewOffspringList;
 	}
 
+	@Override
+	public AnimalBase createChild() {
+		Cat lcat = new Cat();
+		return lcat;
+	}
+
 
 	public String getKindStr()
 	{

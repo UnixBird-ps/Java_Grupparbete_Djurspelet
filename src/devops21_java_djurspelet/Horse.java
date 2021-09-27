@@ -71,6 +71,12 @@ public class Horse extends AnimalBase
 		return lNewOffspringList;
 	}
 
+	@Override
+	public AnimalBase createChild() {
+		Horse lhorse = new Horse();
+		return lhorse;
+	}
+
 
 	public String getKindStr()
 	{

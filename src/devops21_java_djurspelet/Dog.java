@@ -71,6 +71,12 @@ public class Dog extends AnimalBase
 		return lNewOffspringList;
 	}
 
+	@Override
+	public AnimalBase createChild() {
+		Dog ldog = new Dog();
+		return ldog;
+	}
+
 
 	public String getKindStr()
 	{
