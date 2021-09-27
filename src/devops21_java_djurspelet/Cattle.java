@@ -78,6 +78,18 @@ public class Cattle extends AnimalBase
 	}
 
 
+	/**
+	* Create a new separate instance of this object
+	* @return  New object with specified gender
+	*
+	* @author  P.S.
+	*/
+	public AnimalBase createNewWithGender( AnimalGender pWhatGender )
+	{
+		return new Cattle( pWhatGender );
+	}
+
+
 	public String getKindStr()
 	{
 		return String.valueOf( KIND );

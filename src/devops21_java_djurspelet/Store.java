@@ -166,9 +166,8 @@ public class Store
 		} else
 		{
 			boolean lPlayerDoneFlag = false;
-			boolean lFirstTime = true;
 
-			while ( !lPlayerDoneFlag )
+			do
 			{
 				// Show what animals the player owns
 				pPlayer.printLivestock();
@@ -178,24 +177,38 @@ public class Store
 				// Show what is available in the store
 				this.displayAnimalInventory();
 
-				// Ask if the player wants to buy an animal
-				String lPlayerChoiceStr;
-				if ( lFirstTime ) lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa djur?", "JN" );
-				else lPlayerChoiceStr = Game.askForValidChar( pPlayer.getName() + ", vill du köpa fler djur?", "JN" );
+				// Show a message and wait for a valid input
+				int lPlayerChoiceInt;
+				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", vad vill du köpa?", 0, this.mAnimals.size() - 1 );
+				AnimalBase lChosenAnimal = this.mAnimals.get( lPlayerChoiceInt );
 
-				lFirstTime = false;
+				// Create new animal of specified gender
+				AnimalBase lNewAnimal;
+				if ( Game.askForValidNumber( "Hane(0) eller Hona(1)?", 0, 1 ) == 0 )
+					lNewAnimal = lChosenAnimal.createNewWithGender( AnimalGender.MALE );
+				else
+					lNewAnimal = lChosenAnimal.createNewWithGender( AnimalGender.FEMALE );
 
-				if ( lPlayerChoiceStr.equalsIgnoreCase( "j" ) )
+				// Show player's choice
+				System.out.println( "Spelarens val: " + lNewAnimal.getKindStr()  );
+
+				System.out.println( lNewAnimal.getPrice() + " kommer att dras från ditt konto." );
+
+				if ( Game.askForValidChar( "Vill du fortsätta?", "JN" ).equalsIgnoreCase( "j" ) )
 				{
-					// Show a message and wait for a valid input
-					int lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", vad vill du köpa?", 0, this.mAnimals.size() - 1 );
-					AnimalBase lChosenAnimal = this.mAnimals.get( lPlayerChoiceInt );
-					System.out.println( "Spelarens val: " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
-
 					// Do the actual buy
-					pPlayer.buyAnimal( lChosenAnimal ); //.getKind()
-				} else lPlayerDoneFlag = true;
-			}
+					pPlayer.buyAnimal( lNewAnimal ); //.getKind()
+				}
+
+				// Show what animals the player owns
+				pPlayer.printLivestock();
+				pPlayer.printCredits();
+
+				// Ask if the player wants to buy an animal
+				if ( Game.askForValidChar( pPlayer.getName() + ", vill du köpa fler djur?", "JN" ).equalsIgnoreCase( "n" ) )
+					lPlayerDoneFlag = true;
+
+			} while ( !lPlayerDoneFlag );
 		}
 	}
 
@@ -238,7 +251,7 @@ public class Store
 				FoodBase lChosenFood = this.mFoods.get( lPlayerChoiceInt );
 				System.out.println( "Spelarens val: " + lChosenFood.getName() );
 
-				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, 50 );
+				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, 100 );
 
 				//FoodBase lNewFoodBucket = lChosenFood.getClass().getConstructor().newInstance();
 				// Do the actual buy
@@ -263,6 +276,7 @@ public class Store
 
 		// Show what animals the player owns
 		pPlayer.printLivestock();
+
 		//pPlayer.printFoodOwned(); irrelevant
 		pPlayer.printCredits();
 
@@ -275,8 +289,10 @@ public class Store
 				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1 );
 				AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
 				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+
 				// Do the actual sale
 				pPlayer.sellAnimal( lChosenAnimal );
+
 				if ( Game.askForValidChar( "Vill du sälja fler djur?", "jn" ).equals( "N" ) )
 				{
 					selling = false;

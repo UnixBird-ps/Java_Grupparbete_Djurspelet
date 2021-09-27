@@ -6,20 +6,20 @@ import java.util.ArrayList;
 
 public abstract class AnimalBase // Enforce creation of subclasses
 {
-	Random rand = new Random();
+	//Random rand = new Random(); What is this?
 
 	protected static final int ATSTART_HEALTH = 100;
 
 	private String mName;
 	private AnimalKind mKind;
-	private AnimalGender mGender;
+	private AnimalGender mGender;     // AnimalGender.MALE or AnimalGenderFEMALE
 	protected int mPriceAtMaxHealth;  // Initial price at 100%
-	private float mHealth;              // Current health
-	private float mLastHealth;          // For compute deltas
+	private float mHealth;            // Current health
+	private float mLastHealth;        // For compute deltas
 	private int mAge;
 	private int mExpectedLifeLength;
 	protected ArrayList<String> mRightFood;  // List of foods the anmial can eat
-	float mFoodQuantityHealthReq;              // Quantity required to increase health 10% points
+	float mFoodQuantityHealthReq;            // Quantity required to increase health 10% points
 
 
 	/**
@@ -286,6 +286,14 @@ public abstract class AnimalBase // Enforce creation of subclasses
 
 	public abstract AnimalBase createChild();
 
+
+	/**
+	* Create a new separate instance of this object
+	* @return  New object with specified gender
+	*
+	* @author  P.S.
+	*/
+	public abstract AnimalBase createNewWithGender( AnimalGender pWhatGender );
 
 	/**
 	*
