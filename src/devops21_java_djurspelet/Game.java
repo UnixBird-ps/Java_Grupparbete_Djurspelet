@@ -425,7 +425,7 @@ public class Game
 		// Show ranking
 		for ( Player p : mPlayers )
 		{
-			System.out.println( p.getName() + " har " + p.getCredits() + " crediter" );
+			System.out.println( p.getName() + " har " + p.getCredits() + " krediter" );
 		}
 	}
 
