@@ -486,7 +486,11 @@ public class Player
 				// Show which animal the player has chosen to feed
 				System.out.println( getName() + ", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
 
-				// Create a temporary list of animals of same kind but other gender and skip same animal
+				// Show a list containing foods the animal can eat
+				lChosenAnimal.printRightFoodList();
+
+				// Create a temporary list of foods the animal can eat
+				// To prevent a player choosing wrong food that the animal can't eat
 				ArrayList<FoodBase> lNewFoodList = new ArrayList<>();
 				for ( FoodBase f: this.mFoods )
 				{
@@ -499,14 +503,11 @@ public class Player
 				{
 					this.printFoodInList( lNewFoodList );
 
-					// Show a list containing foods the animal can eat
-					lChosenAnimal.printRightFoodList();
-
-					// Ask which food the player wants to feed the animal with
+					// Ask which food the player wants to feed the animal
 					lPlayerChoiceInt = Game.askForValidNumber( getName() + ", vilket foder vill du ge din " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")?", 0, lNewFoodList.size() - 1 );
 					FoodBase lChosenFood = lNewFoodList.get( lPlayerChoiceInt );
 
-					// Show which food the player has chosen to feed the animal with
+					// Show which food the player has chosen
 					System.out.println( getName() + ", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" + " med " + lChosenFood.getName() );
 
 					// Ask how much food to use
@@ -515,12 +516,16 @@ public class Player
 					// Feed the animal
 					lChosenAnimal.tryEat( lChosenFood, lPlayerChoiceInt );
 
+					if ( lChosenFood.getQuantity() <= 0 ) mFoods.remove( lChosenFood );
+
 					this.printLivestock();
 
 					// Ask if the player wants to feed another animal
 					if ( Game.askForValidChar( getName() + ", vill du mata ett djur till?", "JN" ).equalsIgnoreCase( "n" ) )
 						lPlayerDoneFlag = true;
-				} else System.out.println( getName() + ", du har ingen mat att ge till djuren." );
+				}
+				else
+					System.out.println( getName() + ", du har ingen mat att ge till djuren." );
 
 			} while ( !lPlayerDoneFlag );
 		} else System.out.println( getName() + ", du äger inga djur." );

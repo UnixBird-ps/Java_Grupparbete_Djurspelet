@@ -295,6 +295,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*/
 	public abstract AnimalBase createNewWithGender( AnimalGender pWhatGender );
 
+
 	/**
 	*
 	* @param pName  Animal's name
