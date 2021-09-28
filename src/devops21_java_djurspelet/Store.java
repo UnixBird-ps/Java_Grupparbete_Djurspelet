@@ -307,7 +307,7 @@ public class Store
 				// Show a message and wait for a valid input
 				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1 );
 				AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
-				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+				System.out.println( "Spelarens val: " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
 
 				// Do the actual sale
 				pPlayer.sellAnimal( lChosenAnimal );
