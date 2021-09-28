@@ -1,6 +1,7 @@
 package devops21_java_djurspelet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class Player
@@ -15,10 +16,10 @@ public class Player
 
 	Player( String name )
 	{
-		mName = name;
-		mCredits = ATSTART_CREDITS;
-		mAnimals = new ArrayList<>();
-		mFoods = new ArrayList<>();
+		this.mName = name;
+		this.mCredits = ATSTART_CREDITS;
+		this.mAnimals = new ArrayList<>();
+		this.mFoods = new ArrayList<>();
 	}
 
 
@@ -29,12 +30,12 @@ public class Player
 	 */
 	public void buyAnimal( AnimalBase pAnimal )
 	{
-		if ( mCredits >= pAnimal.getPrice() )
+		if ( this.mCredits >= pAnimal.getPrice() )
 		{
-			mCredits -= pAnimal.getPrice();
+			this.mCredits -= pAnimal.getPrice();
 
 			pAnimal.setName( Game.askForValidName( "Döp ditt djur!" ) );
-			mAnimals.add( pAnimal );
+			this.mAnimals.add( pAnimal );
 		}
 		else
 		{
@@ -77,43 +78,59 @@ public class Player
 	 */
 	public void sellAnimal( AnimalBase pAnimal )
 	{
-		mCredits += pAnimal.getPrice();
-		mAnimals.remove( pAnimal );
+		this.mCredits += pAnimal.getPrice();
+		this.mAnimals.remove( pAnimal );
+	}
+
+
+	public void sellAll()
+	{
+		Iterator<AnimalBase> i = this.mAnimals.iterator();
+		while ( i.hasNext() )
+		{
+			AnimalBase a = i.next();
+			this.mCredits += a.getPrice();
+			i.remove();
+		}
 	}
 
 
 	/**
-	 * Receives food from store as chosen type to purchase.
-	 * handles dialogue and choices and amount to buy from food object.
-	 * does nothing if player decides to not purchase any
-	 *
-	 * @param pFood food object to purchase of
-	 */
+	* Receives food from store
+	* Checks if there's enough credits, cancels the purchase if not
+	* Adds the food quantity to existing object, creates new if it does not exist
+	*
+	* @param pFood food object to purchase of
+	*/
 	public void buyFood( FoodBase pFood )
 	{
-		if ( mCredits >= pFood.getPriceTotal() )
+		// Has this player enough credits
+		if ( this.mCredits >= pFood.getPriceTotal() )
 		{
-			mCredits -= pFood.getPriceTotal();
+			// Decreas the credits by the price of the animal
+			this.mCredits -= pFood.getPriceTotal();
 
+			// Search for existing right food
 			int lFoundFoodIndex = -1;
-			for ( int i = 0; i < mFoods.size(); i++ )
+			for ( int i = 0; i < this.mFoods.size(); i++ )
 			{
-				if ( pFood.getName().equalsIgnoreCase( mFoods.get( i ).getName() ) )
+				if ( pFood.getName().equalsIgnoreCase( this.mFoods.get( i ).getName() ) )
 				{
 					lFoundFoodIndex = i;
 					break;
 				}
 			}
 
+			// Was found?
 			if ( lFoundFoodIndex < 0 )
 			{
-				// Not found
-				mFoods.add( pFood.createNewWithQuantity( pFood.getQuantity() ) );
+				// Not found, add new
+				this.mFoods.add( pFood.createNewWithQuantity( pFood.getQuantity() ) );
 			}
 			else
 			{
-				// Found
-				mFoods.get( lFoundFoodIndex ).setQuantity( mFoods.get( lFoundFoodIndex ).getQuantity() + pFood.getQuantity() );
+				// Found, add quantity to existing
+				this.mFoods.get( lFoundFoodIndex ).setQuantity( this.mFoods.get( lFoundFoodIndex ).getQuantity() + pFood.getQuantity() );
 			}
 
 //		if ( pFood.getQuantity() != 0 )
@@ -185,15 +202,15 @@ public class Player
 	{
 		System.out.println();
 		//int index = 0;
-		System.out.println( "I " + mName + "s djurbestånd finns det:" );
-		if ( mAnimals.isEmpty() ) System.out.println( getName() + " har inga djur." );
+		System.out.println( "I " + this.mName + "s djurbestånd finns det:" );
+		if ( this.mAnimals.isEmpty() ) System.out.println( getName() + " har inga djur." );
 		else
 		{
 			// This for loop is used to get largest string length of every property in the list, used for formatting
 			int lNumLength = 0, lKindLength = 0, lHealthLength = 0, lGenderLength = 0, lPriceLength = 0;
-			for ( int i = 0; i < mAnimals.size(); i++ )
+			for ( int i = 0; i < this.mAnimals.size(); i++ )
 			{
-				AnimalBase a = mAnimals.get( i );
+				AnimalBase a = this.mAnimals.get( i );
 				if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
 				if ( ( a.getKindStr() + "(" + a.getName() + ")" ).length() > lKindLength )
 					lKindLength = ( a.getKindStr() + "(" + a.getName() + ")" ).length();
@@ -203,9 +220,9 @@ public class Player
 					lPriceLength = Integer.toString( a.getPrice() ).length();
 			}
 
-			for ( int i = 0; i < mAnimals.size(); i++ )
+			for ( int i = 0; i < this.mAnimals.size(); i++ )
 			{
-				AnimalBase a = mAnimals.get( i );
+				AnimalBase a = this.mAnimals.get( i );
 				String lStr = String.format( "%" + lNumLength + "d.   art: %-" + lKindLength + "s   kön: %-" + lGenderLength + "s   hälsa: %" + lHealthLength + "s   pris: %" + lPriceLength + "d kr", i, a.getKindStr() + "(" + a.getName() + ")", a.getGenderStr(), a.getHealthFullStr(), a.getPrice() );
 				System.out.println( lStr );
 			}
@@ -251,14 +268,14 @@ public class Player
 	public void printFoodOwned()
 	{
 		System.out.println();
-		System.out.println( "I " + mName + "s matförråd finns det:" );
-		if ( !mFoods.isEmpty() )
+		System.out.println( "I " + this.mName + "s matförråd finns det:" );
+		if ( !this.mFoods.isEmpty() )
 		{
 			// The following for loop is used to get largest string length of every property in the list, used for formatting
 			int lNumLength = 0, lNameLength = 0, lPriceLength = 0, lQuantityLength = 0;
-			for ( int i = 0; i < mFoods.size(); i++ )
+			for ( int i = 0; i < this.mFoods.size(); i++ )
 			{
-				FoodBase f = mFoods.get( i );
+				FoodBase f = this.mFoods.get( i );
 				if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
 				if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
 				if ( Integer.toString( f.getPrice() ).length() > lPriceLength )
@@ -267,15 +284,15 @@ public class Player
 					lQuantityLength = Integer.toString( f.getQuantity() ).length();
 			}
 
-			for ( int i = 0; i < mFoods.size(); i++ )
+			for ( int i = 0; i < this.mFoods.size(); i++ )
 			{
-				FoodBase f = mFoods.get( i );
+				FoodBase f = this.mFoods.get( i );
 				String lStr = String.format( "%" + lNumLength + "d.   namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg   mängd: %" + lQuantityLength + "d kg", i, f.getName(), f.getPrice(), f.getQuantity() );
 				System.out.println( lStr );
 			}
 		} else
 		{
-			System.out.println( mName + " du har ju ingen mat!" );
+			System.out.println( this.mName + " du har ju ingen mat!" );
 		}
 	}
 
@@ -321,7 +338,17 @@ public class Player
 	 */
 	public void printCredits()
 	{
-		System.out.println( mName + " has " + mCredits + " Credit(s)" );
+		System.out.println( this.mName + " har " + this.mCredits + " Credit(s)" );
+	}
+
+
+	/**
+	*
+	* @return Thre balance in credits the player is holding
+	*/
+	public int getCredits()
+	{
+		return mCredits;
 	}
 
 

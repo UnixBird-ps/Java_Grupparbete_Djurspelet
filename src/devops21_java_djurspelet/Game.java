@@ -1,7 +1,6 @@
 package devops21_java_djurspelet;
 
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class Game
@@ -51,9 +50,9 @@ public class Game
 	private void setupGame()
 	{
 		//Following commented out lines are important in the game when testing is over
-		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-		mRoundsStillToRun = mNumOfRoundsRequested;
+		//mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+		//mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+		//mRoundsStillToRun = mNumOfRoundsRequested;
 
 		// Ask for player names and add players to the game.
 		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
@@ -63,7 +62,7 @@ public class Game
 		}
 
 		// For testing only, to generate data
-		//setupTestData();
+		setupTestData();
 	}
 
 
@@ -72,7 +71,7 @@ public class Game
 	*/
 	private void setupTestData()
 	{
-		mNumOfRoundsRequested = 10;
+		mNumOfRoundsRequested = 5;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
 		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.MALE ) );
@@ -86,12 +85,12 @@ public class Game
 		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
 		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
 		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
-		mPlayers.add( new Player( "Håkan" ) );
-		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
-		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.MALE ) );
-		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.FEMALE ) );
-		mPlayers.get( 2 ).mFoods.add( new Carrots( 10 ) );
-		mPlayers.get( 2 ).mFoods.add( new Forage( 50 ) );
+//		mPlayers.add( new Player( "Håkan" ) );
+//		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
+//		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.MALE ) );
+//		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.FEMALE ) );
+//		mPlayers.get( 2 ).mFoods.add( new Carrots( 10 ) );
+//		mPlayers.get( 2 ).mFoods.add( new Forage( 50 ) );
 		mNumOfPlayersRequested = mPlayers.size();
 	}
 
@@ -283,9 +282,36 @@ public class Game
 			mRoundsStillToRun--;
 		}
 
+		// Game has ended. Sell off all players' animals
+		System.out.println( "\nSpelet är slut." );
+		for ( Player p : mPlayers )
+		{
+			p.sellAll();
+		}
+
+		//Sort the players
+		this.mPlayers.sort( new Comparator<Player>()
+		{
+			@Override
+			public int compare( Player pLPlayer, Player pRPlyyer )
+			{
+				// -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+				return pLPlayer.getCredits() > pRPlyyer.getCredits() ? -1 : ( pLPlayer.getCredits() < pRPlyyer.getCredits() ) ? 1 : 0;
+			}
+		} );
+
+		// Show who won the game
+		System.out.println( "\n" + this.mPlayers.get( 0 ).getName() + " har vunnit spelet." );
+
+		// Show ranking
+		for ( Player p : this.mPlayers )
+		{
+			System.out.println( "namn: " + p.getName() + "   " + p.getCredits() );
+		}
+
 		System.out.println( "");
-		System.out.println( "(For testing only) RoundsStillToRun: " + mRoundsStillToRun );
-		System.out.println( "(For testing only) mPlayers.size(): " + mPlayers.size() );
+		System.out.println( "(For testing only) RoundsStillToRun: " + this.mRoundsStillToRun );
+		System.out.println( "(For testing only) mPlayers.size(): " + this.mPlayers.size() );
 	}
 
 
@@ -298,37 +324,51 @@ public class Game
 	{
 		System.out.println( "\n" + "=".repeat( 80 ) );
 
-		//System.out.println( "\nGame round step entered." ); // For testing only
-
 		System.out.println( "\nSpelrunda: " + mRoundNumber + " av " + mNumOfRoundsRequested );
 
-		// The round logic starts here
+		// Go through the list of players still in the game
+		// Using an iterator to prevent ConcurrentModificationException
+		Iterator<Player> lItrP = this.mPlayers.iterator();
+		while ( lItrP.hasNext() )
+		{
+			Player lP = lItrP.next();
+
+			// Remove animals that has died from players' animal list
+			// Using an iterator to prevent ConcurrentModificationException
+			Iterator<AnimalBase> lItrA = lP.mAnimals.iterator();
+			while ( lItrA.hasNext() )
+			{
+				AnimalBase lA = lItrA.next();
+
+				if ( lA.getHealth() <= 0 )
+				{
+					System.out.println( lA.getName() + "s " + lA.getKindStr() + "(" + lA.getName() + ") har dött." );
+					lItrA.remove();
+				}
+			}
+
+			if ( lP.getCredits() <= 0 && lP.mAnimals.isEmpty() )
+			{
+				System.out.println( "Spelet är slut för " + lP.getName() );
+				lItrP.remove();
+			}
+		}
 
 		for ( int i = 0; i < mPlayers.size(); i++ )
 		{
-			// Maybe replacable by a different for loop, should be ordered maybe
-
+			// Write a line to separate player's turn
 			System.out.println( "\n" + "-".repeat( 80 ) );
 
 			// For every player
 			Player lCurrentPlayer = mPlayers.get( i );
 
-			//boolean lEndPlayerTurn = false;
-
 			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
 
-			// Remove animals that has died from players' animal list
-			// Create a temp list, copy over only animals that are still alive
-			ArrayList<AnimalBase> lNewAnimalList = new ArrayList<>();
-			for ( AnimalBase a : lCurrentPlayer.mAnimals )
-			{
-				if (a.getHealth() > 0)
-					lNewAnimalList.add(a);
-				else
-					System.out.println( lCurrentPlayer.getName() + "s " + a.getKindStr() + "(" + a.getName() + ") har dött." );
-			}
-			lCurrentPlayer.mAnimals.clear();
-			lCurrentPlayer.mAnimals.addAll( lNewAnimalList );
+		// For testing. But code can be used in game.
+		// Selects randomly a player to remove from game.
+		// Prints out who was removed.
+		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
+		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
 
 			// Show what animals the player owns
 			lCurrentPlayer.printLivestock();
@@ -374,13 +414,7 @@ public class Game
 
 		} // Player's turn loop end
 
-		// For testing. But code can be used in game.
-		// Selects randomly a player to remove from game.
-		// Prints out who was removed.
-		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
-
-		System.out.println( "\nGame round step ended." ); // For testing only
+		System.out.println( "\nFor testing only: Game round step ended." );
 	}
 
 	static String getName()
