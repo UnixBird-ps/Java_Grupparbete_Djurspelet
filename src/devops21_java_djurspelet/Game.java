@@ -16,12 +16,13 @@ public class Game
 	private static int mNumOfPlayersRequested;
 	private static int mNumOfRoundsRequested;
 	private static int mRoundsStillToRun;
-	private static int mRoundNumber;
+	private static int mRoundNumber;            // Holds current round number
 
 
 	/**
 	* Calls method where game is set up by asking players some values
 	* Calls method where main loop runs
+	* Calls method where players' holdings are compared and a winner is chosen
 	*
 	* @author P.S.
 	*/
@@ -37,6 +38,8 @@ public class Game
 		setupGame();
 
 		runMainGameLoop();
+
+		endGameLogic();
 	}
 
 
@@ -49,10 +52,22 @@ public class Game
 	*/
 	private void setupGame()
 	{
-		//Following commented out lines are important in the game when testing is over
-		//mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
-		//mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-		//mRoundsStillToRun = mNumOfRoundsRequested;
+		setupRealGame(); // Ask questions to setup the game, Important in the game when not testing
+
+		//setupTestData(); // For testing only, to generate data
+	}
+
+
+	/**
+	* Tell user(s) to enter number of players
+	* Tell user(s) to enter number of game rounds
+	* Tell user(s) to enter name of players
+	*/
+	private void setupRealGame()
+	{
+		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
+		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
+		mRoundsStillToRun = mNumOfRoundsRequested;
 
 		// Ask for player names and add players to the game.
 		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
@@ -60,9 +75,6 @@ public class Game
 			String lReqPlayerName = askForValidName( "Vad heter spelare #" + ( 1 + i ) + "?" );
 			mPlayers.add( new Player( lReqPlayerName ) );
 		}
-
-		// For testing only, to generate data
-		setupTestData();
 	}
 
 
@@ -71,7 +83,7 @@ public class Game
 	*/
 	private void setupTestData()
 	{
-		mNumOfRoundsRequested = 5;
+		mNumOfRoundsRequested = 30;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
 		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.MALE ) );
@@ -80,11 +92,11 @@ public class Game
 		mPlayers.get( 0 ).mFoods.add( new CatFood( 10 ) );
 		mPlayers.get( 0 ).mFoods.add( new Forage( 50 ) );
 		mPlayers.add( new Player( "Östen" ) );
-		mPlayers.get( 1 ).mAnimals.add( new Dog() );
-		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
-		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
-		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
-		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
+//		mPlayers.get( 1 ).mAnimals.add( new Dog() );
+//		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
+//		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
+//		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
+//		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
 //		mPlayers.add( new Player( "Håkan" ) );
 //		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
 //		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.MALE ) );
@@ -261,16 +273,6 @@ public class Game
 	*/
 	private void runMainGameLoop()
 	{
-		// begin For testing only
-		System.out.println( "\nNumOfPlayersRequested: " + mNumOfPlayersRequested );
-
-		System.out.println( "Players:" );
-		for ( int i = 0; i < mPlayers.size(); i++ )
-		{
-			System.out.println( "lPlayerName #" + ( 1 + i ) + ": " + mPlayers.get( i ).getName() );
-		}
-		// end For testing only
-
 		// Keep looping until all rounds has run or until all but one player is left
 		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
 		{
@@ -281,37 +283,6 @@ public class Game
 			// Count down
 			mRoundsStillToRun--;
 		}
-
-		// Game has ended. Sell off all players' animals
-		System.out.println( "\nSpelet är slut." );
-		for ( Player p : mPlayers )
-		{
-			p.sellAll();
-		}
-
-		//Sort the players
-		this.mPlayers.sort( new Comparator<Player>()
-		{
-			@Override
-			public int compare( Player pLPlayer, Player pRPlyyer )
-			{
-				// -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-				return pLPlayer.getCredits() > pRPlyyer.getCredits() ? -1 : ( pLPlayer.getCredits() < pRPlyyer.getCredits() ) ? 1 : 0;
-			}
-		} );
-
-		// Show who won the game
-		System.out.println( "\n" + this.mPlayers.get( 0 ).getName() + " har vunnit spelet." );
-
-		// Show ranking
-		for ( Player p : this.mPlayers )
-		{
-			System.out.println( "namn: " + p.getName() + "   " + p.getCredits() );
-		}
-
-		System.out.println( "");
-		System.out.println( "(For testing only) RoundsStillToRun: " + this.mRoundsStillToRun );
-		System.out.println( "(For testing only) mPlayers.size(): " + this.mPlayers.size() );
 	}
 
 
@@ -327,14 +298,16 @@ public class Game
 		System.out.println( "\nSpelrunda: " + mRoundNumber + " av " + mNumOfRoundsRequested );
 
 		// Go through the list of players still in the game
+		// Remove a player from the game if he or she has no animals and no credits
 		// Using an iterator to prevent ConcurrentModificationException
-		Iterator<Player> lItrP = this.mPlayers.iterator();
+		Iterator<Player> lItrP = mPlayers.iterator();
 		while ( lItrP.hasNext() )
 		{
 			Player lP = lItrP.next();
 
 			// Remove animals that has died from players' animal list
 			// Using an iterator to prevent ConcurrentModificationException
+			// Inform which animal died
 			Iterator<AnimalBase> lItrA = lP.mAnimals.iterator();
 			while ( lItrA.hasNext() )
 			{
@@ -342,11 +315,12 @@ public class Game
 
 				if ( lA.getHealth() <= 0 )
 				{
-					System.out.println( lA.getName() + "s " + lA.getKindStr() + "(" + lA.getName() + ") har dött." );
+					System.out.println( lP.getName() + "s " + lA.getKindStr() + "(" + lA.getName() + ") har dött." );
 					lItrA.remove();
 				}
 			}
 
+			// Inform who cannot continue the game
 			if ( lP.getCredits() <= 0 && lP.mAnimals.isEmpty() )
 			{
 				System.out.println( "Spelet är slut för " + lP.getName() );
@@ -354,68 +328,107 @@ public class Game
 			}
 		}
 
-		for ( int i = 0; i < mPlayers.size(); i++ )
+		// Skip if there's not enough of players left in the game
+		if ( mPlayers.size() > 1 )
 		{
-			// Write a line to separate player's turn
-			System.out.println( "\n" + "-".repeat( 80 ) );
-
-			// For every player
-			Player lCurrentPlayer = mPlayers.get( i );
-
-			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
-
-		// For testing. But code can be used in game.
-		// Selects randomly a player to remove from game.
-		// Prints out who was removed.
-		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
-
-			// Show what animals the player owns
-			lCurrentPlayer.printLivestock();
-			lCurrentPlayer.printFoodOwned();
-			lCurrentPlayer.printCredits();
-
-			System.out.println( "" );
-
-			// Give a player 5 choices
-			String lPlayerChoiceDesc[] =
+			for ( int i = 0; i < mPlayers.size(); i++ )
 			{
-				"Köpa djur",
-				"Köpa mat till djuren",
-				"Mata djur",
-				"Para djur",
-				"Sälja djur"
-			};
-			// and send these choices to askForValidChoiceWithDesc
-			switch ( askForValidChoiceWithDesc( lCurrentPlayer.getName() + ", vad vill du göra?", lPlayerChoiceDesc ) )
-			{
-				case 1:
-					mStore.playerEntersAnimalBuyStore( lCurrentPlayer );
-					break;
-				case 2:
-					mStore.playerEntersFoodStore( lCurrentPlayer) ;
-					break;
-				case 3:
-					// Player tries feeding an animal
-					lCurrentPlayer.tryAnimalFeeding();
-					break;
-				case 4:
-					// Player tries animal breeding
-					lCurrentPlayer.tryAnimalBreeding();
-					break;
-				case 5:
-					// Player selling an animal
-					mStore.playerEntersAnimalSellStore( lCurrentPlayer );
-					break;
-			}
+				// Write a line to separate player's turn
+				System.out.println( "\n" + "-".repeat( 80 ) );
 
-			// Every animal the player owns grows older
-			lCurrentPlayer.decayAnimalsOwned();
+				// For every player
+				Player lCurrentPlayer = mPlayers.get( i );
 
-		} // Player's turn loop end
+				// Inform who's turn it is
+				System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
 
-		System.out.println( "\nFor testing only: Game round step ended." );
+				// Show what animals the player owns
+				lCurrentPlayer.printLivestock();
+				lCurrentPlayer.printFoodOwned();
+				lCurrentPlayer.printCredits();
+
+				System.out.println();
+
+				// Give a player 5 choices
+				String[] lPlayerChoiceDesc =
+				{
+					"Köpa djur",
+					"Köpa mat till djuren",
+					"Mata djur",
+					"Para djur",
+					"Sälja djur"
+				};
+				// Send these choices to askForValidChoiceWithDesc and get a player's choice
+				switch ( askForValidChoiceWithDesc( lCurrentPlayer.getName() + ", vad vill du göra?", lPlayerChoiceDesc ) )
+				{
+					case 1:
+						mStore.playerEntersAnimalBuyStore( lCurrentPlayer );
+						break;
+					case 2:
+						mStore.playerEntersFoodStore( lCurrentPlayer) ;
+						break;
+					case 3:
+						// Player tries feeding an animal
+						lCurrentPlayer.tryAnimalFeeding();
+						break;
+					case 4:
+						// Player tries animal breeding
+						lCurrentPlayer.tryAnimalBreeding();
+						break;
+					case 5:
+						// Player selling an animal
+						mStore.playerEntersAnimalSellStore( lCurrentPlayer );
+						break;
+				}
+
+				// Every animal the player owns grows older
+				lCurrentPlayer.decayAnimalsOwned();
+
+			} // Player's turn loop end
+		}
+
+		//System.out.println( "\nFor testing only: Game round step ended." );
 	}
+
+
+	/**
+	* Find the winner
+	*
+	* @author P.S.
+	*/
+	private void endGameLogic()
+	{
+		// Game has ended.
+
+		// Sell off all players' animals
+		for ( Player p : mPlayers )
+		{
+			p.sellAll();
+		}
+
+		// Sort the players
+		mPlayers.sort( new Comparator<Player>()
+		{
+			@Override
+			public int compare( Player pLPlayer, Player pRPlyyer )
+			{
+				// -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+				return pLPlayer.getCredits() > pRPlyyer.getCredits() ? -1 : ( pLPlayer.getCredits() < pRPlyyer.getCredits() ) ? 1 : 0;
+			}
+		} );
+
+		System.out.println( "\nSpelet är slut." );
+
+		// Show who won the game
+		System.out.println( "\n" + mPlayers.get( 0 ).getName() + " har vunnit spelet." );
+
+		// Show ranking
+		for ( Player p : mPlayers )
+		{
+			System.out.println( p.getName() + " har " + p.getCredits() + " crediter" );
+		}
+	}
+
 
 	static String getName()
 	{
