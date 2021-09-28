@@ -1,7 +1,6 @@
 package devops21_java_djurspelet;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -43,6 +42,8 @@ public class Store
 
 
 	/**
+	* Simplifies adding multiple animals of same kind and gender
+	*
 	* @param pKind    Kind of animals to create
 	* @param pGender  Gender of all animals
 	* @param pNum     Count
@@ -153,6 +154,7 @@ public class Store
 	* Calls a method that does the actual movement of data
 	*
 	* @param pPlayer The player object who enters the store
+	*
 	* @author P.S.
 	*/
 	protected void playerEntersAnimalBuyStore( Player pPlayer )
@@ -220,6 +222,7 @@ public class Store
 	* Calls a method that does the actual movement of data
 	*
 	* @param pPlayer The player object who enters the store
+	*
 	* @author P.S.
 	*/
 	protected void playerEntersFoodStore( Player pPlayer )
