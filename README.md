@@ -1,2 +1,4 @@
-# DevOps21_Java_Grupparbete_Djurspelet
-School project
+# Djurspelet
+School project - DevOps21 Java group project
+
+A game where players buy animals and food to the animals, feed and breed the animals.
