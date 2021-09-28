@@ -327,6 +327,7 @@ public class Game
 		System.out.println( "\nSpelrunda: " + mRoundNumber + " av " + mNumOfRoundsRequested );
 
 		// Go through the list of players still in the game
+		// Remove a player from the game if he or she has no animals and no credits
 		// Using an iterator to prevent ConcurrentModificationException
 		Iterator<Player> lItrP = this.mPlayers.iterator();
 		while ( lItrP.hasNext() )
@@ -363,12 +364,6 @@ public class Game
 			Player lCurrentPlayer = mPlayers.get( i );
 
 			System.out.println( "\n" + lCurrentPlayer.getName() + "s tur." );
-
-		// For testing. But code can be used in game.
-		// Selects randomly a player to remove from game.
-		// Prints out who was removed.
-		//Player lRemovedPlayer = mPlayers.remove( (int)( Math.random() * mPlayers.size() ) );
-		//System.out.println( "\n" + lRemovedPlayer.getName() + " har gått ur spelet." );
 
 			// Show what animals the player owns
 			lCurrentPlayer.printLivestock();
