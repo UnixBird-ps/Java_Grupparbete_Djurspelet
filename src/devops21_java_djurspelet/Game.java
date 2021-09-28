@@ -328,7 +328,7 @@ public class Game
 			}
 		}
 
-		// Skip if there's not enough of players left in the game
+		// Are there enough of players left in the game?
 		if ( mPlayers.size() > 1 )
 		{
 			for ( int i = 0; i < mPlayers.size(); i++ )
