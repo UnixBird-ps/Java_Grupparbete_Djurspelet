@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class Player
 {
 
-	private static final int ATSTART_CREDITS = 1000; //100000;
+	private static final int ATSTART_CREDITS = 100000;
 	private String mName;
 	public int mCredits;
 	public ArrayList<AnimalBase> mAnimals;
@@ -18,6 +18,16 @@ public class Player
 	{
 		this.mName = name;
 		this.mCredits = ATSTART_CREDITS;
+		this.mAnimals = new ArrayList<>();
+		this.mFoods = new ArrayList<>();
+	}
+
+
+	Player( String name, int pNumCredits ) throws IllegalArgumentException
+	{
+		if ( pNumCredits <= 0 ) throw new IllegalArgumentException();
+		this.mName = name;
+		this.mCredits = pNumCredits;
 		this.mAnimals = new ArrayList<>();
 		this.mFoods = new ArrayList<>();
 	}
@@ -369,8 +379,7 @@ public class Player
 	*/
 	public void tryAnimalBreeding()
 	{
-		System.out.println( "" );
-		System.out.println( getName() + " ska nu försöka para sina djur." );
+		System.out.println( "\n" + getName() + " ska nu försöka para sina djur." );
 
 		// Cannot choose an animal from an empty list
 		if ( this.mAnimals.size() > 0 )
@@ -414,6 +423,7 @@ public class Player
 					// Make the animal do the actual mating and get a list of newborn animals if mating was successful
 					ArrayList<AnimalBase> lNewOffspringList = lChosenAnimal.tryMateWith( lOtherAnimal );
 
+					// Tell player how many new animals
 					System.out.println( "Fått " + lNewOffspringList.size() + " nytt/nya djur." );
 
 					// If breeding was successful
