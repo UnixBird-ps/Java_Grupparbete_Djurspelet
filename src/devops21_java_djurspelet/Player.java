@@ -205,7 +205,7 @@ public class Player
 
 
 	/**
-	 * prints out list of animals in a vertical format
+	 * Prints out list of animals in a vertical format
 	 * includes index animal is at
 	 */
 	public void printLivestock()
@@ -273,7 +273,7 @@ public class Player
 
 
 	/**
-	 * prints the food and amount of said food the player holds in their supply
+	 * Prints the food and amount of said food the player holds in their supply
 	 */
 	public void printFoodOwned()
 	{
@@ -308,7 +308,7 @@ public class Player
 
 
 	/**
-	* @param pWhichFoodlList
+	* @param pWhichFoodlList  List to show on screen
 	*
 	* @author P.S.
 	*/
@@ -433,7 +433,7 @@ public class Player
 					{
 						for ( AnimalBase a : lNewOffspringList )
 						{
-							a.setName( Game.askForValidName( "Döp ditt  djur (kön: " + a.getGenderStr() + ")." ) );
+							a.setName( Game.askForValidName( "Döp ditt djur art: " + a.getKindStr() + "   kön: " + a.getGenderStr() + "." ) );
 						}
 
 						// Add offspring to livestock list
@@ -484,7 +484,8 @@ public class Player
 				AnimalBase lChosenAnimal = this.mAnimals.get( lPlayerChoiceInt );
 
 				// Show which animal the player has chosen to feed
-				System.out.println( getName() + ", vill mata sin " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
+				System.out.println( getName() + ", vill mata sin:" );
+				System.out.printf( "art: %s   kön: %s   hälsa: %s   pris: %d kr\n", lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")", lChosenAnimal.getGenderStr(), lChosenAnimal.getHealthFullStr(), lChosenAnimal.getPrice() );
 
 				// Show a list containing foods the animal can eat
 				lChosenAnimal.printRightFoodList();
@@ -525,8 +526,10 @@ public class Player
 						lPlayerDoneFlag = true;
 				}
 				else
+				{
 					System.out.println( getName() + ", du har ingen mat att ge till djuren." );
-
+					lPlayerDoneFlag = true;
+				}
 			} while ( !lPlayerDoneFlag );
 		} else System.out.println( getName() + ", du äger inga djur." );
 	}

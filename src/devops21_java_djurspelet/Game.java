@@ -52,9 +52,9 @@ public class Game
 	*/
 	private void setupGame()
 	{
-		setupRealGame(); // Ask questions to setup the game, Important in the game when not testing
+		//setupRealGame(); // Ask questions to setup the game, Important in the game when not testing
 
-		//setupTestData(); // For testing only, to generate data
+		setupTestData(); // For testing only, to generate data
 	}
 
 
@@ -91,7 +91,7 @@ public class Game
 		mPlayers.get( 0 ).mAnimals.add( new Horse() );
 		mPlayers.get( 0 ).mFoods.add( new CatFood( 10 ) );
 		mPlayers.get( 0 ).mFoods.add( new Forage( 50 ) );
-		mPlayers.add( new Player( "Östen" ) );
+		mPlayers.add( new Player( "Östen", 25000 ) );
 //		mPlayers.get( 1 ).mAnimals.add( new Dog() );
 //		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
 //		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
