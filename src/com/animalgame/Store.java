@@ -194,7 +194,7 @@ public class Store
 
 				// Create new animal of specified gender
 				AnimalBase lNewAnimal;
-				if ( Game.askForValidNumber( "Hane(0) eller Hona(1)?", 0, 1 ) == 0 )
+				if ( Game.askForValidChar( "Hane(A) eller Hona(O)?", "AO" ).equalsIgnoreCase( "a" ) )
 					lNewAnimal = lChosenAnimal.createNewWithGender( AnimalGender.MALE );
 				else
 					lNewAnimal = lChosenAnimal.createNewWithGender( AnimalGender.FEMALE );

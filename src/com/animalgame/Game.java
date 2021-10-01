@@ -150,7 +150,7 @@ public class Game
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
 			// Show the message on screen
-			System.out.print( "\n" + pMsg + " Ange (" + pValidChars + "): " );
+			System.out.print( "\n" + pMsg + " Ange (" + pValidChars.replace( "", " " ).trim().replace( " ", "/" ) + "): " );
 
 			// Get input from user
 			String lInputStr = lScanner.nextLine();
