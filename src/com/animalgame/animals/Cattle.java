@@ -1,8 +1,7 @@
 package com.animalgame.animals;
 
 import com.animalgame.bases.AnimalBase;
-import com.animalgame.enums.AnimalGender;
-import com.animalgame.enums.AnimalKind;
+import com.animalgame.enums.*;
 import com.animalgame.food.Forage;
 
 import java.util.ArrayList;

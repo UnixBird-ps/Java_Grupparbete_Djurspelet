@@ -20,6 +20,7 @@ public class Horse extends AnimalBase
 	protected static final float FOOD_REQ_QUANTITY = 10.0f;
 	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 1;
 
+
 	/**
 	* Initializes this object
 	*

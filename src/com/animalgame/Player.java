@@ -66,7 +66,7 @@ public class Player
 		{
 			this.mCredits -= pAnimal.getPrice();
 
-			pAnimal.setName( Game.askForValidName( "Döp ditt djur!" ) );
+			pAnimal.setName( Game.askForValidName( "Döp ditt djur art: " + pAnimal.getKindStr() + "   kön: " + pAnimal.getGenderStr() + "." ) );
 			this.mAnimals.add( pAnimal );
 		}
 		else

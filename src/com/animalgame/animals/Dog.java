@@ -21,9 +21,11 @@ public class Dog extends AnimalBase
 	protected static final float FOOD_REQ_QUANTITY = 0.3f;
 	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 6;
 
+
 	/**
 	* Initializes this object
 	*
+	* @author Mauro, P.S.
 	*/
 	public Dog()
 	{

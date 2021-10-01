@@ -11,9 +11,10 @@ import java.util.*;
 
 /**
 * Runs the game loops
-* Has a name
 * Asks for number of players and game rounds at start
-* Compares players' credit balances
+* Has a few methods for geting input from user
+* Compares players' credit balances at the end
+* Has a name
 *
 * @author P.S., Mauro
 */
@@ -29,7 +30,7 @@ public class Game
 	private static ArrayList<Player> mPlayers;  // The players in the game
 	private static int mNumOfPlayersRequested;
 	private static int mNumOfRoundsRequested;
-	private static int mRoundsStillToRun;
+	//private static int mRoundsStillToRun;
 	private static int mRoundNumber;            // Holds current round number
 
 
@@ -83,7 +84,7 @@ public class Game
 	{
 		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
 		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-		mRoundsStillToRun = mNumOfRoundsRequested;
+		//mRoundsStillToRun = mNumOfRoundsRequested;
 
 		// Ask for player names and add players to the game.
 		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
@@ -102,18 +103,22 @@ public class Game
 	private void setupTestGame()
 	{
 		mNumOfRoundsRequested = 30;
-		mRoundsStillToRun = mNumOfRoundsRequested;
+		mRoundNumber = mNumOfRoundsRequested;
+		//mRoundsStillToRun = 0; //mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
-		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.MALE ) );
-		mPlayers.get( 0 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
-		mPlayers.get( 0 ).mAnimals.add( new Horse() );
-		mPlayers.get( 0 ).mFoods.add( new CatFood( 50 ) );
-		mPlayers.get( 0 ).mFoods.add( new Forage( 500 ) );
-		mPlayers.add( new Player( "Östen", 50000 ) );
-		mPlayers.get( 1 ).mFoods.add( new Forage( 500 ) );
-		mPlayers.get( 1 ).mAnimals.add( new Dog() );
-		mPlayers.get( 1 ).mFoods.add( new CatFood( 10 ) );
-		mPlayers.get( 1 ).mFoods.add( new Forage( 50 ) );
+		mPlayers.get( 0 ).buyAnimal( new Horse( AnimalGender.MALE ) );
+		mPlayers.get( 0 ).buyAnimal( new Horse( AnimalGender.FEMALE ) );
+		mPlayers.get( 0 ).buyFood( new Forage( 50 ) );
+		mPlayers.get( 0 ).buyFood( new Forage( 500 ) );
+		mPlayers.get( 0 ).printLivestock();
+		mPlayers.get( 0 ).printCredits();
+		mPlayers.add( new Player( "Östen" ) );
+		mPlayers.get( 1 ).buyAnimal( new Cattle( AnimalGender.MALE) );
+		mPlayers.get( 1 ).buyAnimal( new Cattle( AnimalGender.FEMALE ) );
+		mPlayers.get( 1 ).buyFood( new Forage( 500 ) );
+		mPlayers.get( 1 ).buyFood( new Forage( 50 ) );
+		mPlayers.get( 1 ).printLivestock();
+		mPlayers.get( 1 ).printCredits();
 //		mPlayers.get( 1 ).mAnimals.add( new Dog() );
 //		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
 //		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
@@ -194,7 +199,7 @@ public class Game
 		while ( !lIsValid ) // Keep asking for valid choice
 		{
 			// Show the message on screen
-			System.out.print( pMsg + " : " );
+			System.out.print( pMsg + " (Första bokstaven stor): " );
 
 			// Get input from user
 			lInputStr = lScanner.nextLine();
@@ -311,7 +316,7 @@ public class Game
 	*
 	* @author P.S.
 	*/
-	protected static int askForValidChoiceWithDesc( String pMsg, String[] pPlayerChoiceDesc )
+	protected static int askForValidChoiceWithDesc( String pMsg, String ...pPlayerChoiceDesc )
 	{
 		System.out.println( "Dessa val finns:" );
 
@@ -336,14 +341,11 @@ public class Game
 	private void runMainGameLoop()
 	{
 		// Keep looping until all rounds has run or until all but one player is left
-		while ( mRoundsStillToRun > 0 && mPlayers.size() > 1 )
+		while ( mNumOfRoundsRequested > mRoundNumber && mPlayers.size() > 1 )
 		{
 			mRoundNumber++;
 
 			runOneRound();
-
-			// Count down
-			mRoundsStillToRun--;
 		}
 	}
 
@@ -444,8 +446,7 @@ public class Game
 				}
 
 				// Every animal the player owns grows older
-				lCurrentPlayer.decayAnimalsOwned();
-
+				if ( mNumOfRoundsRequested > mRoundNumber ) lCurrentPlayer.decayAnimalsOwned();
 			} // Player's turn loop end
 		}
 		// Only one player remaining

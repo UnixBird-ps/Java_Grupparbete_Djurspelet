@@ -20,6 +20,7 @@ public class Rabbit extends AnimalBase
 	protected static final float FOOD_REQ_QUANTITY = 0.2f;
 	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 5;
 
+
 	/**
 	* Initializes this object
 	*
