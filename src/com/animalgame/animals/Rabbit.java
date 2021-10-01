@@ -1,26 +1,37 @@
-package devops21_java_djurspelet;
+package com.animalgame.animals;
 
-import java.util.Random;
+import com.animalgame.bases.AnimalBase;
+import com.animalgame.enums.*;
+import com.animalgame.food.*;
+
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Cat extends AnimalBase
+
+/**
+* A class for rabbit specific values
+*
+* @author Mauro, P.S.
+*/
+public class Rabbit extends AnimalBase
 {
 	protected static final int PRICE = 1000;
-	protected static final String KIND = "katt";
+	protected static final String KIND = "kanin";
 	protected static final float FOOD_REQ_QUANTITY = 0.2f;
-	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 8;
-
+	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 5;
 
 	/**
 	* Initializes this object
 	*
 	* @author P.S.
 	*/
-	public Cat()
+	public Rabbit()
 	{
-		super( AnimalKind.CAT, PRICE, 15, FOOD_REQ_QUANTITY );
-		this.mRightFood.add( CatFood.NAME );
+		super( AnimalKind.RABBIT, PRICE, 10, FOOD_REQ_QUANTITY );
+		this.mRightFood.add( Carrots.NAME );
+		this.mRightFood.add( Forage.NAME );
 	}
+
 
 
 	/**
@@ -30,17 +41,18 @@ public class Cat extends AnimalBase
 	*
 	* @author P.S.
 	*/
-	public Cat( AnimalGender pGender )
+	public Rabbit( AnimalGender pGender )
 	{
-		super( AnimalKind.CAT, PRICE, 15, FOOD_REQ_QUANTITY, pGender );
-		this.mRightFood.add( CatFood.NAME );
+		super( AnimalKind.RABBIT, PRICE, 10, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( Carrots.NAME );
+		this.mRightFood.add( Forage.NAME );
 	}
 
 
 	/**
 	* Checks if this animal can mate with other animal
 	* Creates a random number of new offspring up to TYPICAL_NUMBER_OF_OFFSPRING
-	* Sends this list to the caller
+	* Returns this list to the caller
 	*
 	* @param pOtherAnimal  Which animal for mating
 	* @return              An ArrayList of AnimalBase
@@ -60,36 +72,48 @@ public class Cat extends AnimalBase
 			// 50% of chance
 			if ( lRandom.nextBoolean() )
 			{
-				// How many kittens?
+				// How many rabbits?
 				int lNum = 1 + lRandom.nextInt( TYPICAL_NUMBER_OF_OFFSPRING );
-				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Cat() );
+				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Rabbit() );
 				System.out.println( "Parningen lyckades!" );
 			}
 			else
-				System.out.println( "Parningen misslyckades." );
+				System.out.println( "Parningen misslyckades!" );
 		}
 
 		return lNewOffspringList;
 	}
 
+
+	/**
+	* @return  A new separate rabbit instance
+	*
+	* @author Mauro
+	*/
 	@Override
 	public AnimalBase createChild() {
-		return new Cat();
+		return new Rabbit();
 	}
 
 
 	/**
-	* Create a new separate instance of same class
-	* @return  New animal of same kind but of specified gender
+	* Creates a new separate instance of same class
+	* @param   pWhatGender  The gender of new animal
+	* @return               New animal of same kind but of specified gender
 	*
-	* @author  P.S.
+	* @author P.S.
 	*/
 	public AnimalBase createNewWithGender( AnimalGender pWhatGender )
 	{
-		return new Cat( pWhatGender );
+		return new Rabbit( pWhatGender );
 	}
 
 
+	/**
+	* @return  Animal's kind as a string
+	*
+	* @author P.S.
+	*/
 	public String getKindStr()
 	{
 		return String.valueOf( KIND );

@@ -1,19 +1,18 @@
-package devops21_java_djurspelet;
+package com.animalgame.bases;
 
+import com.animalgame.enums.AnimalGender;
+import com.animalgame.enums.AnimalKind;
 
-import java.util.Random;
 import java.util.ArrayList;
 
 public abstract class AnimalBase // Enforce creation of subclasses
 {
-	//Random rand = new Random(); What is this?
-
 	protected static final int ATSTART_HEALTH = 100;
 
 	private String mName;
 	private AnimalKind mKind;
 	private AnimalGender mGender;     // AnimalGender.MALE or AnimalGenderFEMALE
-	protected int mPriceAtMaxHealth;  // Initial price at 100%
+	protected float mPriceAtMaxHealth;  // Initial price at 100%
 	private float mHealth;            // Current health
 	private float mLastHealth;        // For compute deltas
 	private int mAge;
@@ -33,7 +32,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @author P.S.
 	*/
-	protected AnimalBase( AnimalKind pKind, int pPriceAtMaxHealth, int pExpectedLifeLength, float pFoodQuantityHealthReq )
+	protected AnimalBase( AnimalKind pKind, float pPriceAtMaxHealth, int pExpectedLifeLength, float pFoodQuantityHealthReq )
 	{
 		this.mName = "Namnlös";
 		this.mKind = pKind;
@@ -117,7 +116,6 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	/**
 	* @return  Animal's health as float
 	*
-	* @author  P.S.
 	*/
 	public float getHealth() { return this.mHealth; }
 
@@ -157,7 +155,6 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	/**
 	* @return  Computed price, from health and original price
 	*
-	* @author P.S.
 	*/
 	public int getPrice() { return (int)( mHealth * this.mPriceAtMaxHealth / 100); }
 
@@ -165,11 +162,15 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	/**
 	* @return  Animal's age
 	*
-	* @author P.S.
 	*/
 	public int getAge() { return this.mAge; }
 
 
+	/**
+	* Makes this animal age and loose some health
+	*
+	* @author Mauro
+	*/
 	public void growOlder()
 	{
 		this.mAge++;
@@ -245,13 +246,13 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* @param pQuantity         How much to give
 	* @return                  true or false
 	*
-	* @author P.S
+	* @author P.S.
 	*/
-	public boolean tryEat( FoodBase pWhichFoodBucket, int pQuantity )
+	public boolean tryEat( FoodBase pWhichFoodBucket, float pQuantity )
 	{
 		if ( this.canEatThis( pWhichFoodBucket ) )
 		{
-			int lDiff = pWhichFoodBucket.getQuantity() - pQuantity;
+			float lDiff = pWhichFoodBucket.getQuantity() - pQuantity;
 			if ( lDiff < 0 ) pQuantity += lDiff;
 
 			pWhichFoodBucket.removeQuantity( pQuantity );
@@ -291,7 +292,7 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	* Create a new separate instance of this object
 	* @return  New object with specified gender
 	*
-	* @author  P.S.
+	* @author P.S.
 	*/
 	public abstract AnimalBase createNewWithGender( AnimalGender pWhatGender );
 
@@ -300,7 +301,6 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	*
 	* @param pName  Animal's name
 	*
-	* @author P.S.
 	*/
 	public void setName( String pName ) { this.mName = pName; }
 
@@ -308,7 +308,6 @@ public abstract class AnimalBase // Enforce creation of subclasses
 	/**
 	* @return  Animal's name, preset if not set
 	*
-	* @author P.S.
 	*/
 	public String getName() { return this.mName; }
 }

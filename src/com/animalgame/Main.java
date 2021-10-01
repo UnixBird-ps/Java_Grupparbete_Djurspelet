@@ -1,4 +1,4 @@
-package devops21_java_djurspelet;
+package com.animalgame;
 
 public class Main
 {

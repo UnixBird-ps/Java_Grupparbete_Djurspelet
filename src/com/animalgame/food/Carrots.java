@@ -1,17 +1,22 @@
-package devops21_java_djurspelet;
+package com.animalgame.food;
+
+import com.animalgame.bases.FoodBase;
+import com.animalgame.enums.FoodKind;
 
 public class Carrots extends FoodBase
 {
-	protected static final int PRICE = 20;
-	protected static final String NAME = "Morötter";
+	public static final float PRICE = 20.0f;
+	public static final String NAME = "Morötter";
 
 
 	/**
 	* Initializes this object
 	*
 	* @param pQuantity  Quantity of food held (whole kilograms)
+	*
+	* @author P.S.
 	*/
-	public Carrots( int pQuantity )
+	public Carrots( float pQuantity )
 	{
 		super( NAME, FoodKind.CARROTS, PRICE, pQuantity );
 	}
@@ -21,9 +26,9 @@ public class Carrots extends FoodBase
 	* Create a new separate instance of same class
 	* @return  New object with specified quantity
 	*
-	* @author  P.S.
+	* @author P.S.
 	*/
-	public FoodBase createNewWithQuantity( int pQuantity )
+	public FoodBase createNewWithQuantity( float pQuantity )
 	{
 		return new Carrots( pQuantity );
 	}

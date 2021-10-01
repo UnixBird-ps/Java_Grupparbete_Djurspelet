@@ -1,23 +1,35 @@
-package devops21_java_djurspelet;
+package com.animalgame.animals;
+
+import com.animalgame.bases.AnimalBase;
+import com.animalgame.enums.AnimalGender;
+import com.animalgame.enums.AnimalKind;
+import com.animalgame.food.Forage;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Horse extends AnimalBase
+
+/**
+* A class for rabbit specific values
+*
+* @author Mauro, P.S.
+*/
+public class Cattle extends AnimalBase
 {
 	protected static final int PRICE = 20000;
-	protected static final String KIND = "häst";
+	protected static final String KIND = "nötkreatur";
 	protected static final float FOOD_REQ_QUANTITY = 10.0f;
 	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 1;
+
 
 	/**
 	* Initializes this object
 	*
 	* @author P.S.
 	*/
-	public Horse()
+	public Cattle()
 	{
-		super( AnimalKind.HORSE, PRICE, 25, FOOD_REQ_QUANTITY );
+		super( AnimalKind.CATTLE, PRICE, 20, FOOD_REQ_QUANTITY );
 		this.mRightFood.add( Forage.NAME );
 	}
 
@@ -29,9 +41,9 @@ public class Horse extends AnimalBase
 	*
 	* @author P.S.
 	*/
-	public Horse( AnimalGender pGender )
+	public Cattle( AnimalGender pGender )
 	{
-		super( AnimalKind.HORSE, PRICE, 25, FOOD_REQ_QUANTITY, pGender );
+		super( AnimalKind.CATTLE, PRICE, 20, FOOD_REQ_QUANTITY, pGender );
 		this.mRightFood.add( Forage.NAME );
 	}
 
@@ -39,7 +51,7 @@ public class Horse extends AnimalBase
 	/**
 	* Checks if this animal can mate with other animal
 	* Creates a random number of new offspring up to TYPICAL_NUMBER_OF_OFFSPRING
-	* Sends this list to the caller
+	* Returns this list to the caller
 	*
 	* @param pOtherAnimal  Which animal for mating
 	* @return              An ArrayList of AnimalBase
@@ -59,9 +71,9 @@ public class Horse extends AnimalBase
 			// 50% of chance
 			if ( lRandom.nextBoolean() )
 			{
-				// How many foals?
+				// How many calfs?
 				int lNum = 1 + lRandom.nextInt( TYPICAL_NUMBER_OF_OFFSPRING );
-				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Horse() );
+				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Cattle() );
 				System.out.println( "Parningen lyckades!" );
 			}
 			else
@@ -71,26 +83,37 @@ public class Horse extends AnimalBase
 		return lNewOffspringList;
 	}
 
+
+	/**
+	* @return  A new separate rabbit instance
+	*
+	* @author Mauro
+	*/
 	@Override
 	public AnimalBase createChild() {
-		return new Horse();
+		return new Cattle();
 	}
 
 
 	/**
-	* Create a new separate instance of same class
+	* Creates a new separate instance of same class
 	* @return  New animal of same kind but of specified gender
 	*
-	* @author  P.S.
+	* @author P.S.
 	*/
 	public AnimalBase createNewWithGender( AnimalGender pWhatGender )
 	{
-		return new Horse( pWhatGender );
+		return new Cattle( pWhatGender );
 	}
 
 
+	/**
+	* @return  Animal's kind as a string
+	*
+	* @author P.S.
+	*/
 	public String getKindStr()
 	{
 		return String.valueOf( KIND );
 	}
- }
+}

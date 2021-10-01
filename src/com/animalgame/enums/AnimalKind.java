@@ -1,4 +1,4 @@
-package devops21_java_djurspelet;
+package com.animalgame.enums;
 
 public enum AnimalKind
 {

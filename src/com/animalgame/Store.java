@@ -1,14 +1,24 @@
-package devops21_java_djurspelet;
+package com.animalgame;
+
+import com.animalgame.bases.*;
+import com.animalgame.enums.*;
+import com.animalgame.animals.*;
+import com.animalgame.food.*;
 
 import java.util.ArrayList;
 
 
 /**
-* Holds foods and animals for sale
+* Lets players buy foods and animals
+* Holds foods and animals
+* Can display own inventory
+* Has a name
+*
+* @author P.S.
 */
 public class Store
 {
-	static final int ATSTART_QUANTITY_PER_FOOD = 2000; // in kilograms
+	static final float ATSTART_QUANTITY_PER_FOOD = 2000.0f; // in kilograms
 
 	String mName;                          // Initialized in the constructor
 	public ArrayList<AnimalBase> mAnimals; // Sellable to players
@@ -17,7 +27,6 @@ public class Store
 
 	/**
 	* Creates a store with a name
-	*
 	* @param pName What is the store called? Is displayed when played enters this store
 	*
 	* @author P.S.
@@ -75,10 +84,10 @@ public class Store
 
 
 	/**
-	 * Greets a player
-	 *
-	 * @author P.S.
-	 */
+	* Greets a player
+	*
+	* @author P.S.
+	*/
 	protected void displayGreeting()
 	{
 		System.out.println( "\nVälkommen till " + this.mName );
@@ -134,14 +143,13 @@ public class Store
 			FoodBase f = this.mFoods.get( i );
 			if ( Integer.toString( i ).length() > lNumLength ) lNumLength = Integer.toString( i ).length();
 			if ( f.getName().length() > lNameLength ) lNameLength = f.getName().length();
-			if ( Integer.toString( f.getPrice() ).length() > lPriceLength )
-				lPriceLength = Integer.toString( f.getPrice() ).length();
+			if ( f.getPriceStr().length() > lPriceLength ) lPriceLength = f.getPriceStr().length();
 		}
 
 		for ( int i = 0; i < this.mFoods.size(); i++ )
 		{
 			FoodBase f = this.mFoods.get( i );
-			String lStr = String.format( "%" + lNumLength + "d  namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "d kr/kg", i, f.getName(), f.getPrice() );
+			String lStr = String.format( "%" + lNumLength + "d  namn: %-" + lNameLength + "s   pris: %" + lPriceLength + "s kr/kg", i, f.getName(), f.getPriceStr() );
 			System.out.println( lStr );
 		}
 	}
@@ -230,6 +238,7 @@ public class Store
 		// Say Hi
 		this.displayGreeting();
 
+		// Is there food in the store?
 		if ( this.mFoods.isEmpty() )
 		{
 			System.out.println( "Affären har ingen mat till salu för tillfället." );
@@ -253,7 +262,7 @@ public class Store
 				lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du köpa?", 0, this.mFoods.size() - 1 );
 				FoodBase lChosenFood = this.mFoods.get( lPlayerChoiceInt );
 
-				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa?", 0, lChosenFood.getQuantity() );
+				lPlayerChoiceInt = Game.askForValidNumber( pPlayer.getName() + ", hur mycket foder vill du köpa (ange i kg)?", 0, (int)lChosenFood.getQuantity() );
 
 				FoodBase lNewFood = lChosenFood.createNewWithQuantity( lPlayerChoiceInt );
 
@@ -268,8 +277,9 @@ public class Store
 					pPlayer.buyFood( lNewFood );
 				}
 
-				// Show what foods the player owns
+				// Show what the player owns
 				pPlayer.printFoodOwned();
+				pPlayer.printCredits();
 
 				// Ask if the player wants to buy more food
 				if ( Game.askForValidChar( pPlayer.getName() + ", vill du köpa mer djurmat?", "JN" ).equalsIgnoreCase( "n" ) )
@@ -285,6 +295,8 @@ public class Store
 	* Ask if the player wants to sell an animal
 	* Show a message and wait for a valid input
 	* Calls a method that does the actual movement of data
+	*
+	* @param  pPlayer  The player who entered the store
 	*
 	* @author P.S.
 	*/
@@ -307,10 +319,14 @@ public class Store
 				// Show a message and wait for a valid input
 				int lPlayerChoiceInt = Game.askForValidNumber( "Vad vill du sälja?", 0, pPlayer.mAnimals.size() - 1 );
 				AnimalBase lChosenAnimal = pPlayer.mAnimals.get( lPlayerChoiceInt );
-				System.out.println( "Spelarens val: " + lChosenAnimal.getKind() + "(" + lChosenAnimal.getName() + ")" );
+				System.out.println( "Spelarens val: " + lChosenAnimal.getKindStr() + "(" + lChosenAnimal.getName() + ")" );
 
 				// Do the actual sale
 				pPlayer.sellAnimal( lChosenAnimal );
+
+				// Show what's changed
+				pPlayer.printCredits();
+				pPlayer.printLivestock();
 
 				if ( Game.askForValidChar( "Vill du sälja fler djur?", "jn" ).equals( "N" ) )
 				{

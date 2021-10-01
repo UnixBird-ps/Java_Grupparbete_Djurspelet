@@ -1,25 +1,34 @@
-package devops21_java_djurspelet;
+package com.animalgame.animals;
+
+import com.animalgame.bases.AnimalBase;
+import com.animalgame.enums.AnimalGender;
+import com.animalgame.enums.AnimalKind;
+import com.animalgame.food.DogFood;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Cattle extends AnimalBase
-{
-	protected static final int PRICE = 20000;
-	protected static final String KIND = "nötkreatur";
-	protected static final float FOOD_REQ_QUANTITY = 10.0f;
-	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 1;
 
+/**
+* A class for rabbit specific values
+*
+* @author Mauro, P.S.
+*/
+public class Dog extends AnimalBase
+{
+	protected static final int PRICE = 1000;
+	protected static final String KIND = "hund";
+	protected static final float FOOD_REQ_QUANTITY = 0.3f;
+	protected static final int TYPICAL_NUMBER_OF_OFFSPRING = 6;
 
 	/**
 	* Initializes this object
 	*
-	* @author P.S.
 	*/
-	public Cattle()
+	public Dog()
 	{
-		super( AnimalKind.CATTLE, PRICE, 20, FOOD_REQ_QUANTITY );
-		this.mRightFood.add( Forage.NAME );
+		super( AnimalKind.DOG, PRICE, 16, FOOD_REQ_QUANTITY );
+		this.mRightFood.add( DogFood.NAME );
 	}
 
 
@@ -28,24 +37,22 @@ public class Cattle extends AnimalBase
 	*
 	* @param pGender  Desired gender of this animal
 	*
-	* @author P.S.
 	*/
-	public Cattle( AnimalGender pGender )
+	public Dog( AnimalGender pGender )
 	{
-		super( AnimalKind.CATTLE, PRICE, 20, FOOD_REQ_QUANTITY, pGender );
-		this.mRightFood.add( Forage.NAME );
+		super( AnimalKind.DOG, PRICE, 16, FOOD_REQ_QUANTITY, pGender );
+		this.mRightFood.add( DogFood.NAME );
 	}
 
 
 	/**
 	* Checks if this animal can mate with other animal
 	* Creates a random number of new offspring up to TYPICAL_NUMBER_OF_OFFSPRING
-	* Sends this list to the caller
+	* Returns this list to the caller
 	*
 	* @param pOtherAnimal  Which animal for mating
 	* @return              An ArrayList of AnimalBase
 	*
-	* @author P.S.
 	*/
 	public ArrayList<AnimalBase> tryMateWith( AnimalBase pOtherAnimal )
 	{
@@ -60,9 +67,9 @@ public class Cattle extends AnimalBase
 			// 50% of chance
 			if ( lRandom.nextBoolean() )
 			{
-				// How many calfs?
+				// How many puppies?
 				int lNum = 1 + lRandom.nextInt( TYPICAL_NUMBER_OF_OFFSPRING );
-				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Cattle() );
+				for ( int i = 0; i < lNum; i++ ) lNewOffspringList.add( new Dog() );
 				System.out.println( "Parningen lyckades!" );
 			}
 			else
@@ -72,24 +79,34 @@ public class Cattle extends AnimalBase
 		return lNewOffspringList;
 	}
 
+
+	/**
+	* @return  A new separate rabbit instance
+	*
+	* @author Mauro
+	*/
 	@Override
 	public AnimalBase createChild() {
-		return new Cattle();
+		return new Dog();
 	}
 
 
 	/**
-	* Create a new separate instance of same class
+	* Creates a new separate instance of same class
 	* @return  New animal of same kind but of specified gender
 	*
-	* @author  P.S.
 	*/
 	public AnimalBase createNewWithGender( AnimalGender pWhatGender )
 	{
-		return new Cattle( pWhatGender );
+		return new Dog( pWhatGender );
 	}
 
 
+	/**
+	* @return  Animal's kind as a string
+	*
+	* @author P.S.
+	*/
 	public String getKindStr()
 	{
 		return String.valueOf( KIND );

@@ -1,8 +1,22 @@
-package devops21_java_djurspelet;
+package com.animalgame;
+
+
+import com.animalgame.bases.*;
+import com.animalgame.enums.*;
+import com.animalgame.animals.*;
+import com.animalgame.food.*;
 
 import java.util.*;
 
 
+/**
+* Runs the game loops
+* Has a name
+* Asks for number of players and game rounds at start
+* Compares players' credit balances
+*
+* @author P.S., Mauro
+*/
 public class Game
 {
 	private static final String mName = "Djurspelet";
@@ -12,7 +26,7 @@ public class Game
 	private static final int ATSTART_MAX_ROUNDS = 30;
 
 	private static Store mStore;
-	private static ArrayList<Player> mPlayers;
+	private static ArrayList<Player> mPlayers;  // The players in the game
 	private static int mNumOfPlayersRequested;
 	private static int mNumOfRoundsRequested;
 	private static int mRoundsStillToRun;
@@ -54,7 +68,7 @@ public class Game
 	{
 		setupRealGame(); // Ask questions to setup the game, Important in the game when not testing
 
-		//setupTestData(); // For testing only, to generate data
+		//setupTestGame(); // For testing only, to generate data
 	}
 
 
@@ -62,6 +76,8 @@ public class Game
 	* Tell user(s) to enter number of players
 	* Tell user(s) to enter number of game rounds
 	* Tell user(s) to enter name of players
+	*
+	* @author P.S.
 	*/
 	private void setupRealGame()
 	{
@@ -80,20 +96,22 @@ public class Game
 
 	/**
 	* To setup test data
+	*
+	* @author P.S.
 	*/
-	private void setupTestData()
+	private void setupTestGame()
 	{
 		mNumOfRoundsRequested = 30;
 		mRoundsStillToRun = mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
 		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.MALE ) );
-		mPlayers.get( 0 ).mAnimals.add( new Cat( AnimalGender.FEMALE ) );
+		mPlayers.get( 0 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
 		mPlayers.get( 0 ).mAnimals.add( new Horse() );
-		mPlayers.get( 0 ).mFoods.add( new CatFood( 10 ) );
-		mPlayers.get( 0 ).mFoods.add( new Forage( 50 ) );
-		mPlayers.add( new Player( "Östen" ) );
-//		mPlayers.get( 1 ).mAnimals.add( new Dog() );
-//		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
+		mPlayers.get( 0 ).mFoods.add( new CatFood( 50 ) );
+		mPlayers.get( 0 ).mFoods.add( new Forage( 500 ) );
+		mPlayers.add( new Player( "Östen", 50000 ) );
+		mPlayers.get( 1 ).mFoods.add( new Forage( 500 ) );
+		mPlayers.get( 1 ).mAnimals.add( new Dog() );
 //		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
 //		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
 //		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
@@ -198,13 +216,13 @@ public class Game
 	* @param pValidMax  Upper limit
 	* @return           A value between pValidMin and pValidMax, inclusive
 	*
-	* @author P.S.
+	* @author P.S., Mauro
 	*/
 	public static int askForValidNumber( String pMsg, int pValidMin, int pValidMax )
 	{
-		boolean lIsValid = false; // Not yet!
+		boolean lIsValid = false; // Not yet
 		Scanner lScanner = new Scanner( System.in );
-		int lParsedInt = 0;
+		int lInputInt = pValidMin - 1;
 
 		if ( pValidMax < pValidMin ) pValidMax = pValidMin;
 
@@ -213,30 +231,70 @@ public class Game
 			// Print to screen the message and a valid intervall
 			System.out.print( "\n" + pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
 
-			// Get input from user
-			String lInputStr = lScanner.nextLine();
-			String lRegExStr = "/[-0-9]+/";
-
-			// Validate input with regular expression
-			lIsValid = lInputStr.matches( lRegExStr );
-
+			String temp = lScanner.nextLine();
 			try
 			{
-				lParsedInt = Integer.parseInt( lInputStr );
+				// Get input from user
+				lInputInt = Integer.parseInt(temp);
 				lIsValid = true;
 			}
 			catch ( Exception ignored )
 			{}
 
 			// Check if input is valid
-			if ( lParsedInt < pValidMin || lParsedInt > pValidMax )
+			if ( lInputInt < pValidMin || lInputInt > pValidMax )
 			{
 				System.out.println( "Värdet du har angett ligger inte inom intervallet." );
 				lIsValid = false;
 			}
 		}
 
-		return lParsedInt;
+		return lInputInt;
+	}
+
+
+	/**
+	* Prints to screen valid range.
+	* Asks for user input. Loops until a valid value within a range has been entered.
+	* Shows a notice if value is outside range.
+	*
+	* @param pMsg       Message shown on th screen
+	* @param pValidMin  Lower limit
+	* @param pValidMax  Upper limit
+	* @return           A value between pValidMin and pValidMax, inclusive
+	*
+	* @author P.S.
+	*/
+	public static float askForValidFloat( String pMsg, float pValidMin, float pValidMax )
+	{
+		boolean lIsValid = false; // Not yet
+		Scanner lScanner = new Scanner( System.in );
+		float lInputFloat = pValidMin - 1f;
+
+		if ( pValidMax < pValidMin ) pValidMax = pValidMin;
+
+		while ( !lIsValid ) // Keep asking for a valid choice
+		{
+			// Print to screen the message and a valid intervall
+			System.out.print( "\n" + pMsg + " Ange ett tal mellan " + pValidMin + " och " + pValidMax + ": " );
+
+			try
+			{
+				lInputFloat = lScanner.nextFloat();
+				lIsValid = true;
+			}
+			catch ( Exception ignored )
+			{}
+
+			// Check if input is valid
+			if ( lInputFloat < pValidMin || lInputFloat > pValidMax )
+			{
+				System.out.println( "Värdet du har angett ligger inte inom intervallet." );
+				lIsValid = false;
+			}
+		}
+
+		return lInputFloat;
 	}
 
 
@@ -386,13 +444,12 @@ public class Game
 
 			} // Player's turn loop end
 		}
-
-		//System.out.println( "\nFor testing only: Game round step ended." );
+		// Only one player remaining
 	}
 
 
 	/**
-	* Find the winner
+	* Finds the winner
 	*
 	* @author P.S.
 	*/
@@ -406,30 +463,37 @@ public class Game
 			p.sellAll();
 		}
 
-		// Sort the players
+		// Sort the players in order to place the player who has most credits at first position
 		mPlayers.sort( new Comparator<Player>()
-		{
-			@Override
-			public int compare( Player pLPlayer, Player pRPlyyer )
 			{
-				// -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-				return pLPlayer.getCredits() > pRPlyyer.getCredits() ? -1 : ( pLPlayer.getCredits() < pRPlyyer.getCredits() ) ? 1 : 0;
+				@Override
+				public int compare( Player pLPlayer, Player pRPlyyer )
+				{
+					// -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+					return Integer.compare( pRPlyyer.getCredits(), pLPlayer.getCredits() );
+					//return pLPlayer.getCredits() > pRPlyyer.getCredits() ? -1 : ( pLPlayer.getCredits() < pRPlyyer.getCredits() ) ? 1 : 0;
+				}
 			}
-		} );
+		);
 
 		System.out.println( "\nSpelet är slut." );
 
-		// Show who won the game
+		// Show who won the game, who is at first position in the above sorted list
 		System.out.println( "\n" + mPlayers.get( 0 ).getName() + " har vunnit spelet." );
 
 		// Show ranking
 		for ( Player p : mPlayers )
 		{
-			System.out.println( p.getName() + " har " + p.getCredits() + " krediter" );
+			System.out.println( p.getName() + " har " + p.getCredits() + " krediter." );
 		}
 	}
 
 
+	/**
+	* @return This game's name
+	*
+	* @author P.S.
+	*/
 	static String getName()
 	{
 		return mName;
