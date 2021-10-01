@@ -112,6 +112,10 @@ public class Game
 		mPlayers.add( new Player( "Östen", 50000 ) );
 		mPlayers.get( 1 ).mFoods.add( new Forage( 500 ) );
 		mPlayers.get( 1 ).mAnimals.add( new Dog() );
+		mPlayers.get( 1 ).mFoods.add( new CatFood( 10 ) );
+		mPlayers.get( 1 ).mFoods.add( new Forage( 50 ) );
+//		mPlayers.get( 1 ).mAnimals.add( new Dog() );
+//		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
 //		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
 //		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
 //		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );

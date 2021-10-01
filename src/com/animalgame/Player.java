@@ -11,8 +11,7 @@ import java.util.Iterator;
 */
 public class Player
 {
-
-	private static final int ATSTART_CREDITS = 100000;
+	private static final int ATSTART_CREDITS = 75000;
 	private String mName;
 	public int mCredits;
 	public ArrayList<AnimalBase> mAnimals;
@@ -320,6 +319,8 @@ public class Player
 
 	/**
 	* Prints to console the current amount this Player holds
+	*
+	* @author Mauro
 	*/
 	public void printCredits()
 	{
@@ -329,8 +330,9 @@ public class Player
 
 
 	/**
-	*
 	* @return The balance in credits the player is holding
+	*
+	* @author Mauro
 	*/
 	public int getCredits()
 	{
