@@ -1,6 +1,5 @@
 package com.animalgame;
 
-
 import com.animalgame.bases.*;
 import com.animalgame.enums.*;
 import com.animalgame.animals.*;
@@ -30,14 +29,13 @@ public class Game
 	private static ArrayList<Player> mPlayers;  // The players in the game
 	private static int mNumOfPlayersRequested;
 	private static int mNumOfRoundsRequested;
-	//private static int mRoundsStillToRun;
 	private static int mRoundNumber;            // Holds current round number
 
 
 	/**
 	* Calls method where game is set up by asking players some values
 	* Calls method where main loop runs
-	* Calls method where players' holdings are compared and a winner is chosen
+	* Calls method at the end where players' animals are sold off, holdings are compared and a winner is chosen
 	*
 	* @author P.S.
 	*/
@@ -75,7 +73,7 @@ public class Game
 
 	/**
 	* Tell user(s) to enter number of players
-	* Tell user(s) to enter number of game rounds
+	* Tell user(s) to enter number of game rounds they wish to play
 	* Tell user(s) to enter name of players
 	*
 	* @author P.S.
@@ -84,7 +82,6 @@ public class Game
 	{
 		mNumOfPlayersRequested = askForValidNumber( "Hur många spelare?", ATSTART_MIN_PLAYERS, ATSTART_MAX_PLAYERS );
 		mNumOfRoundsRequested = askForValidNumber( "Hur många rundor?", ATSTART_MIN_ROUNDS, ATSTART_MAX_ROUNDS );
-		//mRoundsStillToRun = mNumOfRoundsRequested;
 
 		// Ask for player names and add players to the game.
 		for ( int i = 0; i < mNumOfPlayersRequested; i++ )
@@ -104,10 +101,10 @@ public class Game
 	{
 		mNumOfRoundsRequested = 30;
 		mRoundNumber = mNumOfRoundsRequested;
-		//mRoundsStillToRun = 0; //mNumOfRoundsRequested;
 		mPlayers.add( new Player( "Åsa" ) );
 		mPlayers.get( 0 ).buyAnimal( new Horse( AnimalGender.MALE ) );
 		mPlayers.get( 0 ).buyAnimal( new Horse( AnimalGender.FEMALE ) );
+		mPlayers.get( 0 ).buyAnimal( new Dog() );
 		mPlayers.get( 0 ).buyFood( new Forage( 50 ) );
 		mPlayers.get( 0 ).buyFood( new Forage( 500 ) );
 		mPlayers.get( 0 ).printLivestock();
@@ -115,21 +112,11 @@ public class Game
 		mPlayers.add( new Player( "Östen" ) );
 		mPlayers.get( 1 ).buyAnimal( new Cattle( AnimalGender.MALE) );
 		mPlayers.get( 1 ).buyAnimal( new Cattle( AnimalGender.FEMALE ) );
+		mPlayers.get( 1 ).buyAnimal( new Rabbit() );
 		mPlayers.get( 1 ).buyFood( new Forage( 500 ) );
 		mPlayers.get( 1 ).buyFood( new Forage( 50 ) );
 		mPlayers.get( 1 ).printLivestock();
 		mPlayers.get( 1 ).printCredits();
-//		mPlayers.get( 1 ).mAnimals.add( new Dog() );
-//		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.MALE ) );
-//		mPlayers.get( 1 ).mAnimals.add( new Rabbit( AnimalGender.FEMALE ) );
-//		mPlayers.get( 1 ).mFoods.add( new DogFood( 10 ) );
-//		mPlayers.get( 1 ).mFoods.add( new Carrots( 10 ) );
-//		mPlayers.add( new Player( "Håkan" ) );
-//		mPlayers.get( 2 ).mAnimals.add( new Rabbit() );
-//		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.MALE ) );
-//		mPlayers.get( 2 ).mAnimals.add( new Cattle( AnimalGender.FEMALE ) );
-//		mPlayers.get( 2 ).mFoods.add( new Carrots( 10 ) );
-//		mPlayers.get( 2 ).mFoods.add( new Forage( 50 ) );
 		mNumOfPlayersRequested = mPlayers.size();
 	}
 
@@ -351,7 +338,7 @@ public class Game
 
 
 	/**
-	* Runs one game round
+	* Runs one game round, looping through all players still in the game
 	*
 	* @author P.S.
 	*/
@@ -454,7 +441,7 @@ public class Game
 
 
 	/**
-	* Finds the winner
+	* Finds and displays the winner
 	*
 	* @author P.S.
 	*/

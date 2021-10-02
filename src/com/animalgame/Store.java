@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
 * Lets players buy foods and animals
-* Holds foods and animals
+* Holds foods and animals the players can buy
 * Can display own inventory
 * Has a name
 *
@@ -159,7 +159,7 @@ public class Store
 	* Show what animals the player owns
 	* Ask if the player wants to buy food for the animals
 	* Show a message and wait for a valid input
-	* Calls a method that does the actual movement of data
+	* Calls a method that does the actual transaction
 	*
 	* @param pPlayer The player object who enters the store
 	*
@@ -227,7 +227,7 @@ public class Store
 	* Show what animals the player owns
 	* Ask if the player wants to buy food for the animals
 	* Show a message and wait for a valid input
-	* Calls a method that does the actual movement of data
+	* Calls a method that does the actual transaction
 	*
 	* @param pPlayer The player object who enters the store
 	*
@@ -294,7 +294,7 @@ public class Store
 	* Show what animals and food the player owns
 	* Ask if the player wants to sell an animal
 	* Show a message and wait for a valid input
-	* Calls a method that does the actual movement of data
+	* Calls a method that does the actual transaction
 	*
 	* @param  pPlayer  The player who entered the store
 	*

@@ -77,7 +77,7 @@ public class Player
 
 
 	/**
-	* sells animal to no recipient
+	* Sells animal to no recipient
 	*
 	* @param pAnimal sells animal for equivalent value
 	*
@@ -318,7 +318,7 @@ public class Player
 
 
 	/**
-	* Prints to console the current amount this Player holds
+	* Prints to console the current amount of credits this player holds
 	*
 	* @author Mauro
 	*/
@@ -347,11 +347,11 @@ public class Player
 
 
 	/**
-	* Show a list of animals the player owns
-	* Let the player select an animal
-	* Let the player select another animal of same kind but different gender
-	* Create new animal instance using the keyword new and the right constructor, there are two
-	* Add the newly crated animal to player's list of animals
+	* Shows a list of animals the player owns
+	* Lets the player select an animal
+	* Lets the player select another animal of same kind but different gender
+	* Creates new animal instance if the breeding was successful
+	* Adds newly created animal(s) to player's list of animals
 	*
 	* @author P.S., Dennis
 	*/
@@ -435,11 +435,11 @@ public class Player
 
 
 	/**
-	* Show a list of animals the player owns
-	* Let the player select an animal
-	* Show a list of foods
-	* Let the player select food
-	* Feed the animal
+	* Shows a list of animals the player owns
+	* Lets the player select an animal
+	* Shows a list of foods
+	* Lets the player select food
+	* Calls a method that does the actual transaction
 	*
 	* @author P.S., Dennis
 	*/

@@ -34,7 +34,7 @@ public class Cattle extends AnimalBase
 
 
 	/**
-	* Initializes this object
+	* Initializes this object with specified gender
 	*
 	* @param pGender  Desired gender of this animal
 	*

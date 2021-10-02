@@ -34,7 +34,7 @@ public class Cat extends AnimalBase
 
 
 	/**
-	* Initializes this object
+	* Initializes this object with a certain gender
 	*
 	* @param pGender  Desired gender of this animal
 	*
@@ -49,7 +49,8 @@ public class Cat extends AnimalBase
 
 	/**
 	* Checks if this animal can mate with other animal
-	* Creates a random number of new offspring up to TYPICAL_NUMBER_OF_OFFSPRING
+	* Creates a list of random size of new offspring up to TYPICAL_NUMBER_OF_OFFSPRING
+	* 50% chance of success
 	* Returns this list to the caller
 	*
 	* @param pOtherAnimal  Which animal for mating
@@ -95,7 +96,7 @@ public class Cat extends AnimalBase
 
 
 	/**
-	* Creates a new separate instance of same class
+	* Creates a new separate instance of same class but of specified gender
 	* @return  New animal of same kind but of specified gender
 	*
 	* @author P.S.
